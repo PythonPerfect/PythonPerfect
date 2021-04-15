@@ -3,7 +3,7 @@
   {% include "components/head.html" %}
   <body>
     {% include "components/navbar.html" %}
-    <section></section>
+    <section>{% block content %} {% endblock %}</section>
     {% include "components/footer.html" %}
   </body>
 </html>
