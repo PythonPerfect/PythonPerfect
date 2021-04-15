@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for
 app = Flask(__name__)
 @app.route("/")
 def hello():
-    return "Hello World"
+    return render_template("components/layout.html")
 
 @app.errorhandler(404)
 @app.route("/404")
