@@ -39,3 +39,8 @@ nav {
 .signup-button:focus {
   box-shadow: 0 0 0 0.2rem rgb(255 212 59 / 25%) !important;
 }
+
+.logo {
+  height: 2em;
+  padding: 0.1em;
+}
