@@ -12,7 +12,7 @@ nav {
   color: #4b8bbe;
   background-color: transparent;
   border: 1px solid#4b8bbe !important;
-  width: 85px;
+  width: 5rem;
 }
 
 .login-button:hover {
@@ -28,7 +28,7 @@ nav {
   color: #ffd43b;
   background-color: transparent;
   border: 1px solid #ffd43b !important;
-  width: 85px;
+  width: 5rem;
 }
 
 .signup-button:hover {
@@ -41,6 +41,6 @@ nav {
 }
 
 .logo {
-  height: 2em;
-  padding: 0.1em;
+  height: 3rem;
+  padding: 0.4rem;
 }
