@@ -13,5 +13,11 @@ footer {
 }
 
 footer p {
-  line-height: 75%;
+  line-height: 110%;
+}
+
+@media only screen and (max-width: 900px) {
+  footer p {
+    font-size: 0.8rem;
+  }
 }
