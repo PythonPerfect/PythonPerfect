@@ -1,10 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark py-bg-blue-dark">
-  <a class="navbar-brand" href="#"
-    ><img
-      class="logo"
+  <a class="navbar-brand" href="{{index}}">
+    <img
       alt="Python Perfect Logo"
-      src="{{ url_for('static', filename='assets/logo-yellow.png') }}"
-  /></a>
+      class="navbar-logo"
+      src="{{url_for('static', filename='assets/logo-yellow.png')}}"
+    />
+  </a>
   <button
     class="navbar-toggler"
     type="button"
@@ -26,7 +27,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#"
-          ><button class="btn btn-outline signup-button">Sign In</button></a
+          ><button class="btn btn-outline signup-button">Sign Up</button></a
         >
       </li>
     </ul>

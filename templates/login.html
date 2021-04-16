@@ -5,30 +5,47 @@
   <body>
     <div class="login-container">
       <div class="col-md-4 offset-md-4">
-        <img src="{{ url_for('static', filename='assets/logo-yellow.png') }}" />
-        <form class="login-form">
-          <label for="login-username">Username:</label> <br />
-          <input
-            required
-            id="login-username"
-            type="text"
-            name="username"
-            placeholder="PythonPerfect"
-          />
-          <br />
+        <img
+          alt="Python Perfect Logo"
+          class="login-logo"
+          src="{{url_for('static', filename='assets/logo-yellow.png')}}"
+        />
+        <div class="login-form-container">
+          <h2 class="login-title"><strong>Welcome Back!</strong></h2>
+          <form class="login-form" action="#">
+            <input
+              required
+              autofocus
+              autocomplete="username"
+              id="login-username"
+              class="login-input"
+              type="text"
+              name="username"
+              placeholder="Username"
+            />
 
-          <label for="login-password">Password:</label> <br />
-          <input
-            required
-            id="login-password"
-            type="password"
-            name="password"
-            placeholder="StrongPassword.123"
-          />
-          <br />
-          <br />
-          <input type="submit" />
-        </form>
+            <input
+              required
+              autocomplete="current-password"
+              id="login-password"
+              class="login-input"
+              type="password"
+              name="password"
+              placeholder="Password"
+            />
+
+            <input
+              type="submit"
+              class="btn btn-outline-success"
+              value="Log In"
+            />
+            <br /><br />
+
+            <a href="{{url_for('signup')}}" class="login-new-account"
+              >Don't have an account? Create one here!</a
+            >
+          </form>
+        </div>
       </div>
     </div>
   </body>

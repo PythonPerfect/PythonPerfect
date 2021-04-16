@@ -8,6 +8,10 @@ def index():
 def login():
   return render_template("login.html", title="Login")
 
+@app.route("/signup")
+def signup():
+  return render_template("index.html", title="Sign Up")
+
 @app.errorhandler(404)
 @app.route("/404")
 def error404(e):
