@@ -10,7 +10,7 @@ def login():
 
 @app.route("/signup")
 def signup():
-  return render_template("index.html", title="Sign Up")
+  return render_template("signup.html", title="Sign Up")
 
 @app.errorhandler(404)
 @app.route("/404")

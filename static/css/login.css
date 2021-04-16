@@ -3,9 +3,16 @@
   width: 100vw;
 }
 
+.login-body {
+  min-width: 300px;
+  max-width: 500px;
+  margin: auto;
+  padding: 1rem;
+}
+
 .login-logo {
   width: 100%;
-  margin-bottom: 2em;
+  margin-bottom: 2rem;
   margin-top: 10vh;
 }
 
@@ -21,7 +28,6 @@
 .login-title {
   width: fit-content;
   margin: 0 auto 2rem auto;
-  color: #121212;
 }
 .login-form {
   margin-bottom: 1rem;
