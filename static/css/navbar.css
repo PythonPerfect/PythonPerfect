@@ -4,7 +4,6 @@ nav {
   right: 0;
   top: 0;
   width: 100%;
-  /* box-shadow: 0 0 10px 1px rgb(12, 26, 38); */
 }
 
 .login-button {
@@ -40,7 +39,7 @@ nav {
   box-shadow: 0 0 0 0.2rem rgb(255 212 59 / 25%) !important;
 }
 
-.logo {
-  height: 3rem;
-  padding: 0.4rem;
+.navbar-logo {
+  height: 2rem;
+  padding: 0.1rem;
 }
