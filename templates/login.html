@@ -1,7 +1,35 @@
 <!DOCTYPE html>
 <html>
   {% include "components/head.html" %}
+
   <body>
-    Test
+    <div class="login-container">
+      <div class="col-md-4 offset-md-4">
+        <img src="{{ url_for('static', filename='assets/logo-yellow.png') }}" />
+        <form class="login-form">
+          <label for="login-username">Username:</label> <br />
+          <input
+            required
+            id="login-username"
+            type="text"
+            name="username"
+            placeholder="PythonPerfect"
+          />
+          <br />
+
+          <label for="login-password">Password:</label> <br />
+          <input
+            required
+            id="login-password"
+            type="password"
+            name="password"
+            placeholder="StrongPassword.123"
+          />
+          <br />
+          <br />
+          <input type="submit" />
+        </form>
+      </div>
+    </div>
   </body>
 </html>
