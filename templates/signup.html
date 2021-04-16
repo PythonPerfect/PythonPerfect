@@ -3,9 +3,9 @@
   {% include "components/head.html" %}
 
   <body>
-    <div class="login-container">
+    <div class="login-container py-bg-blue-dark">
       <div class="login-body">
-        <a href="{{url_for('index')}}"">
+        <a href="{{url_for('index')}}">
           <img
             alt="Python Perfect Logo"
             class="login-logo"
@@ -13,13 +13,13 @@
           />
         </a>
         <div class="login-form-container">
-          <h2 class="login-title"><strong>Welcome Back!</strong></h2>
+          <h2 class="login-title py-blue"><strong>Create Account</strong></h2>
           <form class="login-form" action="#">
             <input
               required
               autofocus
               autocomplete="username"
-              id="login-username"
+              id="signup-username"
               class="login-input"
               type="text"
               name="username"
@@ -28,8 +28,18 @@
 
             <input
               required
+              autocomplete="username"
+              id="signup-email"
+              class="login-input"
+              type="email"
+              name="username"
+              placeholder="Email"
+            />
+
+            <input
+              required
               autocomplete="current-password"
-              id="login-password"
+              id="signup-password"
               class="login-input"
               type="password"
               name="password"
@@ -37,14 +47,24 @@
             />
 
             <input
+              required
+              autocomplete="current-password"
+              id="signup-password-confirm"
+              class="login-input"
+              type="password"
+              name="password"
+              placeholder="Confirm Password"
+            />
+
+            <input
               type="submit"
               class="btn btn-outline-success"
-              value="Log In"
+              value="Sign Up"
             />
             <br /><br />
 
-            <a href="{{url_for('signup')}}" class="login-new-account"
-              >Don't have an account? Create one here!</a
+            <a href="{{url_for('login')}}" class="login-new-account"
+              >Already have an account? Login here!</a
             >
           </form>
         </div>
