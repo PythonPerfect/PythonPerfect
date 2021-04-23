@@ -1,45 +1,21 @@
+.nav-container {
+  padding: 8px 16px;
+}
+
 nav {
   position: relative;
   left: 0;
   right: 0;
   top: 0;
   width: 100%;
-}
-
-.login-button {
-  outline-color: #4b8bbe;
-  color: #4b8bbe;
-  background-color: transparent;
-  border: 1px solid#4b8bbe !important;
-  width: 5rem;
-}
-
-.login-button:hover {
-  background-color: #4b8bbe;
-  color: white;
-}
-.login-button:focus {
-  box-shadow: 0 0 0 0.2rem rgb(75 139 190 / 25%) !important;
-}
-
-.signup-button {
-  outline-color: #ffd43b;
-  color: #ffd43b;
-  background-color: transparent;
-  border: 1px solid #ffd43b !important;
-  width: 5rem;
-}
-
-.signup-button:hover {
-  background-color: #ffd43b;
-  color: white;
-}
-
-.signup-button:focus {
-  box-shadow: 0 0 0 0.2rem rgb(255 212 59 / 25%) !important;
+  max-width: 120rem;
+  padding: 0 !important;
 }
 
 .navbar-logo {
-  height: 2rem;
-  padding: 0.1rem;
+  height: 28px;
+}
+
+.navbar-btn:hover {
+  opacity: 0.75;
 }
