@@ -12,9 +12,13 @@ def login():
   else:
     return render_template("login.html", title="Login")
 
-@app.route("/signup")
+@app.route("/signup", methods=["POST", "GET"])
 def signup():
-  return render_template("signup.html", title="Sign Up")
+  if request.method == "POST":
+    current_user = request.form["username"] 
+    return redirect(url_for("dashboard", user=current_user))
+  else:
+    return render_template("signup.html", title="Sign Up")
 
 @app.route("/dashboard/<user>")
 def dashboard(user):

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark py-bg-blue-dark">
-  <a class="navbar-brand" href="{{index}}">
+  <a class="navbar-brand" href="{{url_for('index')}}">
     <img
       alt="Python Perfect Logo"
       class="navbar-logo"
@@ -22,12 +22,12 @@
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" href="{{url_for('login')}}"
-          ><button class="btn btn-outline login-button">Log In</button></a
+          ><span class="btn btn-outline login-button">Log In</span></a
         >
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{url_for('signup')}}"
-          ><button class="btn btn-outline signup-button">Sign Up</button></a
+          ><span class="btn btn-outline signup-button">Sign Up</span></a
         >
       </li>
     </ul>
