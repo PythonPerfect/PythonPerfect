@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, session
+from flask import Flask, render_template, redirect, url_for, request, session, flash
 app = Flask(__name__)
 app.secret_key = "3403PythonPerfect"
 
@@ -17,9 +17,12 @@ def login():
   if request.method == "POST":
     current_user = request.form["username"] 
     session["user"] = current_user
+    flash("You have been logged in successfully!", "info")
+
     return redirect(url_for("dashboard"))
   else:
     if "user" in session:
+      flash("You are already logged in!", "info")
       return redirect(url_for("dashboard"))
     return render_template("login.html", title="Login")
 
@@ -27,6 +30,8 @@ def login():
 def signup():
   if request.method == "POST":
     current_user = request.form["username"] 
+    session["user"] = current_user
+    flash("You have signed in successfully!", "info")
     return redirect(url_for("dashboard"))
   else:
     if "user" in session:
@@ -39,10 +44,14 @@ def dashboard():
     user = session["user"]
     return render_template("dashboard.html", title="Dashboard", user=user)
   else:
+    flash("Please Log in first!", "info")
     return redirect(url_for("login"))
 
 @app.route("/logout")
 def logout():
+  if "user" in session:
+    user = session["user"]
+    flash("You have logged out successfully!", "info")
   session.pop("user", None)
   return redirect(url_for("index"))
 
