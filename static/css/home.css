@@ -1,3 +1,11 @@
 section {
   height: 100vh;
 }
+
+.home-button{
+  background-color: rgb(24, 52, 76);
+}
+
+.home-title{
+  text-align: center;
+}
