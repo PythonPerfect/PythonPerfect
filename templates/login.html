@@ -3,6 +3,8 @@
   {% include "components/head.html" %}
 
   <body class="py-bg-blue-dark">
+    {% include "components/alert.html" %}
+
     <div class="login-container">
       <div class="login-body">
         <a href="{{url_for('index')}}">
@@ -14,7 +16,7 @@
         </a>
         <div class="login-form-container">
           <h2 class="login-title py-blue"><strong>Welcome Back!</strong></h2>
-          <form class="login-form" action="#">
+          <form class="login-form" action="#" name="login-form" method="POST">
             <input
               required
               autofocus

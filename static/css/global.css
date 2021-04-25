@@ -24,3 +24,36 @@ body {
 .py-yellow {
   color: #ffd43b;
 }
+
+.py-btn-blue {
+  outline-color: #4b8bbe;
+  color: #4b8bbe;
+  background-color: transparent;
+  border: 1px solid#4b8bbe !important;
+  width: 5rem;
+}
+
+.py-btn-blue:hover {
+  background-color: #4b8bbe;
+  color: white;
+}
+.py-btn-blue:focus {
+  box-shadow: 0 0 0 0.2rem rgb(75 139 190 / 25%) !important;
+}
+
+.py-btn-yellow {
+  outline-color: #ffd43b;
+  color: #ffd43b;
+  background-color: transparent;
+  border: 1px solid #ffd43b !important;
+  width: 5rem;
+}
+
+.py-btn-yellow:hover {
+  background-color: #ffd43b;
+  color: white;
+}
+
+.py-btn-yellow:focus {
+  box-shadow: 0 0 0 0.2rem rgb(255 212 59 / 25%) !important;
+}
