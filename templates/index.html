@@ -1,23 +1,21 @@
 {% extends "components/layout.html" %} {% block content %}
 
-<div class="home-title">
-    <h1><span style="color:rgb(24, 52, 76)">Welcome to Python Perfect!</span></h1>
-    <h3>Learn the basics of Python</h3>
+<div class="home-content py-bg-yellow">
+  <div class="home-textarea">
+    <p class="home-title py-blue-dark">Welcome to Python Perfect!</p>
+    <p class="home-subtitle py-blue-dark">Learn the Basics of Python!</p>
+  </div>
 </div>
-
-<div class="home-text">
-    <h5>Python is a very useful programming language, and with 
-        <br>
-        Python Perfect, you can learn the basics of Python easily.
-        <br>
-        <a href="{{url_for('signup')}}" style="color: #ffd43b;">Sign Up</a> or 
-        <a href="{{url_for('login')}}" style= "color: #ffd43b;">Log In </a> now to access our lessons 
-        <br>
-        and attempt our quizzes to learn now!
-        
-    </h5>
-
+<div class="home-content py-bg-blue">
+  <div class="home-textarea home-info">
+    <p>
+      Python is a very useful programming language, and with the help of Python
+      Perfect, you can learn the basics of Python easily.
+      <a class="py-yellow" href="{{url_for('signup')}}">Sign Up</a> or
+      <a class="py-yellow" href="{{url_for('login')}}">Log In </a> to access our
+      lessons and attempt our quizzes to learn now!
+    </p>
+  </div>
 </div>
-
 
 {% endblock %}
