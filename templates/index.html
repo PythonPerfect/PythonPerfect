@@ -1,5 +1,22 @@
 {% extends "components/layout.html" %} {% block content %} {% include
 "components/alert.html" %}
-<div>Insert content here</div>
+
+<div class="home-content py-bg-yellow">
+  <div class="home-textarea">
+    <p class="home-title py-blue-dark">Welcome to Python Perfect!</p>
+    <p class="home-subtitle py-blue-dark">Learn the Basics of Python!</p>
+  </div>
+</div>
+<div class="home-content py-bg-blue">
+  <div class="home-textarea home-info">
+    <p>
+      Python is a very useful programming language, and with the help of Python
+      Perfect, you can learn the basics of Python easily.
+      <a class="py-yellow" href="{{url_for('signup')}}">Sign Up</a> or
+      <a class="py-yellow" href="{{url_for('login')}}">Log In </a> to access our
+      lessons and attempt our quizzes to learn now!
+    </p>
+  </div>
+</div>
 
 {% endblock %}
