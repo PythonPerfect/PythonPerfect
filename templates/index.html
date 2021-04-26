@@ -1,17 +1,17 @@
 {% extends "components/layout.html" %} {% block content %} {% include
 "components/alert.html" %}
 <div>
-  <div class="home-content py-bg-blue-dark float">
+  <div class="home-content py-bg-blue-dark home-float-half">
     <div class="home-textarea">
-      <p class="home-title py-yellow">Welcome to Python Perfect!</p>
+      <p class="home-title py-yellow">Welcome to <img src="{{url_for('static', filename='assets/logo-yellow.png')}}" alt="Python Perfect logo" class="home-logo-size"> </p>
       <p class="home-subtitle py-yellow">Learn the Basics of Python!</p>
     </div>
   </div>
-  <div class="home-content py-bg-yellow float">
+  <div class="home-content py-bg-yellow home-float-half">
       <div class="home-textarea-secondary py-blue-dark">
         <p >def welcome ():
             <br>
-            print("Welcome to Python Perfect,
+            <a class="home-py-indent">print("Welcome to Python Perfect,<a>
             <br>
             where practice makes Python perfect")
         </p>
@@ -32,5 +32,25 @@
     </p>
   </div>
 </div>
+
+<div>
+  <div class="py-bg-yellow">
+    <div class="home-textarea home-info-secondary home-float-third">
+      <div class="home-box">
+        <p>Choose from a wide range of courses</p>
+      </div>
+    </div>
+    <div class="home-textarea home-info-secondary home-float-third">
+      <div class="home-box">
+        <p>View detailed content for each course</p>
+      </div>
+    </div>
+    <div class="home-textarea home-info-secondary home-float-third">
+      <div class="home-box">
+        <p>Attempt quizzes to test your knowledge</p>
+      </div>
+  </div>
+</div>
+
 
 {% endblock %}
