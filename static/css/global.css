@@ -24,6 +24,9 @@ body {
 .py-yellow {
   color: #ffd43b;
 }
+.white {
+  color: white;
+}
 
 .py-btn-blue {
   outline-color: #4b8bbe;

@@ -7,8 +7,23 @@ section {
   width: 100%;
 }
 
+.float {
+  width: 50%;
+  float: left;
+}
+
+.container {
+  width: max-content;
+}
+
 .home-textarea {
   padding: 5%;
+  text-align: center;
+}
+
+.home-textarea-secondary {
+  padding: 9.5%;
+  font-weight: 500;
 }
 
 .home-title {
