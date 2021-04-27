@@ -1,6 +1,16 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <h1>Error 404</h1>
-  </body>
-</html>
+{% extends "components/layout.html" %} {% block content %}
+<div class="error-container">
+  <div class="error-body">
+    <p class="error-404">404</p>
+    <p class="error-message">
+      We couldn’t find the page you were looking for. However you can find
+      plenty of our other content by visiting the homepage.
+    </p>
+
+    <a href="{{url_for('index')}}"
+      ><span class="btn btn-outline py-btn-blue">Home</span></a
+    >
+  </div>
+</div>
+
+{% endblock %}
