@@ -7,14 +7,19 @@ section {
   width: 100%;
 }
 
+.home-container{
+  min-height: 34vh;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .home-float-half {
-  width: 50%;
-  float: left;
+  min-width: 50%;  
 }
 
 .home-float-third{
   width: 30%;
-  float: left;
 }
 
 .home-logo-size {
@@ -50,12 +55,11 @@ section {
 }
 
 .home-info {
+  text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
   color: white;
-  text-align: right;
   max-width: 40vw;
-  margin-left: auto;
 }
 
 .home-info-secondary {
@@ -67,8 +71,8 @@ section {
 .home-box {
   width: 300px;
   height: 200px;
-  border: 2px solid black;
-  padding: 15%;
+  box-shadow: 0 0 5px 5px lightgray;
+  padding: 10%;
   margin: 20px;
 }
 
@@ -91,4 +95,11 @@ section {
     max-width: 80vw;
     font-size: 1.25rem;
   }
+
+  .home-container{
+    flex-direction: column;
+    display: flex;
+  }
 }
+
+  

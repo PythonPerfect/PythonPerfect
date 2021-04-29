@@ -1,6 +1,6 @@
 {% extends "components/layout.html" %} {% block content %} {% include
 "components/alert.html" %}
-<div>
+<div class="home-container">
   <div class="home-content py-bg-blue-dark home-float-half">
     <div class="home-textarea">
       <p class="home-title py-yellow">Welcome to <img src="{{url_for('static', filename='assets/logo-yellow.png')}}" alt="Python Perfect logo" class="home-logo-size"> </p>
@@ -9,19 +9,17 @@
   </div>
   <div class="home-content py-bg-yellow home-float-half">
       <div class="home-textarea-secondary py-blue-dark">
-        <p >def welcome ():
-            <br>
-            <a class="home-py-indent">print("Welcome to Python Perfect,<a>
-            <br>
-            where practice makes Python perfect")
-        </p>
+        <pre>def welcome ():
+      print("Welcome to Python Perfect,
+      where practice makes Python perfect")
+        </pre>
 
       </div>
       
   </div>
 </div>
 
-<div class="home-content py-bg-blue">
+<div class="home-container py-bg-blue">
   <div class="home-textarea home-info">
     <p>
       Python is a very useful programming language, and with the help of Python
@@ -34,7 +32,7 @@
 </div>
 
 <div>
-  <div class="py-bg-yellow">
+  <div class="home-white-bg home-content home-container">
     <div class="home-textarea home-info-secondary home-float-third">
       <div class="home-box">
         <p>Choose from a wide range of courses</p>
