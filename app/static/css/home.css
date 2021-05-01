@@ -1,0 +1,52 @@
+section {
+  flex-direction: column;
+  display: flex;
+}
+
+.home-content {
+  width: 100%;
+}
+
+.home-textarea {
+  padding: 5%;
+}
+
+.home-title {
+  font-size: 3rem;
+  font-weight: 500;
+}
+
+.home-subtitle {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.home-info {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-align: right;
+  max-width: 40vw;
+  margin-left: auto;
+}
+
+@media only screen and (max-width: 990px) {
+  .home-textarea {
+    padding: 10%;
+  }
+
+  .home-title {
+    font-size: 2.5rem;
+    font-weight: 500;
+  }
+
+  .home-subtitle {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .home-info {
+    max-width: 80vw;
+    font-size: 1.25rem;
+  }
+}
