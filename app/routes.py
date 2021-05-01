@@ -1,7 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, session, flash
-app = Flask(__name__)
-app.secret_key = "3403PythonPerfect"
-
+from app import app
 
 @app.route("/")
 def index():
