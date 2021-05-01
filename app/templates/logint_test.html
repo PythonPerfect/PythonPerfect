@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  {% include "components/head.html" %}
+
+  <body class="py-bg-blue-dark">
+    {% include "components/alert.html" %}
+    <div class="login-container">
+      <div class="login-body">
+        <a href="{{url_for('index')}}">
+          <img
+            alt="Python Perfect Logo"
+            class="login-logo"
+            src="{{url_for('static', filename='assets/logo-yellow.png')}}"
+          />
+        </a>
+        <div class="login-form-container">
+          <h2 class="login-title py-blue"><strong>Welcome Back!</strong></h2>
+          <form class="login-form" action="" method="POST" novalidate>
+            {{ form.hidden_tag() }}
+            
+            {{form.username.label}}
+            {{form.username(size=32)}}
+
+            {{form.password.label}}
+            {{form.password(size=32)}}
+
+            {{form.remember_me()}}
+            {{form.remember_me.label}}
+
+            {{form.submit()}}
+            <br /><br />
+
+            <a href="{{url_for('signup')}}" class="login-new-account"
+              >Don't have an account? Create one here!</a
+            >
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from app import app
+from app.forms import LoginForm
 
 @app.route("/")
 def index():
@@ -9,6 +10,10 @@ def index():
   else:
     return render_template("index.html", title="Python Perfect")
 
+@app.route("/login_test")
+def login_test():
+  form = LoginForm()
+  return render_template('login_test.html', title='Sign In', form=form)
 
 @app.route("/login", methods=["POST", "GET"])
 def login():

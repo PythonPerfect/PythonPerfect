@@ -1,11 +1,10 @@
 from flask import Flask
-from config import Config
+from config import DevelopmentConfig, ProductionConfig, TestingConfig
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 app = Flask(__name__)
-app.secret_key = "3403PythonPerfect"
-app.config.from_object(Config)
+app.config.from_object(ProductionConfig)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 

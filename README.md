@@ -25,5 +25,9 @@ $ pip3 install -r requirements.txt
 ```
 
 ```
+##### On windows
+$ set FLASK_APP=PythonPerfect.py
+##### On mac/linux
+$ export FLASK_APP=PythonPerfect.py
 $ flask run
 ```
