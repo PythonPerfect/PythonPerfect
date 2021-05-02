@@ -42,12 +42,12 @@ Debug mode is by defult enabled when flask environment is set to development
 ##### On mac/linux
 `$ export FLASK_ENV=<environment>`   ?! CHECK THIS ON LINUX/MAC SYSTEM
 
-#### Initialise SQLite database with flask-migrate
+## Initialise SQLite database with flask-migrate
 First migration script already added, run
 `$ flask db upgrade`
 to construct the database on your local device.
 
-##### Modifying databases
+#### Modifying databases
 `$ flask db migrate`
 This will create a new migration script. Running above command will implement it.
 !! For large changes, please inspect the script first before upgrading. !!
