@@ -18,17 +18,25 @@
           <form class="login-form" action="" method="POST" novalidate>
             {{ form.hidden_tag() }}
             
-            {{form.username.label}}
-            {{form.username(size=32)}}
 
-            {{form.password.label}}
-            {{form.password(size=32)}}
+                {{form.username(class="login-input",
+                                autocomplete="username",
+                                id="login-username",
+                                type="text",
+                                placeholder="Username")}}
 
-            {{form.remember_me()}}
-            {{form.remember_me.label}}
+                {{form.password(class="login-input",
+                                autocomplete="current-password",
+                                id="login-password",
+                                type="password",
+                                placeholder="Password")}}
 
-            {{form.submit()}}
-            <br /><br />
+                </br>
+          
+                {{form.submit(class="btn btn-outline-success",
+                              type="submit",
+                              value="Log In")}}
+                </br> </br>
 
             <a href="{{url_for('signup')}}" class="login-new-account"
               >Don't have an account? Create one here!</a
