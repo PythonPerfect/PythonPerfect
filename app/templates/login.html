@@ -16,34 +16,31 @@
         </a>
         <div class="login-form-container">
           <h2 class="login-title py-blue"><strong>Welcome Back!</strong></h2>
-          <form class="login-form" action="#" name="login-form" method="POST">
-            <input
-              required
-              autofocus
-              autocomplete="username"
-              id="login-username"
-              class="login-input"
-              type="text"
-              name="username"
-              placeholder="Username"
-            />
+          <form class="login-form" action="" method="POST" novalidate>
+            {{ form.hidden_tag() }}
 
-            <input
-              required
-              autocomplete="current-password"
-              id="login-password"
-              class="login-input"
-              type="password"
-              name="password"
-              placeholder="Password"
-            />
+            {{ form.username(class="login-input",
+                            autocomplete="username",
+                            id="login-username",
+                            placeholder="Username") }}
+            {% for error in form.username.errors %}
+              <div class="text-danger">{{error}}</div>
+            {% endfor %}
+            
+            {{ form.password(class="login-input",
+                             autocomplete="current-password",
+                             id="login-password",
+                             placeholder="Password" )}}
+            {% for error in form.password.errors %}
+              <div class="text-danger">{{error}}</div>
+            {% endfor %}
 
-            <input
-              type="submit"
-              class="btn btn-outline-success"
-              value="Log In"
-            />
-            <br /><br />
+            </br>
+          
+            {{form.submit(class="btn btn-outline-success",
+                          type="submit",
+                          value="Log In")}}
+            </br> </br>
 
             <a href="{{url_for('signup')}}" class="login-new-account"
               >Don't have an account? Create one here!</a

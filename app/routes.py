@@ -10,24 +10,13 @@ def index():
   else:
     return render_template("index.html", title="Python Perfect")
 
-@app.route("/login_test")
-def login_test():
-  form = LoginForm()
-  return render_template('login_test.html', title='Sign In', form=form)
-
 @app.route("/login", methods=["POST", "GET"])
 def login():
-  if request.method == "POST":
-    current_user = request.form["username"] 
-    session["user"] = current_user
-    flash("You have been logged in successfully!", "info")
-
-    return redirect(url_for("dashboard"))
-  else:
-    if "user" in session:
-      flash("You are already logged in!", "info")
-      return redirect(url_for("dashboard"))
-    return render_template("login.html", title="Login")
+  form = LoginForm()
+  if form.validate_on_submit():
+    flash('Login requested for user {}').format(form.username.data)
+    return redirect('/')
+  return render_template('login.html', title='Sign In', form=form)
 
 @app.route("/signup", methods=["POST", "GET"])
 def signup():
