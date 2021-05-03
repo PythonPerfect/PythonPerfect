@@ -1,6 +1,8 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from app import app
 from app.forms import LoginForm
+from flask_login import current_user, login_user, logout_user, login_required
+from app.models import User
 
 @app.route("/")
 def index():
@@ -12,10 +14,16 @@ def index():
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
+  if current_user.is_authenticated:
+    return redirect(url_for('index'))
   form = LoginForm()
   if form.validate_on_submit():
-    flash('Login requested for user {}').format(form.username.data)
-    return redirect('/')
+    #ADD EMAIL LOGIN SUPPORT LATER
+    user = User.query.filter_by(username = form.username.data).first()
+    if user is None or not user.check_password(form.password.data):
+      flash('Invalid username or password')
+      return redirect(url_for('login'))
+    login_user(user, remember=False)
   return render_template('login.html', title='Sign In', form=form)
 
 @app.route("/signup", methods=["POST", "GET"])
@@ -40,12 +48,10 @@ def dashboard():
     return redirect(url_for("login"))
 
 @app.route("/logout")
+@login_required
 def logout():
-  if "user" in session:
-    user = session["user"]
-    flash("You have logged out successfully!", "info")
-  session.pop("user", None)
-  return redirect(url_for("index"))
+  logout_user()
+  return redirect(url_for('index'))
 
 @app.errorhandler(404)
 @app.route("/404")

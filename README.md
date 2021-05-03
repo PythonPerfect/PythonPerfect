@@ -48,6 +48,8 @@ First migration script already added, run
 to construct the database on your local device.
 
 #### Modifying databases
+First initialise a migration repository
+`$ flask db init`
+Then Create new migration script
 `$ flask db migrate`
-This will create a new migration script. Running above command will implement it.
 !! For large changes, please inspect the script first before upgrading. !!
