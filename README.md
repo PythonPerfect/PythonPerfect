@@ -76,7 +76,7 @@ $ flask db upgrade
 
 **For large changes, please inspect the script first before pushing to git**
 
-##Testing Users database
+## Testing Users database
 Flask shell context set in `PythonPerfect.py` add imports as required.
 
 #### First start up flask shell
