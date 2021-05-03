@@ -3,13 +3,10 @@ from app import app
 from app.forms import LoginForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
+from werkzeug.urls import url_parse
 
 @app.route("/")
 def index():
-  if "user" in session:
-    user = session["user"]
-    return render_template("index.html", title="Python Perfect", user=user)
-  else:
     return render_template("index.html", title="Python Perfect")
 
 @app.route("/login", methods=["POST", "GET"])
@@ -24,6 +21,10 @@ def login():
       flash('Invalid username or password')
       return redirect(url_for('login'))
     login_user(user, remember=False)
+    page_next = request.args.get('next')
+    if not page_next or url_parse(page_next).netloc != '':
+      page_next = url_for('index')
+    return redirect(page_next)
   return render_template('login.html', title='Sign In', form=form)
 
 @app.route("/signup", methods=["POST", "GET"])
@@ -39,13 +40,9 @@ def signup():
     return render_template("signup.html", title="Sign Up")
 
 @app.route("/dashboard")
+@login_required
 def dashboard():
-  if "user" in session:
-    user = session["user"]
-    return render_template("dashboard.html", title="Dashboard", user=user)
-  else:
-    flash("Please Log in first!", "info")
-    return redirect(url_for("login"))
+  return render_template("dashboard.html", title="Dashboard")
 
 @app.route("/logout")
 @login_required

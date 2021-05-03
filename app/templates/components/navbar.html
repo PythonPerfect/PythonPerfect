@@ -23,7 +23,7 @@
       <div class="mr-auto"></div>
 
       <ul class="navbar-nav">
-        {% if user %}
+        {% if current_user.is_authenticated %}
         <li class="btn nav-item text-left">
           <a class="nav-link navbar-btn"
             ><span class="py-yellow">Dashboard</span></a
