@@ -108,7 +108,7 @@ There are several ways to delete test users from database.
 ```shell
 >>> users = User.query.all( )
 >>> for u in users:
-. . .		  db.session.delete(u)
+. . .   db.session.delete(u)
 . . .
 >>> db.session.commit( )
 ```
