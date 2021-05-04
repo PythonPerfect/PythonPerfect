@@ -90,7 +90,7 @@ $ flask shell
 	>>> u = User(username='testName', email='testEmail@example.com')
 	>>> u.set_password('testPassword')
 	>>> db.session.add(u)
-	>>> db.session.commit( )
+	>>> db.session.commit()
 
 **IMPORTANT: remember to commit to session, otherwise changes will not be added to the database**
 
@@ -101,16 +101,16 @@ There are several ways to delete test users from database.
 ##### By filtering with know infomation, e.g. username
 
 	>>> db.session.delete(User.query.filter_by(username='testName').first())
-	>>> db.session.commit( )
+	>>> db.session.commit()
 
 ##### If only test users exist, run loop to delete all
 
 ```shell
->>> users = User.query.all( )
+>>> users = User.query.all()
 >>> for u in users:
 . . .   db.session.delete(u)
 . . .
->>> db.session.commit( )
+>>> db.session.commit()
 ```
 
 
