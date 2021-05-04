@@ -72,8 +72,8 @@ section {
   width: 300px;
   height: 200px;
   box-shadow: 0 0 5px 5px lightgray;
-  padding: 10%;
-  margin: 20px;
+  padding: 15%;
+  margin: 30px;
 }
 
 @media only screen and (max-width: 990px) {
