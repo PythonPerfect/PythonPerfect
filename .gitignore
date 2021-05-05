@@ -7,3 +7,6 @@ __pycache__
 #misc
 .DS_Store
 /.DS_Store
+
+#Databases
+app.db

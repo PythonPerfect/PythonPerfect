@@ -1,6 +1,29 @@
 {% extends "components/layout.html" %} {% block content %} {% include
 "components/alert.html" %}
-<div>
-  <h1>This is your dashboard, {{ current_user.username }}</h1>
+<div class="dash-container">
+  <div class="dash-title-container">
+    <p class="dash-title typewriter">Dashboard</p>
+    <p class="dash-subtitle">Select the course you would like to do</p>
+  </div>
+
+  <div id="test-list">
+    <ul class="dash-course-list">
+      {% for course in courses %}
+      <li class="dash-course">
+        <div>
+          <p class="course-difficulty">Beginner</p>
+          <p class="course-title py-blue">{{course}}</p>
+          <progress class="course-progress" value="80" max="100">32%</progress>
+          <p class="course-score">8/10</p>
+          <a class=""
+            ><span class="course-button btn btn-outline py-btn-blue"
+              >Continue</span
+            ></a
+          >
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
 {% endblock %}
