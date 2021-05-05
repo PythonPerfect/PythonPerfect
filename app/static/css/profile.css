@@ -1,0 +1,76 @@
+.content-container {
+    padding:0;
+    margin:0;
+}
+
+.profile-title-container {
+    background-color: white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+    padding: 20px 40px;
+}
+
+.profile-title {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 0;
+  }
+  
+.profile-subtitle {
+    padding-left: 0;
+}
+
+.user-content-container {
+    display:flex;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-container {
+    position: relative;
+    padding: 0;
+}
+
+.profile-info {
+    position: relative;
+    margin:auto;
+    text-align: center;
+    background-color: white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+    width: fit-content;
+    max-height: 100vh;
+}
+
+.info-title {
+    margin-bottom: 0%;
+}
+
+.user-info {
+    text-align: center;
+    margin: auto;
+    position: relative;
+    width: fit-content;
+}
+
+.info-box {
+    position: relative;
+    border: solid black;
+    margin: auto;
+    border-width: 1px;
+    background-color:  rgba(76, 76, 76, 0.34);
+    width: fit-content;
+}
+
+.course-progress {
+    background-image: rgb(24, 52, 76);
+    border-radius: 0;
+    width: 80%;
+    height: 6px;
+    border: none;
+}
+
+
+
+.content-active {
+    background-color: white;
+}

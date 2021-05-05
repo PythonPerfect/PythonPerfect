@@ -1,0 +1,52 @@
+{% extends "components/layout.html" %} {% block content %} {% include
+    "components/alert.html" %}
+
+<div class="content-container">    
+    <!--Profile Heading-->
+    <div class="profile-title-container">
+        <p class="profile-title typewriter">Profile</p>
+        <p class="profile-subtitle">View your profile and activity</p>
+      </div>
+    
+    <div class="user-content-container">
+        <!--Profile container-->
+        <div class="profile-container col-sm-3">
+            <div class="profile-info">
+                <div class="user-info">
+                    <p class ="info-title">
+                        Username:
+                    </p>
+                    <p class="info-box">
+                        test_user
+                    </p>
+                   <p class ="info-title">
+                       Email:
+                    </p>
+                    <p class="info-box">
+                        email@test.com
+                    </p>
+                    </div>
+                <p class="info title py-blue-dark">
+                    Course completion
+                </p>
+                <progress class="course-progress" value="80" max="100">32%</progress>
+                <p class="info title py-blue-dark">
+                Quiz completion 
+                </p>
+                <progress class="course-progress" value="80" max="100">32%</progress>
+                <p class="info-title py-blue-dark">
+                    Total completion
+                </p>
+                <progress class="course-progress" value="80" max="100">32%</progress>
+            </div>
+        </div>
+        
+        <!--User content contianer-->
+        <div class="content-active col-sm-9">
+            <p> user-content</p>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}

@@ -42,11 +42,60 @@ def signup():
     flash('Welcome, registration complete!')
     return redirect(url_for('dashboard'))
   return render_template('signup.html', title='Signup', form=form)
+mock_course_data = [
+  "Course A",
+  "Course B",
+  "Course C",
+  "Course D",
+  "Course E",
+  "Course F",
+  "Course G",
+  "Course H",
+    "Course A",
+  "Course B",
+  "Course C",
+  "Course D",
+  "Course E",
+  "Course F",
+  "Course G",
+  "Course H",
+    "Course A",
+  "Course B",
+  "Course C",
+  "Course D",
+  "Course E",
+  "Course F",
+  "Course G",
+  "Course H",
+    "Course A",
+  "Course B",
+  "Course C",
+  "Course D",
+  "Course E",
+  "Course F",
+  "Course G",
+  "Course H",
+    "Course A",
+  "Course B",
+  "Course C",
+  "Course D",
+  "Course E",
+  "Course F",
+  "Course G",
+  "Course H",
+]
+
 
 @app.route("/dashboard")
 @login_required
 def dashboard():
   return render_template("dashboard.html", title="Dashboard")
+
+@app.route("/profile")
+@login_required
+def profile():
+  return render_template("profile.html", title="Profile")
+
 
 @app.route("/logout")
 @login_required
