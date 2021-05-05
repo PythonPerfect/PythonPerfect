@@ -14,6 +14,7 @@
         </a>
         <div class="login-form-container">
           <h2 class="login-title py-blue"><strong>Create Account</strong></h2>
+          <!-- prettier-ignore -->
           <form class="login-form" action="" name="login-form" method="POST">
             {{ form.hidden_tag() }}
             
@@ -49,7 +50,7 @@
               <div class="text-danger"> {{ error }}</div>
             {% endfor %}
 
-            {{form.submit(class="btn btn-outline-success",
+            {{form.submit(class="btn btn-outline-success mt-4",
                          type="submit",
                          value="Sign Up")}}
 

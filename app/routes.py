@@ -37,8 +37,10 @@ def signup():
     user.set_password(form.password.data)
     db.session.add(user)
     db.session.commit()
+
+    login_user(user, remember=False)
     flash('Welcome, registration complete!')
-    return redirect(url_for('login'))
+    return redirect(url_for('dashboard'))
   return render_template('signup.html', title='Signup', form=form)
 
 @app.route("/dashboard")
@@ -56,6 +58,26 @@ def logout():
 @app.route("/404")
 def error404(e):
   return render_template("error404.html", title="Error 404")
+
+
+@app.route("/users")
+def users():
+  users = User.query.all()
+  return render_template("users.html", users=users)
+
+# FOR TESTING PURPOSES ONLY
+@app.route("/delhalfusers")
+def delete_all_users():
+  x = input("Please confirm you want to delete all users: ")
+  if x == "confirm":
+    users = User.query.all()
+    import math
+    num = math.ceil(len(users) / 2)
+    for i in range(num):
+      u = users[i]
+      db.session.delete(u)
+      db.session.commit()
+    return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -27,7 +27,7 @@
 
 .login-title {
   width: fit-content;
-  margin: 0 auto 2rem auto;
+  margin: 0 auto;
 }
 .login-form {
   margin-bottom: 1rem;
@@ -43,7 +43,7 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px 0px inset,
     rgba(0, 0, 0, 0) 0px 0px 0px 0px;
 
-  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 .login-new-account {

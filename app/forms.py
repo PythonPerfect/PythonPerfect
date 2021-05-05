@@ -15,10 +15,11 @@ class RegistrationForm(FlaskForm):
         Length(min=4, max=20, message='Must be at least 4 and less than 20 characters!')])
     email = StringField('Email', validators=[DataRequired(), Email()])
     regex = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,128}$"
+    
     password = PasswordField(
         'Password',
         validators=[DataRequired(),
-        Regexp(regex, message='Use 8 or more characters with a mix of letters and numbers')])
+        Regexp(regex, message='Use 8 or more characters with a mix of letters and numbers and no special characters.')])
     re_password = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
 
