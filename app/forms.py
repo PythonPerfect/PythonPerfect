@@ -1,3 +1,4 @@
+from flask import flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, ValidationError, DataRequired, Email, EqualTo, Length, Regexp
@@ -40,8 +41,7 @@ class RegistrationForm(FlaskForm):
 class AddCourseForm(FlaskForm):
     title = StringField(
         'Title',
-        validators=[DataRequired(),
-        Length(min=4, max=50, message='Must be at least 4 and less than 50 characters!')])
+        validators=[DataRequired()])
 
     submit = SubmitField('Add')
 
@@ -49,4 +49,9 @@ class AddCourseForm(FlaskForm):
         course = Course.query.filter_by(title = title.data).first()
         print(course)
         if course is not None:
-            raise ValidationError('Course already added. Please add a different course.')
+            flash("Course already added. Please add another course.")
+            raise ValidationError('Course already added. Please add another course.')
+        elif not 4 <= len(title.data) <= 50:
+            flash("The Course title must be at least 4 characters long and no more than 50 characters.") 
+            raise ValidationError('The Course title must be at least 4 characters long and no more than 50 characters.')
+            

@@ -25,7 +25,7 @@
       <ul class="navbar-nav">
         {% if current_user.is_authenticated %}
         <li class="btn nav-item text-left">
-          <a class="nav-link navbar-btn"
+          <a class="nav-link navbar-btn" href="{{url_for('dashboard')}}"
             ><span class="py-yellow">Dashboard</span></a
           >
         </li>
