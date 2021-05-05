@@ -19,22 +19,33 @@
   font-size: 1rem;
 }
 
+.dash-course-container {
+  margin: auto;
+  width: fit-content;
+}
+
+.dash-course-add {
+  margin: 0 2vw;
+  font-weight: 500;
+  font-size: 1.5rem;
+  text-decoration: none;
+  padding: 0;
+}
+
 .dash-course-list {
   padding-left: 0;
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-content: space-evenly;
-  margin: auto;
-  width: fit-content;
 }
 
 .dash-course {
   list-style: none;
-  margin: 20px 5vw;
+  margin: 20px 2vw;
 
   width: 25vw;
-  min-width: 280px;
+  min-width: 340px;
   padding: 20px 40px;
   text-align: left;
 
@@ -75,6 +86,11 @@
   background-color: rgb(24, 52, 76);
 }
 
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
 @media only screen and (max-width: 768px) {
   .dash-course-list {
     grid-template-columns: repeat(1, 1fr);
@@ -83,5 +99,9 @@
   .dash-course {
     margin: 20px 0px;
     width: 90vw;
+  }
+
+  .dash-course-add {
+    margin: 0;
   }
 }

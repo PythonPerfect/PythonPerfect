@@ -6,7 +6,53 @@
     <p class="dash-subtitle">Select the course you would like to do</p>
   </div>
 
-  <div id="test-list">
+  <div class="dash-course-container">
+    <span
+      class="btn py-blue dash-course-add"
+      data-toggle="modal"
+      data-target="#form-course"
+      ><i class="fa fa-plus mr-2"></i>Add New Course</span
+    >
+    <div
+      class="modal fade"
+      id="form-course"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <p class="modal-title py-blue">Add a New Course</p>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form name="form-course" action="#" method="POST">
+              <input
+                class="login-input"
+                type="text"
+                name="course-title"
+                placeholder="Title"
+              />
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline py-btn-blue">
+              Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <ul class="dash-course-list">
       {% for course in courses %}
       <li class="dash-course">
