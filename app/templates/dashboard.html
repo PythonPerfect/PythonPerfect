@@ -35,19 +35,20 @@
             </button>
           </div>
           <div class="modal-body">
-            <form name="form-course" action="#" method="POST">
-              <input
-                class="login-input"
-                type="text"
-                name="course-title"
-                placeholder="Title"
-              />
+            <!-- prettier-ignore -->
+            <form name="add-course-form" action="" method="POST">
+              {{ form.hidden_tag() }}
+
+              {{form.title(class="login-input", 
+                          id="course-title",
+                          placeholder="Title")}}
+                      
+              <div class="modal-footer">
+              {{form.submit(class="btn btn-outline py-btn-blue mt-4",
+                          type="submit",
+                          value="Add")}}
+              </div>
             </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline py-btn-blue">
-              Add
-            </button>
           </div>
         </div>
       </div>
@@ -58,7 +59,7 @@
       <li class="dash-course">
         <div>
           <p class="course-difficulty">Beginner</p>
-          <p class="course-title py-blue">{{course}}</p>
+          <p class="course-title py-blue">{{course.title}}</p>
           <progress class="course-progress" value="80" max="100">32%</progress>
           <p class="course-score">8/10</p>
           <a class=""
