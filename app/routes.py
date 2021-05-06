@@ -48,15 +48,23 @@ def signup():
 def dashboard():
   form = AddCourseForm()
   if form.validate_on_submit():
-    new_course = Course(title=form.title.data)
-    course = Course.query.filter_by(title = form.title.data).first()
-
-    if course is None:
-      db.session.add(new_course)
-      db.session.commit()
+    course = Course(title=form.title.data)
+    db.session.add(course)
+    db.session.commit()
 
   all_courses = Course.query.all()
   return render_template("dashboard.html", title="Dashboard", form=form, courses=all_courses)
+
+
+@app.route("/course/<course_id>")
+@login_required
+def course(course_id):
+  course = Course.query.filter_by(id = course_id).first()
+  if course is not None:
+    return render_template("course.html", course=course)
+  else:
+    return redirect(url_for('error404'))
+
 
 @app.route("/logout")
 @login_required
@@ -66,8 +74,8 @@ def logout():
 
 @app.errorhandler(404)
 @app.route("/404")
-def error404(e):
-  return render_template("error404.html", title="Error 404")
+def error404(error=404):
+  return render_template("error404.html", title="Page Not Found")
 
 
 @app.route("/users")

@@ -47,7 +47,6 @@ class AddCourseForm(FlaskForm):
 
     def validate_title(self, title):
         course = Course.query.filter_by(title = title.data).first()
-        print(course)
         if course is not None:
             flash("Course already added. Please add another course.")
             raise ValidationError('Course already added. Please add another course.')

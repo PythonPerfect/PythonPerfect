@@ -1,7 +1,7 @@
 .typewriter::after {
   content: "_";
   animation: blink 600ms linear alternate;
-  animation-iteration-count: 8;
+  animation-iteration-count: 6;
   opacity: 0;
 }
 

@@ -54,7 +54,10 @@
   background-color: white;
 }
 
-.course-difficulty,
+.dash-course:hover {
+  box-shadow: 0 7px 14px 0 rgba(24, 52, 76, 0.2);
+}
+
 .course-score {
   color: rgba(24, 52, 76, 0.4);
   font-size: 14px;

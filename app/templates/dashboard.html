@@ -36,7 +36,7 @@
           </div>
           <div class="modal-body">
             <!-- prettier-ignore -->
-            <form name="add-course-form" action="" method="POST">
+            <form name="add-course-form" method="POST">
               {{ form.hidden_tag() }}
 
               {{form.title(class="login-input", 
@@ -58,11 +58,10 @@
       {% for course in courses %}
       <li class="dash-course">
         <div>
-          <p class="course-difficulty">Beginner</p>
           <p class="course-title py-blue">{{course.title}}</p>
           <progress class="course-progress" value="80" max="100">32%</progress>
-          <p class="course-score">8/10</p>
-          <a class=""
+          <p class="course-score">8/10 Completed</p>
+          <a href="{{url_for('course', course_id=course.id)}}"
             ><span class="course-button btn btn-outline py-btn-blue"
               >Continue</span
             ></a
