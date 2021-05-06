@@ -6,6 +6,78 @@
     Learn some new content or attempt a quiz and test your skills!
   </p>
 </div>
+
+<div class="course-items-container">
+  <div class="course-items-tab">
+    <button
+      class="tablinks active"
+      onclick="openSection(event, 'Content-section')"
+    >
+      Content
+    </button>
+
+    <button class="tablinks" onclick="openSection(event, 'Quiz-section')">
+      Quiz
+    </button>
+  </div>
+
+  <div id="Content-section" class="tabcontent active">
+    <ul class="content-list">
+      {% for i in range(5) %}
+      <li class="dash-course content-list-item">
+        <div>
+          <p class="course-title py-blue">{{i}} These are some long names.</p>
+          <a href="{{url_for('course', course_id=course.id)}}"
+            ><span class="content-button btn btn-outline py-btn-blue"
+              >Continue</span
+            ></a
+          >
+          <span class="content-button btn btn-outline py-btn-blue"
+            >Completed</span
+          >
+        </div>
+      </li>
+
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div id="Quiz-section" class="tabcontent">
+    <ul class="content-list">
+      {% for i in range(5) %}
+      <li class="dash-course content-list-item">
+        <div>
+          <p class="course-title py-blue">{{i+5}} These are some long names.</p>
+          <a href="{{url_for('course', course_id=course.id)}}"
+            ><span class="content-button btn btn-outline py-btn-blue"
+              >Continue</span
+            ></a
+          >
+          <span class="content-button btn btn-outline py-btn-blue"
+            >Completed</span
+          >
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<script>
+  function openSection(evt, sectionName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(sectionName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+</script>
+
 <p>This is course {{course.id}}</p>
 
 {% endblock %}

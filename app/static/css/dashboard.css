@@ -95,7 +95,7 @@
   font-weight: 500;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
   .dash-course-list {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -107,5 +107,30 @@
 
   .dash-course-add {
     margin: 0;
+  }
+
+  .course-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .course-score {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .course-title {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .course-button {
+    float: right;
+    width: 4.5rem;
+    min-width: 4rem;
+    font-size: 12px;
+    border-radius: 9px;
+    padding: 4px;
   }
 }
