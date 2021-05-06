@@ -9,22 +9,45 @@
   </div>
 
   <div class="dash-course-container">
+    <div id="Add-Content" class="tabcontent active">
+      <span
+        class="btn py-blue dash-course-add"
+        style="padding: 0"
+        data-toggle="modal"
+        data-target="#form-course"
+        ><i class="fa fa-plus mr-2"></i>Add New Content</span
+      >
+    </div>
+    <div id="Add-Quiz" class="tabcontent">
+      <span
+        class="btn py-blue dash-course-add"
+        style="padding: 0"
+        data-toggle="modal"
+        data-target="#form-course"
+      >
+        Create a New Quiz<i class="fa fa-plus ml-2"></i
+      ></span>
+    </div>
+
     <div class="course-items-tab">
       <button
         class="tablinks active"
-        onclick="openSection(event, 'Content-section')"
+        onclick="openSection(event, ['Content-Section', 'Add-Content'])"
       >
         Content
       </button>
 
-      <button class="tablinks" onclick="openSection(event, 'Quiz-section')">
+      <button
+        class="tablinks"
+        onclick="openSection(event, ['Quiz-Section', 'Add-Quiz'])"
+      >
         Quiz
       </button>
     </div>
 
-    <div id="Content-section" class="tabcontent active">
+    <div id="Content-Section" class="tabcontent active">
       <ul class="content-list">
-        {% for i in range(1) %}
+        {% for i in range(5) %}
         <li class="dash-course content-list-item">
           <div>
             <p class="course-title py-blue">{{i}} These are some long names.</p>
@@ -43,9 +66,9 @@
       </ul>
     </div>
 
-    <div id="Quiz-section" class="tabcontent">
+    <div id="Quiz-Section" class="tabcontent">
       <ul class="content-list">
-        {% for i in range(5) %}
+        {% for i in range(1) %}
         <li class="dash-course content-list-item">
           <div>
             <p class="course-title py-blue">

@@ -1,4 +1,4 @@
-function openSection(evt, sectionName) {
+function openSection(evt, sectionNames) {
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
@@ -8,6 +8,9 @@ function openSection(evt, sectionName) {
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
-  document.getElementById(sectionName).style.display = "block";
+
+  for (i = 0; i < sectionNames.length; i++) {
+    document.getElementById(sectionNames[i]).style.display = "block";
+  }
   evt.currentTarget.className += " active";
 }
