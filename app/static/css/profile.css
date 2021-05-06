@@ -21,14 +21,14 @@
 
 .user-content-container {
     display:flex;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+    margin: auto;
 }
 
 .profile-container {
     position: relative;
-    padding: 0;
+    margin: auto;
+    text-align: center;
+    padding: 20px;
 }
 
 .profile-info {
@@ -38,11 +38,11 @@
     background-color: white;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
     width: fit-content;
-    max-height: 100vh;
 }
 
 .info-title {
     margin-bottom: 0%;
+    padding: 10px;
 }
 
 .user-info {
@@ -50,14 +50,15 @@
     margin: auto;
     position: relative;
     width: fit-content;
+    padding: 10px;
 }
 
 .info-box {
     position: relative;
-    border: solid black;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
     margin: auto;
     border-width: 1px;
-    background-color:  rgba(76, 76, 76, 0.34);
+    background-color:  rgba(76, 76, 76, 0.129);
     width: fit-content;
 }
 
