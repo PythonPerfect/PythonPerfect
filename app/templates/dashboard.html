@@ -7,18 +7,20 @@
   </div>
 
   <div class="dash-course-container">
+    {% if current_user.admin %}
     <span
       class="btn py-blue dash-course-add"
       data-toggle="modal"
       data-target="#form-course"
+      data-backdrop="static"
       ><i class="fa fa-plus mr-2"></i>Add New Course</span
     >
+    {% endif %}
     <div
       class="modal fade"
       id="form-course"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog" role="document">

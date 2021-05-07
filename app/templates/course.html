@@ -1,11 +1,109 @@
 {% extends "components/layout.html" %} {% block content %} {% include
 "components/alert.html" %}
-<div class="dash-title-container">
-  <p class="dash-title typewriter">{{course.title}}</p>
-  <p class="dash-subtitle">
-    Learn some new content or attempt a quiz and test your skills!
-  </p>
+<div class="dash-container">
+  <div class="dash-title-container">
+    <p class="dash-title typewriter">{{course.title}}</p>
+    <p class="dash-subtitle">
+      Learn some new content or attempt a quiz and test your skills!
+    </p>
+  </div>
+
+  <div class="dash-course-container">
+    {% if current_user.admin %}
+    <div id="Add-Content" class="tabcontent active">
+      <span
+        class="btn py-blue dash-course-add"
+        style="padding: 0"
+        data-toggle="modal"
+        data-target="#form-course"
+        ><i class="fa fa-plus mr-2"></i>Add New Content</span
+      >
+    </div>
+    <div id="Add-Quiz" class="tabcontent">
+      <span
+        class="btn py-blue dash-course-add"
+        style="padding: 0"
+        data-toggle="modal"
+        data-target="#form-course"
+      >
+        Create a New Quiz<i class="fa fa-plus ml-2"></i
+      ></span>
+    </div>
+
+    <div class="course-items-tab">
+      <button
+        class="tablinks active"
+        onclick="openSection(event, ['Content-Section', 'Add-Content'])"
+      >
+        Content
+      </button>
+
+      <button
+        class="tablinks"
+        onclick="openSection(event, ['Quiz-Section', 'Add-Quiz'])"
+      >
+        Quiz
+      </button>
+    </div>
+
+    {% else %}
+    <div class="course-items-tab">
+      <button
+        class="tablinks active"
+        onclick="openSection(event, ['Content-Section'])"
+      >
+        Content
+      </button>
+
+      <button class="tablinks" onclick="openSection(event, ['Quiz-Section'])">
+        Quiz
+      </button>
+    </div>
+    {% endif %}
+
+    <div id="Content-Section" class="tabcontent active">
+      <ul class="content-list">
+        {% for i in range(5) %}
+        <li class="dash-course content-list-item">
+          <div>
+            <p class="course-title py-blue">{{i}} These are some long names.</p>
+            <a
+              ><span class="course-button btn btn-outline py-btn-blue"
+                >View</span
+              ></a
+            >
+            <span class="course-button btn btn-outline py-btn-blue"
+              >Completed</span
+            >
+          </div>
+        </li>
+
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div id="Quiz-Section" class="tabcontent">
+      <ul class="content-list">
+        {% for i in range(1) %}
+        <li class="dash-course content-list-item">
+          <div>
+            <p class="course-title py-blue">
+              {{i+5}} These are some long names.
+            </p>
+            <a
+              ><span class="course-button btn btn-outline py-btn-blue"
+                >Attempt</span
+              ></a
+            >
+            <span class="course-button btn btn-outline py-btn-blue"
+              >Completed</span
+            >
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
 </div>
-<p>This is course {{course.id}}</p>
 
 {% endblock %}
