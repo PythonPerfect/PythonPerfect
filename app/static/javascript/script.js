@@ -1,5 +1,6 @@
 function openSection(evt, sectionNames) {
-  var i, tabcontent, tablinks;
+  let i, tabcontent, tablinks;
+  console.log(sectionNames);
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";

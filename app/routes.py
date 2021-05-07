@@ -33,7 +33,7 @@ def signup():
     return redirect(url_for('index'))
   form = RegistrationForm()
   if form.validate_on_submit():
-    user = User(username=form.username.data, email=form.email.data)
+    user = User(username=form.username.data, email=form.email.data, admin=form.admin.data)
     user.set_password(form.password.data)
     db.session.add(user)
     db.session.commit()
@@ -61,7 +61,7 @@ def dashboard():
 def course(course_id):
   course = Course.query.filter_by(id = course_id).first()
   if course is not None:
-    return render_template("course.html", course=course)
+    return render_template("course.html", course=course, title=course.title)
   else:
     return redirect(url_for('error404'))
 
@@ -80,8 +80,11 @@ def error404(error=404):
 
 @app.route("/users")
 def users():
-  users = User.query.all()
-  return render_template("users.html", users=users)
+  if current_user.is_authenticated and current_user.admin:
+    users = User.query.all()
+    return render_template("users.html", users=users)
+  else:
+    return redirect(url_for('dashboard'))
 
 # FOR TESTING PURPOSES ONLY
 @app.route("/delhalfusers")

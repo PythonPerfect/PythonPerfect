@@ -9,6 +9,7 @@
   </div>
 
   <div class="dash-course-container">
+    {% if current_user.admin %}
     <div id="Add-Content" class="tabcontent active">
       <span
         class="btn py-blue dash-course-add"
@@ -44,6 +45,21 @@
         Quiz
       </button>
     </div>
+
+    {% else %}
+    <div class="course-items-tab">
+      <button
+        class="tablinks active"
+        onclick="openSection(event, ['Content-Section'])"
+      >
+        Content
+      </button>
+
+      <button class="tablinks" onclick="openSection(event, ['Quiz-Section'])">
+        Quiz
+      </button>
+    </div>
+    {% endif %}
 
     <div id="Content-Section" class="tabcontent active">
       <ul class="content-list">
