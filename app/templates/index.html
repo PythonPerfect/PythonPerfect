@@ -1,27 +1,31 @@
 {% extends "components/layout.html" %} {% block content %} {% include
 "components/alert.html" %}
-
 <div class="home-container">
-  <div class="home-content py-bg-blue-dark home-float-half">
-    <div class="home-textarea">
-      <p class="home-title py-yellow">Welcome to <img src="{{url_for('static', filename='assets/logo-yellow.png')}}" alt="Python Perfect logo" class="home-logo-size"> </p>
-      <p class="home-subtitle py-yellow">Learn the Basics of Python!</p>
+  <div class="home-first">
+    <div class="py-bg-blue-dark">
+      <div class="home-title-container">
+        <p class="home-title py-yellow">
+          Welcome to
+          <img
+            src="{{url_for('static', filename='assets/logo-yellow.png')}}"
+            alt="Python Perfect logo"
+            class="home-logo"
+          />
+        </p>
+        <p class="home-subtitle py-yellow">Learn the Basics of Python!</p>
+      </div>
+    </div>
+    <div class="py-bg-yellow">
+      <div class="home-effect-container">
+        <pre class="typewriter">
+def welcome():
+    print("Welcome to Python Perfect,
+        where practice makes Python perfect")</pre
+        >
+      </div>
     </div>
   </div>
-  <div class="home-content py-bg-yellow home-float-half">
-      <div class="home-textarea-secondary py-blue-dark">
-        <pre class="typewriter">def welcome ():
-      print("Welcome to Python Perfect,
-      where practice makes Python perfect")
-        </pre>
-
-      </div>
-      
-  </div>
-</div>
-
-<div class="home-container py-bg-blue">
-  <div class="home-textarea home-info">
+  <div class="home-second py-bg-blue">
     <p>
       Python is a very useful programming language, and with the help of Python
       Perfect, you can learn the basics of Python easily.
@@ -30,27 +34,21 @@
       lessons and attempt our quizzes to learn now!
     </p>
   </div>
-</div>
-
-<div>
-  <div class="home-white-bg home-content home-container home-container-box">
-    <div class="home-textarea home-info-secondary home-float-third">
-      <div class="home-box">
+  <div class="home-third">
+    <ul class="home-info-list">
+      <li class="home-info-box">
         <p>Choose from a wide range of courses</p>
-        <i class="fas fa-book-open py-yellow"></i>
-      </div>
-    </div>
-    <div class="home-textarea home-info-secondary home-float-third">
-      <div class="home-box">
+        <i class="fas fa-book-open py-blue"></i>
+      </li>
+      <li class="home-info-box">
         <p>View detailed content for each course</p>
-        <i class="fas fa-bars py-yellow"></i>
-      </div>
-    </div>
-    <div class="home-textarea home-info-secondary home-float-third">
-      <div class="home-box">
-        <p>Attempt quizzes to test yourself</p>
-        <i class="fas fa-question py-yellow"></i>
-      </div>
+        <i class="fas fa-bars py-blue"></i>
+      </li>
+      <li class="home-info-box">
+        <p>Attempt quizzes to test yourself and see how far you have come!</p>
+        <i class="fas fa-question py-blue"></i>
+      </li>
+    </ul>
   </div>
 </div>
 
