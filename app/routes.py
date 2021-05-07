@@ -42,7 +42,7 @@ def signup():
     flash('Welcome, registration complete!')
     return redirect(url_for('dashboard'))
   return render_template('signup.html', title='Signup', form=form)
-mock_course_data = [
+courses = [
   "Course A",
   "Course B",
   "Course C",

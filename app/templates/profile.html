@@ -13,28 +13,28 @@
         <div class="profile-container col-sm-3">
             <div class="profile-info">
                 
-                <p class ="info-title">
+                <p class ="info-title py-blue">
                     Username:
                 </p>
                 <p class="info-box">
                     test_user
                 </p>
-                <p class ="info-title">
+                <p class ="info-title py-blue">
                     Email:
                 </p>
                 <p class="info-box">
                     email@test.com
                 </p>
             
-                <p class="info title py-blue-dark">
+                <p class="info title py-blue">
                     Course completion
                 </p>
                 <progress class="course-progress" value="80" max="100">32%</progress>
-                <p class="info title py-blue-dark">
+                <p class="info title py-blue">
                 Quiz completion 
                 </p>
                 <progress class="course-progress" value="80" max="100">32%</progress>
-                <p class="info-title py-blue-dark">
+                <p class="info-title py-blue">
                     Total completion
                 </p>
                 <progress class="course-progress" value="80" max="100">32%</progress>
@@ -42,9 +42,26 @@
         </div>
         
         <!--User content contianer-->
-        <div class="content-active col-sm-9">
-            <p> user-content</p>
+
+        <ul class="dash-course-list">
+            <!--Loop active courses-->
+            {% for course in courses %}
+            <li class="dash-course">
+              <div>
+                <p class="course-title py-blue">{{course.title}}</p>
+                <progress class="course-progress" value="80" max="100">32%</progress>
+                <p class="course-score">8/10 Completed</p>
+                <a href="{{url_for('course', course_id=course.id)}}"
+                  ><span class="course-button btn btn-outline py-btn-blue"
+                    >Continue</span
+                  ></a
+                >
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
         </div>
+      </div>
         
     </div>
 </div>

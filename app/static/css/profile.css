@@ -70,8 +70,63 @@
     border: none;
 }
 
+/*Active content*/
 
-
-.content-active {
+.dash-course-list {
+    padding-left: 0;
+  
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-evenly;
+}
+  
+  .dash-course {
+    list-style: none;
+    margin: 20px 2vw;
+  
+    width: 34vw;
+    min-width: 260px;
+    max-width: 600px;
+    padding: 20px 40px;
+    text-align: left;
+  
+    border: 1px solid #4b8bbe;
     background-color: white;
+}
+  
+  .dash-course:hover {
+    box-shadow: 0 7px 14px 0 rgba(24, 52, 76, 0.4);
+}
+  
+  .course-score {
+    color: rgba(24, 52, 76, 0.4);
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+  
+  .course-title {
+    font-size: 2rem;
+    font-weight: 500;
+}
+  
+  .course-button {
+    float: right;
+    width: 8rem;
+    border-radius: 12px;
+    margin: 0 5px;
+}
+  
+  .course-progress {
+    background-image: rgb(24, 52, 76);
+    border-radius: 0;
+    width: 80%;
+    height: 6px;
+    border: none;
+}
+  
+  .course-progress::-webkit-progress-bar {
+    background-color: rgba(24, 52, 76, 0.2);
+}
+  .course-progress::-webkit-progress-value {
+    background-color: rgb(24, 52, 76);
 }
