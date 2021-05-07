@@ -81,12 +81,23 @@ def course(course_id):
 def edit_content(content_id):
   form = EditContentForm()
   content = Content.query.filter_by(id = content_id).first()
-  form.populate_obj(content)
+  if content.text:
+    form.content.data = str(content.text)
+
+  return render_template("edit-content.html", form=form, content=content)
+
+@app.route("/edited/<content_id>", methods=["POST", "GET"])
+@login_required
+def edited(content_id):
+  form = EditContentForm()
+  content = Content.query.filter_by(id = content_id).first()
   if form.validate_on_submit():
     content.text = form.content.data
     db.session.commit()
+  
+  print(content.text)
 
-  return render_template("edit-content.html", form=form, content=content)
+  return redirect(url_for('edit_content', content_id = content.id))
 
 
 @app.route("/view-content/<content_id>")

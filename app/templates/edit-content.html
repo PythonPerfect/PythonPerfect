@@ -8,7 +8,11 @@
     </p>
   </div>
 
-  <form class="tinymce-editor-form" method="POST">
+  <form
+    class="tinymce-editor-form"
+    method="POST"
+    action="{{url_for('edited', content_id=content.id)}}"
+  >
     <!--prettier-ignore-->
     {{ form.hidden_tag() }}
 
