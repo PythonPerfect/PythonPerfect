@@ -7,8 +7,41 @@ section {
   width: 100%;
 }
 
+.home-container{
+  min-height: 34vh;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.home-float-half {
+  min-width: 50%;  
+}
+
+.home-float-third{
+  width: 33.3%;
+}
+
+.home-logo-size {
+  height: 50px;
+}
+
+.home-white-bg {
+  background-color: whitesmoke;
+}
+
 .home-textarea {
   padding: 5%;
+  text-align: center;
+}
+
+.home-py-indent {
+  text-indent: 50px;
+}
+
+.home-textarea-secondary {
+  padding: 9.5%;
+  font-weight: 500;
 }
 
 .home-title {
@@ -22,12 +55,25 @@ section {
 }
 
 .home-info {
+  text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
   color: white;
-  text-align: right;
   max-width: 40vw;
-  margin-left: auto;
+}
+
+.home-info-secondary {
+  font-size: 1.5rem;
+  font-weight: bold;
+  max-width: 40vw;
+}
+
+.home-box {
+  width:80%;
+  height:80%;
+  box-shadow: 0 0 5px 5px lightgray;
+  padding: 15%;
+  margin: 30px;
 }
 
 @media only screen and (max-width: 990px) {
@@ -49,4 +95,60 @@ section {
     max-width: 80vw;
     font-size: 1.25rem;
   }
+
+  .home-container{
+    min-height: auto;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+  }
+
+  .home-container-box{
+    margin: auto;
+  }
+
+  .home-box {
+    height: 200px;
+    width: 300px;
+  }
+
+  .home-float-third {
+    margin: auto;
+  }
+  .home-courses {
+    flex-direction: column !important;
+    display: flex;
+  }
+
+  .home-box {
+    max-width: 95vw;
+    margin: 20px;
+  }
+
+  .home-box p {
+    font-size: 16px;
+    margin-top: 5% !important;
+  }
+}
+
+.home-courses {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 50px;
+  text-align: center;
+}
+
+.home-box {
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
+  padding: 50px;
+}
+.home-box p {
+  font-size: 16px;
+  margin-top: 20%;
+}
+
+.home-text {
+  width: 80%;
+  margin: auto;
 }
