@@ -15,7 +15,7 @@
         class="btn py-blue dash-course-add"
         style="padding: 0"
         data-toggle="modal"
-        data-target="#form-course"
+        data-target="#form-content"
         ><i class="fa fa-plus mr-2"></i>Add New Content</span
       >
     </div>
@@ -60,13 +60,52 @@
       </button>
     </div>
     {% endif %}
+    <div
+      class="modal fade"
+      id="form-content"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <p class="modal-title py-blue">Add New Content</p>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- prettier-ignore -->
+            <form name="add-content-form" method="POST">
+              {{ form_content.hidden_tag() }}
+
+              {{form_content.title(class="login-input", 
+                          placeholder="Title")}}
+                      
+              <div class="modal-footer">
+              {{form_content.submit(class="btn btn-outline py-btn-blue mt-4",
+                          type="submit",
+                          value="Add")}}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div id="Content-Section" class="tabcontent active">
       <ul class="content-list">
-        {% for i in range(5) %}
+        {% for content in all_content %}
+
         <li class="dash-course content-list-item">
           <div>
-            <p class="course-title py-blue">{{i}} These are some long names.</p>
+            <p class="course-title py-blue">{{content.title}}</p>
             <a
               ><span class="course-button btn btn-outline py-btn-blue"
                 >View</span

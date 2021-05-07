@@ -1,8 +1,8 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, AddCourseForm
+from app.forms import LoginForm, RegistrationForm, AddCourseForm, AddContentForm, EditContentForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Course
+from app.models import User, Course, Content
 from werkzeug.urls import url_parse
 
 @app.route("/")
@@ -56,12 +56,23 @@ def dashboard():
   return render_template("dashboard.html", title="Dashboard", form=form, courses=all_courses)
 
 
-@app.route("/course/<course_id>")
+@app.route("/course/<course_id>", methods=["POST", "GET"])
 @login_required
 def course(course_id):
+  form_content = AddContentForm()
   course = Course.query.filter_by(id = course_id).first()
+  if form_content.validate_on_submit():
+    content = Content.query.filter_by(course_id = course_id).filter_by(title=form_content.title.data).first()
+    if content is not None:
+      flash("Content already added.")
+    else:
+      content = Content(title=form_content.title.data, course_id=course_id, text="")
+      db.session.add(content)
+      db.session.commit()
+
+  all_content = Content.query.filter_by(course_id = course_id).all()
   if course is not None:
-    return render_template("course.html", course=course, title=course.title)
+    return render_template("course.html", course=course, title=course.title, form_content=form_content, all_content=all_content)
   else:
     return redirect(url_for('error404'))
 
@@ -85,6 +96,9 @@ def users():
     return render_template("users.html", users=users)
   else:
     return redirect(url_for('dashboard'))
+
+
+
 
 # FOR TESTING PURPOSES ONLY
 @app.route("/delhalfusers")
