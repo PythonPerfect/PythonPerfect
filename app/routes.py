@@ -79,12 +79,14 @@ def course(course_id):
 @app.route("/edit-content/<content_id>", methods=["POST", "GET"])
 @login_required
 def edit_content(content_id):
+  if not current_user.admin:
+    return redirect(url_for('dashboard'))
   form = EditContentForm()
   content = Content.query.filter_by(id = content_id).first()
   if content.text:
     form.content.data = str(content.text)
 
-  return render_template("edit-content.html", form=form, content=content)
+  return render_template("edit-content.html", form=form, content=content, title=content.title)
 
 @app.route("/edited/<content_id>", methods=["POST", "GET"])
 @login_required
@@ -105,7 +107,7 @@ def edited(content_id):
 def view_content(content_id):
   content = Content.query.filter_by(id = content_id).first()
 
-  return render_template("view-content.html", content=content)
+  return render_template("view-content.html", content=content, title=content.title)
 
 
 @app.route("/logout")
