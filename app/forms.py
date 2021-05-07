@@ -1,6 +1,6 @@
 from flask import flash
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, ValidationError, DataRequired, Email, EqualTo, Length, Regexp
 from app.models import User, Course, Content
 
@@ -70,9 +70,12 @@ class AddContentForm(FlaskForm):
             raise ValidationError('The Content title must be at least 4 characters long and no more than 50 characters.')
 
 class EditContentForm(FlaskForm):
-    content = StringField(
-        'Content'
+    content = TextAreaField(
+        'Content',
     )
 
     submit = SubmitField('Save')
+
+    def validate_title(self, content):
+        pass
             

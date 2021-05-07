@@ -76,6 +76,26 @@ def course(course_id):
   else:
     return redirect(url_for('error404'))
 
+@app.route("/edit-content/<content_id>", methods=["POST", "GET"])
+@login_required
+def edit_content(content_id):
+  form = EditContentForm()
+  content = Content.query.filter_by(id = content_id).first()
+  form.populate_obj(content)
+  if form.validate_on_submit():
+    content.text = form.content.data
+    db.session.commit()
+
+  return render_template("edit-content.html", form=form, content=content)
+
+
+@app.route("/view-content/<content_id>")
+@login_required
+def view_content(content_id):
+  content = Content.query.filter_by(id = content_id).first()
+
+  return render_template("view-content.html", content=content)
+
 
 @app.route("/logout")
 @login_required

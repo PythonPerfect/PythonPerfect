@@ -128,7 +128,7 @@
   font-weight: 500;
 
   width: 25vw;
-  max-width: 800px;
+  max-width: 400px;
 }
 
 .course-items-tab button:hover {
@@ -160,6 +160,16 @@
   margin: 20px 0;
   width: 50vw;
   max-width: 800px;
+}
+
+.tinymce-editor-form {
+  max-width: 800px;
+  padding: 5px;
+  margin: auto;
+}
+.tinymce-editor {
+  height: 80vh;
+  resize: none;
 }
 
 @media only screen and (max-width: 768px) {

@@ -1,0 +1,12 @@
+{% extends "components/layout.html" %} {% block content %}
+<div class="dash-container">
+  <div class="dash-title-container">
+    <p class="dash-title typewriter">{{content.title}}</p>
+    <p class="dash-subtitle">
+      Edit and Save the content for other users to see.
+    </p>
+  </div>
+
+  <div class="display-content">Content: {{content.text | safe}}</div>
+</div>
+{% endblock %}
