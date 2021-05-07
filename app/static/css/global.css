@@ -30,7 +30,7 @@ body {
   color: #4b8bbe;
   background-color: transparent;
   border: 1px solid#4b8bbe !important;
-  width: 5rem;
+  min-width: 5rem;
 }
 
 .py-btn-blue:hover {
@@ -46,7 +46,7 @@ body {
   color: #ffd43b;
   background-color: transparent;
   border: 1px solid #ffd43b !important;
-  width: 5rem;
+  min-width: 5rem;
 }
 
 .py-btn-yellow:hover {
