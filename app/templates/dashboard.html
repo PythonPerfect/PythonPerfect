@@ -83,7 +83,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-info" data-dismiss="modal">Yes</button>
+                <a type="button" class="btn btn-info" href="{{url_for('delete_course', del_course_id = course.id)}}">Yes</a>
               </div> 
             </div>
           </div>

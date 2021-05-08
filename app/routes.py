@@ -13,6 +13,14 @@ def delete_user(del_user_id):
   db.session.commit()
   return redirect(url_for('users'))
 
+@app.route("/deleting-course/<del_course_id>")
+def delete_course(del_course_id):
+  course = Course.query.filter_by(id = del_course_id).first()
+
+  db.session.delete(course)
+  db.session.commit()
+  return redirect(url_for('dashboard'))
+
 @app.route("/")
 def index():
     return render_template("index.html", title="Python Perfect")
