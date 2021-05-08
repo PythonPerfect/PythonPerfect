@@ -5,6 +5,14 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Course
 from werkzeug.urls import url_parse
 
+@app.route("/deleting-user/<del_user_id>")
+def delete_user(del_user_id):
+  user = User.query.filter_by(id = del_user_id).first()
+
+  db.session.delete(user)
+  db.session.commit()
+  return redirect(url_for('users'))
+
 @app.route("/")
 def index():
     return render_template("index.html", title="Python Perfect")
