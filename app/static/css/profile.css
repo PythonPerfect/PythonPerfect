@@ -21,23 +21,22 @@
 
 .user-content-container {
     display:flex;
-    margin: auto;
+    margin:auto;
 }
 
 .profile-container {
-    position: relative;
-    margin: auto;
     text-align: center;
     padding: 20px;
 }
 
 .profile-info {
-    position: relative;
-    margin:auto;
+    padding: 20px;
+    margin: auto;
     text-align: center;
     background-color: white;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
     width: fit-content;
+    border: 1px solid #4b8bbe;
 }
 
 .info-title {
@@ -45,21 +44,16 @@
     padding: 10px;
 }
 
-.user-info {
-    text-align: center;
-    margin: auto;
-    position: relative;
-    width: fit-content;
-    padding: 10px;
-}
-
 .info-box {
     position: relative;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
     margin: auto;
     border-width: 1px;
-    background-color:  rgba(76, 76, 76, 0.129);
     width: fit-content;
+}
+
+.info-box:hover {
+  background-color:  rgba(76, 76, 76, 0.129);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
 }
 
 .course-progress {
@@ -75,8 +69,6 @@
 .dash-course-list {
     padding-left: 0;
   
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
     justify-content: space-evenly;
 }
   
@@ -84,10 +76,11 @@
     list-style: none;
     margin: 20px 2vw;
   
-    width: 34vw;
+    width: 68vw;
     min-width: 260px;
     max-width: 600px;
-    padding: 20px 40px;
+    height: 20vh;
+    padding: 20px 20px;
     text-align: left;
   
     border: 1px solid #4b8bbe;
@@ -113,7 +106,7 @@
     float: right;
     width: 8rem;
     border-radius: 12px;
-    margin: 0 5px;
+    margin: 10px 10px;
 }
   
   .course-progress {

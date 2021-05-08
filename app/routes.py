@@ -42,7 +42,7 @@ def signup():
     flash('Welcome, registration complete!')
     return redirect(url_for('dashboard'))
   return render_template('signup.html', title='Signup', form=form)
-courses = [
+m_courses = [
   "Course A",
   "Course B",
   "Course C",
@@ -94,7 +94,7 @@ def dashboard():
 @app.route("/profile")
 @login_required
 def profile():
-  return render_template("profile.html", title="Profile")
+  return render_template("profile.html", title="Profile", courses=m_courses)
 
 
 @app.route("/logout")
