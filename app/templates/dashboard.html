@@ -68,6 +68,25 @@
               >Continue</span
             ></a
           >
+          <a data-toggle="modal" data-target="#del_cour_modal">
+            <span class="course-button btn btn-outline py-btn-yellow"> Delete</span>
+          </a>
+        </div>
+        <div class="modal fade" id="del_cour_modal" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Delete Course?</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure you want to delete this course?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Yes</button>
+              </div> 
+            </div>
+          </div>
         </div>
       </li>
       {% endfor %}
