@@ -1,0 +1,21 @@
+.display-content-container {
+  width: 100%;
+}
+
+.display-content {
+  max-width: 800px;
+  width: 95%;
+  margin: auto;
+  background-color: white;
+  border: 1px solid #4b8bbe;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.display-content pre {
+  width: 100%;
+  background-color: rgb(24, 52, 76);
+  color: #ffd43b;
+  padding: 10px;
+  border-radius: 12px;
+}

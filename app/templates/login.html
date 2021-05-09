@@ -17,12 +17,11 @@
         <div class="login-form-container">
           <h2 class="login-title py-blue"><strong>Welcome Back!</strong></h2>
           <!-- prettier-ignore -->
-          <form class="login-form" action="" method="POST" novalidate>
+          <form class="login-form" method="POST" novalidate>
             {{ form.hidden_tag() }}
 
             {{ form.username(class="login-input",
                             autocomplete="username",
-                            id="login-username",
                             placeholder="Username") }}
             {% for error in form.username.errors %}
               <div class="text-danger">{{error}}</div>
@@ -30,7 +29,6 @@
             
             {{ form.password(class="login-input",
                              autocomplete="current-password",
-                             id="login-password",
                              placeholder="Password" )}}
             {% for error in form.password.errors %}
               <div class="text-danger">{{error}}</div>
@@ -39,7 +37,7 @@
             {{form.submit(class="btn btn-outline-success mt-4",
                           type="submit",
                           value="Log In")}}
-          <br /></br />
+            <br><br>
 
             <a href="{{ url_for('signup') }}" class="login-new-account"
               >Don't have an account? Create one here!</a

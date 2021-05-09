@@ -1,6 +1,8 @@
 .typewriter::after {
   content: "_";
-  animation: blink 600ms linear infinite alternate;
+  animation: blink 600ms linear alternate;
+  animation-iteration-count: 6;
+  opacity: 0;
 }
 
 @-webkit-keyframes blink {
