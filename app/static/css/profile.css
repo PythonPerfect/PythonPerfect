@@ -1,98 +1,39 @@
-.content-container {
-    padding:0;
-    margin:0;
-}
-
-.profile-title-container {
-    background-color: white;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
-    padding: 20px 40px;
-}
-
-.profile-title {
-    font-size: 2rem;
-    font-weight: 500;
-    margin-bottom: 0;
-  }
-  
-.profile-subtitle {
-    padding-left: 0;
-}
-
-.user-content-container {
-    display:flex;
-    margin:auto;
-}
-
 .profile-container {
-    text-align: center;
-    padding: 20px;
+  flex-direction: row;
+  display: flex;
+  margin: auto;
+  width: fit-content;
+  margin-top: -30px;
+}
+
+.profile-info-container {
+  padding: 20px;
+  width: 300px;
+}
+
+.profile-info-body {
+  padding: 20px;
+  margin: auto;
+  text-align: left;
+  background-color: white;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+  border: 1px solid #4b8bbe;
 }
 
 .profile-info {
-    padding: 20px;
-    margin: auto;
+  background-color: rgba(24, 52, 76, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px 0px inset;
+  padding: 5px;
+}
+@media only screen and (max-width: 768px) {
+  .profile-container {
+    flex-direction: column;
+  }
+
+  .profile-info-container {
     text-align: center;
-    background-color: white;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
-    width: fit-content;
-    border: 1px solid #4b8bbe;
-}
-
-.info-title {
-    margin-bottom: 0%;
-    padding: 10px;
-}
-
-.info-box {
-    position: relative;
-    margin: auto;
-    border-width: 1px;
-    width: fit-content;
-}
-
-.info-box:hover {
-  background-color:  rgba(76, 76, 76, 0.129);
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
-}
-
-.course-progress {
-    background-image: rgb(24, 52, 76);
-    border-radius: 0;
-    width: 80%;
-    height: 6px;
-    border: none;
-}
-
-/*Active content*/
-
-.active-course-list {
-    padding-left: 0;
-    justify-content: space-evenly;
-}
-  
-.active-course {
-    list-style: none;
-    margin: 20px 2vw;
-  
-    width: 68vw;
-    min-width: 260px;
-    max-width: 600px;
-    height: 25vh;
-    padding: 20px 20px;
-    text-align: left;
-  
-    border: 1px solid #4b8bbe;
-    background-color: white;
-}
-  
-.active-course:hover {
-    box-shadow: 0 7px 14px 0 rgba(24, 52, 76, 0.4);
-}
-  
-.active-button {
-    float: right;
-    width: 8rem;
-    border-radius: 12px;
-    margin: 10px 0px;
+    margin-top: 20px;
+    width: 100%;
+    padding: 0;
+  }
 }
