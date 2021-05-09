@@ -50,24 +50,24 @@ $ flask run
 ## On windows
 #### Install Virtual Environment
 ```shell
-> pip install virtualenv
+>>> pip install virtualenv
 ```
 #### Activate Virtual Enviroment
 ```shell
-> python -m venv env
-> ./env/Scripts/activate
+>>> python -m venv env
+>>> ./env/Scripts/activate
 ```
 #### Install required python packages
 ```shell
-> pip install -r requirements.txt
+>>> pip install -r requirements.txt
 ```
 ##### Configuring Flask
 ```shell
-> set FLASK_APP=PythonPerfect.py
+>>> set FLASK_APP=PythonPerfect.py
 ```
 #### Run Flask app
 ```shell
-> flask run
+>>> flask run
 ```
 
 ## Setting Flask Environment and Debug/Testing modes
