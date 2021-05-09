@@ -22,13 +22,9 @@ Users are able to attempt multiple courses at the same time. Their progress is t
 This application has been constructed using the python Flask micro-framework MVC. In terms of the Model View Controller Architecture, in our application, the model is represented by the SQLite database and SQLAlchemy, the View is represented by the server-side rendering template of jinja2 which assembles the HTML static content based on the request and the Controller is represented by the Python Flask library.
 
 ## App Launching
-To laucnh the application on your personal device it is reccommended that you use a virrual environment
+To laucnh the application on your personal device it is recommended that you use a virtual environment. Python and virtualenv will need to be installed on your system. A detailed guide is provided below:
 
-
-
-##Features
-...
-## App Launching
+## Linux OS
 #### Install Virtual Environment
 ```shell
 $ pip3 install virtualenv
@@ -38,32 +34,42 @@ $ pip3 install virtualenv
 $ python3 -m venv env
 $ source env/bin/activate
 ```
-
-
 #### Install required python packages
-
-
 ```shell
 $ pip3 install -r requirements.txt
 ```
-
-#### Configuring flask
-
-##### On windows
-
-```shell
-$ set FLASK_APP=PythonPerfect.py
-```
-
-
-##### On mac/linux
+##### Configuring Flask
 ```shell
 $ export FLASK_APP=PythonPerfect.py
 ```
-####Run Flask app
+#### Run Flask app
 ```shell
 $ flask run
 ```
+
+## On windows
+#### Install Virtual Environment
+```shell
+> pip install virtualenv
+```
+#### Activate Virtual Enviroment
+```shell
+> python -m venv env
+> ./env/Scripts/activate
+```
+#### Install required python packages
+```shell
+> pip install -r requirements.txt
+```
+##### Configuring Flask
+```shell
+> set FLASK_APP=PythonPerfect.py
+```
+#### Run Flask app
+```shell
+> flask run
+```
+
 ## Setting Flask Environment and Debug/Testing modes
 It is highly recommended to avoid setting flask environments by code
 i.e. in config.py
