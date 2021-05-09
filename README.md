@@ -1,4 +1,30 @@
-#Python Perfect
+# CITS3403-Project2
+### "PythonPerfect"
+Anthony Zao, Dhruv Jobanputra, Sandil Bhikha, Thobias Danudoro
+
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Assessment Mechanism](#Assessment-Mechanism)
+3. [App Architecture](#App-Architecture)
+4. [App Launching](#App-Launching)
+5. [App Testing](#App-Testing)
+6. [Design Process](#Design-Process)
+
+## Introduction 
+PythonPerfect is a Flask based web application designed to teach users the basics of the Python programming language. The website encourages users to learn the programming basics through the content page and assess their knowledge through the related quiz. ***Info on the quiz
+
+Users are able to attempt multiple courses at the same time. Their progress is tracked and is viewable in the content page. Should the user be granted administrative priveleges, they will gain the ability to create new courses for others to attempt.
+
+## Assessment Mechanism
+****
+
+## App Architecture (Flask)
+This application has been constructed using the python Flask micro-framework MVC. In terms of the Model View Controller Architecture, in our application, the model is represented by the SQLite database and SQLAlchemy, the View is represented by the server-side rendering template of jinja2 which assembles the HTML static content based on the request and the Controller is represented by the Python Flask library.
+
+## App Launching
+To laucnh the application on your personal device it is reccommended that you use a virrual environment
+
+
 
 ##Features
 ...
