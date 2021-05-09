@@ -66,20 +66,19 @@
 
 /*Active content*/
 
-.dash-course-list {
+.active-course-list {
     padding-left: 0;
-  
     justify-content: space-evenly;
 }
   
-  .dash-course {
+.active-course {
     list-style: none;
     margin: 20px 2vw;
   
     width: 68vw;
     min-width: 260px;
     max-width: 600px;
-    height: 20vh;
+    height: 25vh;
     padding: 20px 20px;
     text-align: left;
   
@@ -87,39 +86,13 @@
     background-color: white;
 }
   
-  .dash-course:hover {
+.active-course:hover {
     box-shadow: 0 7px 14px 0 rgba(24, 52, 76, 0.4);
 }
   
-  .course-score {
-    color: rgba(24, 52, 76, 0.4);
-    font-size: 14px;
-    margin-bottom: 0px;
-}
-  
-  .course-title {
-    font-size: 2rem;
-    font-weight: 500;
-}
-  
-  .course-button {
+.active-button {
     float: right;
     width: 8rem;
     border-radius: 12px;
-    margin: 10px 10px;
-}
-  
-  .course-progress {
-    background-image: rgb(24, 52, 76);
-    border-radius: 0;
-    width: 80%;
-    height: 6px;
-    border: none;
-}
-  
-  .course-progress::-webkit-progress-bar {
-    background-color: rgba(24, 52, 76, 0.2);
-}
-  .course-progress::-webkit-progress-value {
-    background-color: rgb(24, 52, 76);
+    margin: 10px 0px;
 }
