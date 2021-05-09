@@ -110,6 +110,12 @@ def view_content(content_id):
   return render_template("view-content.html", content=content, title=content.title)
 
 
+@app.route("/profile")
+@login_required
+def profile():
+  return render_template("profile.html", title="Profile", user=current_user, courses=["Test 1", "Test 2"])
+
+
 @app.route("/logout")
 @login_required
 def logout():
