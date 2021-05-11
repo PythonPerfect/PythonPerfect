@@ -7,12 +7,14 @@ from werkzeug.urls import url_parse
 
 @app.route("/")
 def index():
-    return render_template("index.html", title="Python Perfect")
+  if current_user.is_authenticated:
+    return redirect(url_for('dashboard'))
+  return render_template("index.html", title="Python Perfect")
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
   if current_user.is_authenticated:
-    return redirect(url_for('index'))
+    return redirect(url_for('dashboard'))
   form = LoginForm()
   if form.validate_on_submit():
     #ADD EMAIL LOGIN SUPPORT LATER
@@ -30,7 +32,7 @@ def login():
 @app.route("/signup", methods=["POST", "GET"])
 def signup():
   if current_user.is_authenticated:
-    return redirect(url_for('index'))
+    return redirect(url_for('dashbaord'))
   form = RegistrationForm()
   if form.validate_on_submit():
     user = User(username=form.username.data, email=form.email.data, admin=form.admin.data)
