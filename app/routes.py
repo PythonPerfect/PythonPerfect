@@ -53,6 +53,7 @@ def dashboard():
     course = Course(title=form.title.data)
     db.session.add(course)
     db.session.commit()
+    flash('Content added successfully!')
 
   all_courses = Course.query.all()
   return render_template("dashboard.html", title="Dashboard", form=form, courses=all_courses)
@@ -71,6 +72,7 @@ def course(course_id):
       content = Content(title=form_content.title.data, course_id=course_id, text="")
       db.session.add(content)
       db.session.commit()
+      flash('Content added successfully!')
 
   all_content = Content.query.filter_by(course_id = course_id).all()
   if course is not None:
@@ -98,6 +100,7 @@ def edited(content_id):
   if form.validate_on_submit():
     content.text = form.content.data
     db.session.commit()
+    flash('Edits saved successfully!')
   
   print(content.text)
 
