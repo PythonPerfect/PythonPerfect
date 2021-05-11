@@ -6,20 +6,24 @@ from app.models import User, Course
 from werkzeug.urls import url_parse
 
 @app.route("/deleting-user/<del_user_id>")
+@login_required
 def delete_user(del_user_id):
-  user = User.query.filter_by(id = del_user_id).first()
+  if current_user.admin:
+    user = User.query.filter_by(id = del_user_id).first()
 
-  db.session.delete(user)
-  db.session.commit()
-  return redirect(url_for('users'))
+    db.session.delete(user)
+    db.session.commit()
+    return redirect(url_for('users'))
 
 @app.route("/deleting-course/<del_course_id>")
+@login_required
 def delete_course(del_course_id):
-  course = Course.query.filter_by(id = del_course_id).first()
+  if current_user.admin:
+    course = Course.query.filter_by(id = del_course_id).first()
 
-  db.session.delete(course)
-  db.session.commit()
-  return redirect(url_for('dashboard'))
+    db.session.delete(course)
+    db.session.commit()
+    return redirect(url_for('dashboard'))
 
 @app.route("/")
 def index():
@@ -101,6 +105,12 @@ def users():
     return render_template("users.html", users=users)
   else:
     return redirect(url_for('dashboard'))
+
+@app.route("/quiz")
+@login_required
+def quiz():
+  if current_user.admin:
+    return render_template("quiz.html")
 
 # FOR TESTING PURPOSES ONLY
 @app.route("/delhalfusers")
