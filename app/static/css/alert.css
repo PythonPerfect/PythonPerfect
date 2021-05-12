@@ -4,6 +4,10 @@
 }
 
 .alert.error {
-    background-color:rgba(255, 26, 26, 0.408);
+    background-color:rgba(255, 26, 26, 0.585);
+    color: black;
+}
+
+.alert.info {
     color: black;
 }

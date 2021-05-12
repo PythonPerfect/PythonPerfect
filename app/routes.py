@@ -14,6 +14,7 @@ def index():
 @app.route("/login", methods=["POST", "GET"])
 def login():
   if current_user.is_authenticated:
+    flash('Already logged in', 'info')
     return redirect(url_for('dashboard'))
   form = LoginForm()
   if form.validate_on_submit():
@@ -26,13 +27,14 @@ def login():
     page_next = request.args.get('next')
     if not page_next or url_parse(page_next).netloc != '':
       page_next = url_for('dashboard')
+      flash('Login successful', 'success')
     return redirect(page_next)
   return render_template('login.html', title='Sign In', form=form)
 
 @app.route("/signup", methods=["POST", "GET"])
 def signup():
   if current_user.is_authenticated:
-    flash('Already logged in', 'error')
+    flash('Already logged in', 'info')
     return redirect(url_for('dashboard'))
   form = RegistrationForm()
   if form.validate_on_submit():
@@ -67,7 +69,7 @@ def course(course_id):
   if form_content.validate_on_submit():
     content = Content.query.filter_by(course_id = course_id).filter_by(title=form_content.title.data).first()
     if content is not None:
-      flash("Content already added.", 'error')
+      flash("Content already added.", 'info')
     else:
       content = Content(title=form_content.title.data, course_id=course_id, text="")
       db.session.add(content)
@@ -124,6 +126,7 @@ def profile():
 @login_required
 def logout():
   logout_user()
+  flash('Logged out succesfully', 'success')
   return redirect(url_for('index'))
 
 @app.errorhandler(404)
