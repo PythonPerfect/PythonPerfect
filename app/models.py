@@ -41,7 +41,6 @@ class Course(db.Model):
 
 class Content(db.Model):
     id = db.Column(db.Integer, autoincrement=True ,primary_key=True)
-    course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
     title = db.Column(db.String(50))
     text = db.Column(db.Text)
 
@@ -83,7 +82,7 @@ class Question(db.Model):
 
 class Question_Response(db.Model):
     id = db.Column(db.Integer, autoincrement=True ,primary_key=True)
-    response = db.Column(db.Integer)
+    response = db.Column(db.String(32))
     
     #Foreign Key
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'))
