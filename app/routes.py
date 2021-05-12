@@ -20,7 +20,7 @@ def login():
     #ADD EMAIL LOGIN SUPPORT LATER
     user = User.query.filter_by(username = form.username.data).first()
     if user is None or not user.check_password(form.password.data):
-      flash('Invalid username or password')
+      flash('Invalid username or password', 'error')
       return redirect(url_for('login'))
     login_user(user, remember=False)
     page_next = request.args.get('next')
@@ -32,7 +32,7 @@ def login():
 @app.route("/signup", methods=["POST", "GET"])
 def signup():
   if current_user.is_authenticated:
-    flash("Already logged in")
+    flash('Already logged in', 'error')
     return redirect(url_for('dashboard'))
   form = RegistrationForm()
   if form.validate_on_submit():
@@ -42,7 +42,7 @@ def signup():
     db.session.commit()
 
     login_user(user, remember=False)
-    flash('Welcome, registration complete!')
+    flash('Welcome, registration complete!', 'success')
     return redirect(url_for('dashboard'))
   return render_template('signup.html', title='Signup', form=form)
 
@@ -54,7 +54,6 @@ def dashboard():
     course = Course(title=form.title.data)
     db.session.add(course)
     db.session.commit()
-    flash('Content added successfully!')
 
   all_courses = Course.query.all()
   return render_template("dashboard.html", title="Dashboard", form=form, courses=all_courses)
@@ -68,12 +67,11 @@ def course(course_id):
   if form_content.validate_on_submit():
     content = Content.query.filter_by(course_id = course_id).filter_by(title=form_content.title.data).first()
     if content is not None:
-      flash("Content already added.")
+      flash("Content already added.", 'error')
     else:
       content = Content(title=form_content.title.data, course_id=course_id, text="")
       db.session.add(content)
       db.session.commit()
-      flash('Content added successfully!')
 
   all_content = Content.query.filter_by(course_id = course_id).all()
   if course is not None:
@@ -101,7 +99,7 @@ def edited(content_id):
   if form.validate_on_submit():
     content.text = form.content.data
     db.session.commit()
-    flash('Edits saved successfully!')
+    flash('Edits saved successfully!', 'success')
   
   print(content.text)
 
