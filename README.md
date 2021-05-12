@@ -88,17 +88,25 @@ $ export FLASK_ENV=<environment>
 
 ## Initialise SQLite database with flask-migrate
 
-**If working on code post User login implementation**
+**If working on code with changes to schemas**
 
 ```shell
-$ flask db upgrade
+$ flask db current
+$ flask db heads
 ```
 
-to construct the existing database on your local device.
+If current is empty, or different from head
+
+```shell
+$ flask db stamp head
+```
+
+This will set the current revision in the database to the head,
+without performing any changes. 
 
 Instructions on migration repository initialisation omitted
 #### Modifying databases
-Create new migration script
+Create new migration script, then update to latest.
 
 ```shell
 $ flask db migrate
