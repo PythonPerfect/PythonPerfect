@@ -2,6 +2,13 @@ from flask_sqlalchemy import model
 from app import db
 from app.models import *
 
+class Error(Exception):
+    """Base class for exceptions in this module."""
+    pass
+
+class RowNotEmpty(Error):
+    """Raised when the row not empty"""
+
 def add_to_database(item):
     db.session.add(item)
     db.session.commit()
@@ -43,12 +50,6 @@ def get_user_by_username(username):
 def get_user_by_emial(email):
     return User.query.filter_by(email=email).first()
 
-def get_user_response(user, question):
-    return Question_Response.query.filter(Question_Response.question==question, Question_Response.user==user)
-
-def get_user_content_viewed(user, content):
-    return Content_Viewed.query.filter(Content_Viewed.content==content, Content_Viewed.user==user)
-
 #Update
 #No update support as of yet for users
 
@@ -66,7 +67,7 @@ def delete_all_users():
     for u in users:
         delete_from_database(u)
 
-#-----Course-----
+#-----For Course Model-----
 #Creation
 def add_new_course(title):
     course = Course(titel=title)
@@ -75,3 +76,80 @@ def add_new_course(title):
 #Read
 def get_all_courses():
     return Course.query.all()
+
+def get_course_by_title(title):
+    return Course.query.filter_by(title=title).first()
+
+def get_coruse_by_id(course_id):
+    return Course.query.filter_by(id=course_id).first()
+
+#Update
+#No update support as of yet for course
+
+#Delete
+def delete_course_by_id(course_id):
+    if Course.query.firs() != None:
+        return 
+    u = get_coruse_by_id(course_id)
+    delete_from_database(u)
+
+def delete_course_by_title(title):
+    u = get_course_by_title(title)
+    delete_from_database(u)
+
+#-----For Content Model-----
+#Creation
+def add_new_content(title, text, course):
+    con = Content(title=title, text=text, course=course)
+    add_to_database(con)
+
+#Read
+def get_all_content():
+    return Content.query.all()
+
+def get_content_by_id(content_id):
+    return Content.query.filter_by(id=content_id).first()
+
+def get_content_by_title(title):
+    return Content.query.filter_by(title=title).first()
+
+def get_contents_by_course(course):
+    return Content.query.filter(Content.course==course).all()
+
+#Delete
+def delete_content_by_id(course_id):
+    con = get_content_by_id(course_id)
+    delete_from_database(con)
+
+def delete_content_by_title(title):
+    con = get_content_by_title(title)
+    delete_from_database(con)
+
+def delete_all_content_from_course(course):
+    cons = get_contents_by_course(course)
+    for con in cons:
+        delete_from_database(con)
+
+#-----For Question_Response Model-----
+#Creation
+
+#Read
+def get_user_response(user, question):
+    return Question_Response.query.filter(Question_Response.question==question, Question_Response.user==user).first()
+
+#Update
+#No update support as of yet for Question_Response
+
+#Delete
+
+#-----For Content_Viewed Model-----
+#Creation
+
+#Read
+def get_user_content_viewed(user, content):
+    return Content_Viewed.query.filter(Content_Viewed.content==content, Content_Viewed.user==user).first()
+
+#Update
+#No update support as of yet for Content_Viewed
+
+#Delete
