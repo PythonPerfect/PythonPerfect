@@ -41,7 +41,7 @@ class Course(db.Model):
 
 class Content(db.Model):
     id = db.Column(db.Integer, autoincrement=True ,primary_key=True)
-    title = db.Column(db.String(50))
+    title = db.Column(db.String(50), index=True, unique=True)
     text = db.Column(db.Text)
 
     #Foreign Key
@@ -55,7 +55,7 @@ class Content(db.Model):
 
 class Quiz(db.Model):
     id = db.Column(db.Integer, autoincrement=True ,primary_key=True)
-    title = db.Column(db.String(50))
+    title = db.Column(db.String(50), index=True, unique=True)
 
     #Foreign Key
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
@@ -68,7 +68,7 @@ class Quiz(db.Model):
 
 class Question(db.Model):
     id = db.Column(db.Integer, autoincrement=True ,primary_key=True)
-    question = db.Column(db.String(256))
+    question = db.Column(db.String(256), index=True, unique=True)
     answer = db.Column(db.String(32))
 
     #Foreign Key
