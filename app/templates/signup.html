@@ -3,6 +3,8 @@
   {% include "components/head.html" %}
 
   <body class="py-bg-blue-dark">
+    {% include "components/alert.html" %}
+    
     <div class="login-container">
       <div class="login-body">
         <a href="{{url_for('index')}}">
@@ -45,8 +47,15 @@
             {% for error in form.re_password.errors %}
               <div class="text-danger"> {{ error }}</div>
             {% endfor %}
-            
 
+            {% if form.specialPassword %}
+              {{ form.specialPassword(class="login-input",
+                                      placeholder="Special Password") }}
+              {% for error in form.specialPassword.errors%}
+              <span class="text-danger">{{error}}</span>
+              {% endfor %}
+            {% endif %}
+            
             {{form.submit(class="btn btn-outline-success mt-4",
                          type="submit",
                          value="Sign Up")}}

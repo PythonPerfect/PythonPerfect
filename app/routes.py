@@ -57,7 +57,7 @@ def registerAdmin():
   form = AdminRegistrationForm()
   
   if form.validate_on_submit():
-    if app.config["ADMIN_KEY"]==form.secretPassword.data:
+    if app.config["ADMIN_KEY"]==form.specialPassword.data:
       user = User(username=form.username.data, email=form.email.data, admin=True)
       user.set_password(form.password.data)
       db.session.add(user)
