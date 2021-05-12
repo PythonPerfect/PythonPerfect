@@ -1,6 +1,6 @@
 from flask import flash
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, ValidationError, DataRequired, Email, EqualTo, Length, Regexp
 from app.models import User, Course
 
@@ -57,7 +57,7 @@ class AddCourseForm(FlaskForm):
             raise ValidationError('The Course title must be at least 4 characters long and no more than 50 characters.')
 
 class AddQuestionForm(FlaskForm):
-    question = StringField(
+    question = TextAreaField(
         'Question',
         validators=[DataRequired()])
     answer = StringField(

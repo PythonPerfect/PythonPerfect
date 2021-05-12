@@ -28,3 +28,10 @@ class Course(db.Model):
 
     def __repr__(self):
         return '<Course {}>'.format(self.title)
+
+"""class Quiz(db.Model):
+    id = db.Column(db.Integer, autoincrement=True ,primary_key=True)
+    quiz_title = db.Column(db.String(20), index=True, unique=True)
+
+class Questions(db.model):
+    id = db.Column(db.Integer, autoincrement=True ,primary_key=True)"""

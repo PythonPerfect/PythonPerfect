@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, AddCourseForm
+from app.forms import LoginForm, RegistrationForm, AddCourseForm, AddQuestionForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Course
 from werkzeug.urls import url_parse
@@ -109,8 +109,9 @@ def users():
 @app.route("/quiz")
 @login_required
 def quiz():
+  form=AddQuestionForm()
   if current_user.admin:
-    return render_template("quiz.html")
+    return render_template("quiz.html", form=form)
 
 # FOR TESTING PURPOSES ONLY
 @app.route("/delhalfusers")
