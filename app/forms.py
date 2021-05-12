@@ -55,4 +55,14 @@ class AddCourseForm(FlaskForm):
         elif not 4 <= len(title.data) <= 50:
             flash("The Course title must be at least 4 characters long and no more than 50 characters.") 
             raise ValidationError('The Course title must be at least 4 characters long and no more than 50 characters.')
+
+class AddQuestionForm(FlaskForm):
+    question = StringField(
+        'Question',
+        validators=[DataRequired()])
+    answer = StringField(
+        'Answer',
+        validators=[DataRequired()])
+
+    submit = SubmitField('Add')
             
