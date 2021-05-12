@@ -1,0 +1,39 @@
+.profile-container {
+  flex-direction: row;
+  display: flex;
+  margin: auto;
+  width: fit-content;
+  margin-top: -30px;
+}
+
+.profile-info-container {
+  padding: 20px;
+  width: 300px;
+}
+
+.profile-info-body {
+  padding: 20px;
+  margin: auto;
+  text-align: left;
+  background-color: white;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+  border: 1px solid #4b8bbe;
+}
+
+.profile-info {
+  background-color: rgba(24, 52, 76, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px 0px inset;
+  padding: 5px;
+}
+@media only screen and (max-width: 768px) {
+  .profile-container {
+    flex-direction: column;
+  }
+
+  .profile-info-container {
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
+    padding: 0;
+  }
+}

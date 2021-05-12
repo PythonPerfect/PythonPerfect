@@ -1,8 +1,8 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, AddCourseForm, AddQuestionForm
+from app.forms import LoginForm, RegistrationForm, AddCourseForm, AddContentForm, EditContentForm, AddQuestionForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Course
+from app.models import User, Course, Content
 from werkzeug.urls import url_parse
 
 @app.route("/deleting-user/<del_user_id>")
@@ -76,14 +76,64 @@ def dashboard():
   return render_template("dashboard.html", title="Dashboard", form=form, courses=all_courses)
 
 
-@app.route("/course/<course_id>")
+@app.route("/course/<course_id>", methods=["POST", "GET"])
 @login_required
 def course(course_id):
+  form_content = AddContentForm()
   course = Course.query.filter_by(id = course_id).first()
+  if form_content.validate_on_submit():
+    content = Content.query.filter_by(course_id = course_id).filter_by(title=form_content.title.data).first()
+    if content is not None:
+      flash("Content already added.")
+    else:
+      content = Content(title=form_content.title.data, course_id=course_id, text="")
+      db.session.add(content)
+      db.session.commit()
+
+  all_content = Content.query.filter_by(course_id = course_id).all()
   if course is not None:
-    return render_template("course.html", course=course, title=course.title)
+    return render_template("course.html", course=course, title=course.title, form_content=form_content, all_content=all_content)
   else:
     return redirect(url_for('error404'))
+
+@app.route("/edit-content/<content_id>", methods=["POST", "GET"])
+@login_required
+def edit_content(content_id):
+  if not current_user.admin:
+    return redirect(url_for('dashboard'))
+  form = EditContentForm()
+  content = Content.query.filter_by(id = content_id).first()
+  if content.text:
+    form.content.data = str(content.text)
+
+  return render_template("edit-content.html", form=form, content=content, title=content.title)
+
+@app.route("/edited/<content_id>", methods=["POST", "GET"])
+@login_required
+def edited(content_id):
+  form = EditContentForm()
+  content = Content.query.filter_by(id = content_id).first()
+  if form.validate_on_submit():
+    content.text = form.content.data
+    db.session.commit()
+  
+  print(content.text)
+
+  return redirect(url_for('edit_content', content_id = content.id))
+
+
+@app.route("/view-content/<content_id>")
+@login_required
+def view_content(content_id):
+  content = Content.query.filter_by(id = content_id).first()
+
+  return render_template("view-content.html", content=content, title=content.title)
+
+
+@app.route("/profile")
+@login_required
+def profile():
+  return render_template("profile.html", title="Profile", user=current_user, courses=["Test 1", "Test 2"])
 
 
 @app.route("/logout")
@@ -112,6 +162,8 @@ def quiz():
   form=AddQuestionForm()
   if current_user.admin:
     return render_template("quiz.html", form=form)
+
+
 
 # FOR TESTING PURPOSES ONLY
 @app.route("/delhalfusers")

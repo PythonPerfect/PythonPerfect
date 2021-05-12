@@ -1,0 +1,69 @@
+{% extends "components/layout.html" %} {% block content %}
+
+<div class="dash-container">    
+    <!--Profile Heading-->
+    <div class="dash-title-container">
+        <p class="dash-title typewriter">Profile</p>
+        <p class="dash-subtitle">View your profile and activity</p>
+      </div>
+    
+    <div class="profile-container">
+        <!--Profile container-->
+        <div class="profile-info-container">
+            <div class="profile-info-body">
+                
+                <p class ="py-blue">
+                    Username:
+                </p>
+                <p class="profile-info">
+                    {{user.username}}
+                </p>
+                <p class ="py-blue">
+                    Email:
+                </p>
+                <p class="profile-info">
+                    {{user.email}}
+                </p>
+            
+                <p class="py-blue">
+                    Course completion
+                </p>
+                <progress class="course-progress" value="80" max="100">32%</progress>
+                <p class="py-blue">
+                Quiz completion 
+                </p>
+                <progress class="course-progress" value="80" max="100">32%</progress>
+                <p class="py-blue">
+                    Total completion
+                </p>
+                <progress class="course-progress" value="80" max="100">32%</progress>
+            </div>
+        </div>
+        
+        <!--User content contianer-->
+
+        <ul class="content-list">
+            <!--Loop active courses-->
+            {% for course in courses %}
+
+            <li class="dash-course content-list-item">
+              <div>
+                <p class="course-title py-blue">{{course}}</p>
+                <progress class="course-progress" value="80" max="100">32%</progress>
+                <p class="course-score">Score: 8/10</p>
+                <a
+                  ><span class="course-button btn btn-outline py-btn-blue"
+                    >View</span
+                  ></a
+                >
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+        
+    </div>
+</div>
+
+{% endblock %}
