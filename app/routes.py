@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, AddCourseForm, AddContentForm, EditContentForm
+from app.forms import LoginForm, RegistrationForm, AddCourseForm, AddContentForm, EditContentForm, AdminRegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Course, Content
 from werkzeug.urls import url_parse
@@ -38,7 +38,7 @@ def signup():
     return redirect(url_for('dashboard'))
   form = RegistrationForm()
   if form.validate_on_submit():
-    user = User(username=form.username.data, email=form.email.data, admin=form.admin.data)
+    user = User(username=form.username.data, email=form.email.data)
     user.set_password(form.password.data)
     db.session.add(user)
     db.session.commit()
@@ -46,6 +46,30 @@ def signup():
     login_user(user, remember=False)
     flash('Welcome, registration complete!', 'success')
     return redirect(url_for('dashboard'))
+  return render_template('signup.html', title='Signup', form=form)
+
+@app.route("/registerAdmin", methods=["POST", "GET"])
+def registerAdmin():
+  if current_user.is_authenticated:
+    flash('Already logged in', 'info')
+    return redirect(url_for('dashboard'))
+  
+  form = AdminRegistrationForm()
+  
+  if form.validate_on_submit():
+    if app.config["ADMIN_KEY"]==form.secretPassword.data:
+      user = User(username=form.username.data, email=form.email.data, admin=True)
+      user.set_password(form.password.data)
+      db.session.add(user)
+      db.session.commit()
+
+      login_user(user, remember=False)
+      flash('Welcome, registered as an Admin!', 'success')
+      return redirect(url_for('dashboard'))
+
+    else:
+      flash('Incorrect Admin key', 'error')
+
   return render_template('signup.html', title='Signup', form=form)
 
 @app.route("/dashboard", methods=["POST", "GET"])

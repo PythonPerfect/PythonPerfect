@@ -25,8 +25,6 @@ class RegistrationForm(FlaskForm):
 
     re_password = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
 
-    admin= BooleanField('Admin')
-
     submit = SubmitField('Register')
 
     def validate_username(self, username):
@@ -79,3 +77,5 @@ class EditContentForm(FlaskForm):
     def validate_title(self, content):
         pass
             
+class AdminRegistrationForm(RegistrationForm):
+    specialPassword = PasswordField('Special Password', [DataRequired()])
