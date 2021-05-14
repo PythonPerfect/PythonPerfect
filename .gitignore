@@ -10,3 +10,6 @@ __pycache__
 
 # Databases
 app.db
+
+# vscode 
+.vscode
