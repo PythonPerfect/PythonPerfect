@@ -14,7 +14,7 @@ def index():
 @app.route("/login", methods=["POST", "GET"])
 def login():
   if current_user.is_authenticated:
-    flash('Already logged in', 'alert-info')
+    flash('Already logged in', 'info')
     return redirect(url_for('dashboard'))
   form = LoginForm()
   if form.validate_on_submit():
@@ -34,7 +34,7 @@ def login():
 @app.route("/signup", methods=["POST", "GET"])
 def signup():
   if current_user.is_authenticated:
-    flash('Already logged in', 'alert-info')
+    flash('Already logged in', 'info')
     return redirect(url_for('dashboard'))
   form = RegistrationForm()
   if form.validate_on_submit():
@@ -51,7 +51,7 @@ def signup():
 @app.route("/registerAdmin", methods=["POST", "GET"])
 def registerAdmin():
   if current_user.is_authenticated:
-    flash('Already logged in', 'alert-info')
+    flash('Already logged in', 'info')
     return redirect(url_for('dashboard'))
   
   form = AdminRegistrationForm()
@@ -68,7 +68,7 @@ def registerAdmin():
       return redirect(url_for('dashboard'))
 
     else:
-      flash('Incorrect Admin key', 'alert-danger')
+      flash('Incorrect Admin key', 'danger')
 
   return render_template('signup.html', title='Signup', form=form)
 
@@ -93,7 +93,7 @@ def course(course_id):
   if form_content.validate_on_submit():
     content = Content.query.filter_by(course_id = course_id).filter_by(title=form_content.title.data).first()
     if content is not None:
-      flash("Content already added.", 'alert-info')
+      flash("Content already added.", 'info')
     else:
       content = Content(title=form_content.title.data, course_id=course_id, text="")
       db.session.add(content)
@@ -125,7 +125,7 @@ def edited(content_id):
   if form.validate_on_submit():
     content.text = form.content.data
     db.session.commit()
-    flash('Edits saved successfully!', 'alert-success')
+    flash('Edits saved successfully!', 'success')
   
   print(content.text)
 
@@ -150,7 +150,7 @@ def profile():
 @login_required
 def logout():
   logout_user()
-  flash('Logged out succesfully', 'alert-success')
+  flash('Logged out succesfully', 'success')
   return redirect(url_for('index'))
 
 @app.errorhandler(404)
