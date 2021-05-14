@@ -1,0 +1,23 @@
+.quiz-container {
+    background-color: white;
+    margin:auto;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+    height: 30vh;
+    width: 60%;
+    text-align: center;
+}
+
+.quiz-question {
+    margin-top: 60px;
+    padding-top: 15px;
+}
+
+.quiz-response {
+    margin:auto;
+}
+
+.question-box {
+    margin:auto;
+    height: 20vh;
+    width: 50vw;
+}

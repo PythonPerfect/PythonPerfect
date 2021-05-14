@@ -79,3 +79,13 @@ class EditContentForm(FlaskForm):
     def validate_title(self, content):
         pass
             
+
+class QuizQuestionForm(FlaskForm):
+    answer = StringField(
+        'Answer',
+        validators=[DataRequired()])
+
+    submit = SubmitField('Continue')
+
+    def validate_title(self):
+        pass
