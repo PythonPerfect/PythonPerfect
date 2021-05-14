@@ -7,21 +7,36 @@
         <p class="dash-subtitle">Attempt the quiz!</p>
     </div>
 
-    <div class="quiz-container">
+    <body>
+        <div class="quiz-container">
 
-        <p class="quiz-question">
-            Question 1:
-        </p>
+            <div class="question-container">
+                <div id="question" class="question">
+                    Question 1:
+                </div>
 
-        <div class='quiz-response'>
-        {{ form.hidden_tag() }}
+                <div class="quiz-response">
 
-        {{form.answer(id="Question-Answer",  
-                    placeholder="Enter your response here...")}} 
-        
-        {{form.submit(class="mt-3 mb-3 btn
-                    btn-outline-success")}}
+                    {{ form.hidden_tag() }}
+
+                    {{form.answer(id="Quiz-response", 
+                                class="question-box",
+                                autofocus=true,
+                                placeholder="Enter your text here...")}} 
+
+                </div>
+            </div>
+    
+            
+
+            <div class="controls">
+
+                {{form.submit(class="mt-3 mb-3 btn
+                                btn-outline-success")}}
+
+            </div>
+    
         </div>
-
-    </div>   
+    </body>
+       
     {% endblock %}
