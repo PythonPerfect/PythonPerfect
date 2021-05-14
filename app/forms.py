@@ -65,6 +65,11 @@ class AddQuestionForm(FlaskForm):
         validators=[DataRequired()])
 
     submit = SubmitField('Add')
+
+    def validate_question(self,question):
+        question = Question.query.filter_by(question = question.data).all()
+
+
 class AddContentForm(FlaskForm):
     title = StringField(
         'Title',

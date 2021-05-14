@@ -1,8 +1,8 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, AddCourseForm, AddContentForm, EditContentForm, AddQuestionForm
+from app.forms import *
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Course, Content
+from app.models import *
 from werkzeug.urls import url_parse
 
 @app.route("/deleting-user/<del_user_id>")
@@ -90,9 +90,10 @@ def course(course_id):
       db.session.add(content)
       db.session.commit()
 
-  all_content = Content.query.filter_by(course_id = course_id).all()
+  all_content = Content.query.filter(Content.course==course).all()
+  all_quiz = Quiz.query.filter(Quiz.course==course).all()
   if course is not None:
-    return render_template("course.html", course=course, title=course.title, form_content=form_content, all_content=all_content)
+    return render_template("course.html", course=course, title=course.title, form_content=form_content, all_content=all_content, all_quiz = all_quiz)
   else:
     return redirect(url_for('error404'))
 
@@ -156,12 +157,30 @@ def users():
   else:
     return redirect(url_for('dashboard'))
 
-@app.route("/quiz")
+@app.route("/quiz/<quiz_id>" , methods=["POST","GET"])
+@login_required
+def quiz(quiz_id):
+  form = AddQuestionForm()
+  quiz = Quiz.query.filter_by(id = quiz_id).first()
+  if current_user.admin and form.validate_on_submit:
+    question = Question.query.filter_by(quiz_id = quiz_id).filter_by(question=form.question.data).first()
+    if question is not None:
+      flash("Question already added")
+    else:
+      question = Question(question=form.question.data, answer=form.answer.data, quiz=quiz)
+      db.session.add(question)
+      db.session.commit
+  all_questions = Question.query.filter_by(quiz_id = quiz_id).all()
+  if question is not None:
+    return render_template("quiz.html", form=form, questions = all_questions)
+  else:
+    return redirect(url_for('error404'))
+
+"""@app.route("/quiz" , methods=["POST","GET"])
 @login_required
 def quiz():
-  form=AddQuestionForm()
-  if current_user.admin:
-    return render_template("quiz.html", form=form)
+  form = AddQuestionForm()
+  return render_template("quiz.html", form=form)"""
 
 
 

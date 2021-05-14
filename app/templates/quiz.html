@@ -4,11 +4,12 @@
     <div class="dash-course-container">
         {% if current_user.admin %}
         <div id="Content-Section" class="tabcontent active">
-            <div class="dash-course content-list-item"
+            <div class="dash-course content-list-item">
+                <a class="course-title py-blue"
+                href=""
                 data-toggle="modal" 
                 data-target="#form-quiz" 
-                data-backdrop="static">
-                <p class="course-title py-blue">Edit Quiz</p>
+                data-backdrop="static"><i class="fa fa-plus mr-2"></i>Add Question</a>
             </div>
         </div>  
 
@@ -19,6 +20,9 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Add Question and Answer to Quiz</h4>
+                        <button type="button"class="close"data-dismiss="modal"aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>    
                     </div>
                     <div class="modal-body">
                         <!-- prettier-ignore -->
