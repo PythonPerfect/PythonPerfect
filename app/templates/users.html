@@ -1,0 +1,21 @@
+{% extends "components/layout.html" %} {% block content %} {% include
+"components/alert.html" %} {% for user in users %}
+<style>
+  .users {
+    display: block;
+    border: 1px solid black;
+    padding: 5px;
+    margin: 5px;
+  }
+  .users span {
+    margin: 5px;
+  }
+</style>
+<div class="users">
+  <span>{{user.username}}</span>
+  <span>{{user.email}}</span>
+  <span>{{user.password_hash}}</span>
+  <span>{{user.admin}}</span>
+</div>
+
+{% endfor %} {{users}}{% endblock %}

@@ -4,6 +4,12 @@ env/
 # Cache
 __pycache__
 
-#misc
+# misc
 .DS_Store
 /.DS_Store
+
+# Databases
+app.db
+
+# vscode 
+.vscode
