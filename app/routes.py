@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, AddCourseForm, AddContentForm, EditContentForm, AdminRegistrationForm
+from app.forms import LoginForm, RegistrationForm, AddCourseForm, AddContentForm, EditContentForm, AdminRegistrationForm, QuizQuestionForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Course, Content
 from werkzeug.urls import url_parse
@@ -144,6 +144,12 @@ def view_content(content_id):
 @login_required
 def profile():
   return render_template("profile.html", title="Profile", user=current_user, courses=["Test 1", "Test 2"])
+
+@app.route("/quiz")
+@login_required
+def quiz():
+  form = QuizQuestionForm()
+  return render_template("quiz.html", title="Quiz", user=current_user, form=form)
 
 
 @app.route("/logout")

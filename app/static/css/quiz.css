@@ -1,0 +1,32 @@
+.quiz-container {
+    margin: auto;
+    background-color: white;
+    max-width: 50%;;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    text-align: center;
+}
+
+.quiz-response {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    text-align:center;
+}
+
+.question {
+    font-size: 2rem;
+}
+
+.question-box {
+    text-align: center;
+    font-size: 1.5rem;
+    width: 80%;
+} 
+
+@media only screen and (max-width: 768px) {
+    .quiz-container {
+      max-width: 75%;
+    }
+}
