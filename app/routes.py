@@ -212,16 +212,17 @@ def users():
 def edit_quiz(quiz_id):
   form = AddQuestionForm()
   quiz = Quiz.query.filter_by(id = quiz_id).first()
-  if current_user.admin and form.validate_on_submit:
+  
+  if current_user.admin and form.validate_on_submit():
     question = Question.query.filter_by(quiz_id = quiz_id).filter_by(question=form.question.data).first()
     if question is not None:
       flash("Question already added")
     else:
       question = Question(question=form.question.data, answer=form.answer.data, quiz=quiz)
       db.session.add(question)
-      db.session.commit
+      db.session.commit()
   all_questions = Question.query.filter_by(quiz_id = quiz_id).all()
-  if question is not None:
+  if quiz is not None:
     return render_template("edit-quiz.html", form=form, questions = all_questions)
   else:
     return redirect(url_for('error404'))

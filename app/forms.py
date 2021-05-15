@@ -92,8 +92,8 @@ class AddQuizForm(FlaskForm):
     def validate_title(self, title):
         quiz = Quiz.query.filter_by(title = title.data).first()
         if not 4 <= len(title.data) <= 50:
-            flash("The Content title must be at least 4 characters long and no more than 50 characters.", "danger") 
-            raise ValidationError('The Content title must be at least 4 characters long and no more than 50 characters.')
+            flash("The Quiz title must be at least 4 characters long and no more than 50 characters.", "danger") 
+            raise ValidationError('The Quiz title must be at least 4 characters long and no more than 50 characters.')
 
 class EditContentForm(FlaskForm):
     content = TextAreaField(
