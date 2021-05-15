@@ -27,40 +27,69 @@ def delete_course(del_course_id):
 
 @app.route("/")
 def index():
-    return render_template("index.html", title="Python Perfect")
+  if current_user.is_authenticated:
+    return redirect(url_for('dashboard'))
+  return render_template("index.html", title="Python Perfect")
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
   if current_user.is_authenticated:
-    return redirect(url_for('index'))
+    flash('Already logged in', 'info')
+    return redirect(url_for('dashboard'))
   form = LoginForm()
   if form.validate_on_submit():
     #ADD EMAIL LOGIN SUPPORT LATER
     user = User.query.filter_by(username = form.username.data).first()
     if user is None or not user.check_password(form.password.data):
-      flash('Invalid username or password')
+      flash('Invalid username or password', 'danger')
       return redirect(url_for('login'))
     login_user(user, remember=False)
     page_next = request.args.get('next')
     if not page_next or url_parse(page_next).netloc != '':
       page_next = url_for('dashboard')
+      flash('Login successful', 'success')
     return redirect(page_next)
   return render_template('login.html', title='Sign In', form=form)
 
 @app.route("/signup", methods=["POST", "GET"])
 def signup():
   if current_user.is_authenticated:
-    return redirect(url_for('index'))
+    flash('Already logged in', 'info')
+    return redirect(url_for('dashboard'))
   form = RegistrationForm()
   if form.validate_on_submit():
-    user = User(username=form.username.data, email=form.email.data, admin=form.admin.data)
+    user = User(username=form.username.data, email=form.email.data)
     user.set_password(form.password.data)
     db.session.add(user)
     db.session.commit()
 
     login_user(user, remember=False)
-    flash('Welcome, registration complete!')
+    flash('Welcome, registration complete!', 'success')
     return redirect(url_for('dashboard'))
+  return render_template('signup.html', title='Signup', form=form)
+
+@app.route("/registerAdmin", methods=["POST", "GET"])
+def registerAdmin():
+  if current_user.is_authenticated:
+    flash('Already logged in', 'info')
+    return redirect(url_for('dashboard'))
+  
+  form = AdminRegistrationForm()
+  
+  if form.validate_on_submit():
+    if app.config["ADMIN_KEY"]==form.specialPassword.data:
+      user = User(username=form.username.data, email=form.email.data, admin=True)
+      user.set_password(form.password.data)
+      db.session.add(user)
+      db.session.commit()
+
+      login_user(user, remember=False)
+      flash('Welcome, registered as an Admin!', 'success')
+      return redirect(url_for('dashboard'))
+
+    else:
+      flash('Incorrect Admin key', 'danger')
+
   return render_template('signup.html', title='Signup', form=form)
 
 @app.route("/dashboard", methods=["POST", "GET"])
@@ -84,7 +113,7 @@ def course(course_id):
   if form_content.validate_on_submit():
     content = Content.query.filter_by(course_id = course_id).filter_by(title=form_content.title.data).first()
     if content is not None:
-      flash("Content already added.")
+      flash("Content already added.", 'info')
     else:
       content = Content(title=form_content.title.data, course_id=course_id, text="")
       db.session.add(content)
@@ -93,7 +122,7 @@ def course(course_id):
   all_content = Content.query.filter(Content.course==course).all()
   all_quiz = Quiz.query.filter(Quiz.course==course).all()
   if course is not None:
-    return render_template("course.html", course=course, title=course.title, form_content=form_content, all_content=all_content, all_quiz = all_quiz)
+    return render_template("course.html", course=course, title=course.title, form_content=form_content, all_content=all_content, quiz = all_quiz)
   else:
     return redirect(url_for('error404'))
 
@@ -117,6 +146,7 @@ def edited(content_id):
   if form.validate_on_submit():
     content.text = form.content.data
     db.session.commit()
+    flash('Edits saved successfully!', 'success')
   
   print(content.text)
 
@@ -136,11 +166,18 @@ def view_content(content_id):
 def profile():
   return render_template("profile.html", title="Profile", user=current_user, courses=["Test 1", "Test 2"])
 
+@app.route("/quiz")
+@login_required
+def quiz():
+  form = QuizQuestionForm()
+  return render_template("quiz.html", title="Quiz", user=current_user, form=form)
+
 
 @app.route("/logout")
 @login_required
 def logout():
   logout_user()
+  flash('Logged out succesfully', 'success')
   return redirect(url_for('index'))
 
 @app.errorhandler(404)
@@ -157,9 +194,9 @@ def users():
   else:
     return redirect(url_for('dashboard'))
 
-@app.route("/quiz/<quiz_id>" , methods=["POST","GET"])
+@app.route("/edit-quiz/<quiz_id>" , methods=["POST","GET"])
 @login_required
-def quiz(quiz_id):
+def edit_quiz(quiz_id):
   form = AddQuestionForm()
   quiz = Quiz.query.filter_by(id = quiz_id).first()
   if current_user.admin and form.validate_on_submit:

@@ -25,8 +25,6 @@ class RegistrationForm(FlaskForm):
 
     re_password = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
 
-    admin= BooleanField('Admin')
-
     submit = SubmitField('Register')
 
     def validate_username(self, username):
@@ -50,10 +48,10 @@ class AddCourseForm(FlaskForm):
     def validate_title(self, title):
         course = Course.query.filter_by(title = title.data).first()
         if course is not None:
-            flash("Course already added. Please add another course.")
+            flash("Course already added. Please add another course.", "danger")
             raise ValidationError('Course already added. Please add another course.')
         elif not 4 <= len(title.data) <= 50:
-            flash("The Course title must be at least 4 characters long and no more than 50 characters.") 
+            flash("The Course title must be at least 4 characters long and no more than 50 characters.", "danger") 
             raise ValidationError('The Course title must be at least 4 characters long and no more than 50 characters.')
 
 class AddQuestionForm(FlaskForm):
@@ -80,7 +78,7 @@ class AddContentForm(FlaskForm):
     def validate_title(self, title):
         content = Content.query.filter_by(title = title.data).first()
         if not 4 <= len(title.data) <= 50:
-            flash("The Content title must be at least 4 characters long and no more than 50 characters.") 
+            flash("The Content title must be at least 4 characters long and no more than 50 characters.", "danger") 
             raise ValidationError('The Content title must be at least 4 characters long and no more than 50 characters.')
 
 class EditContentForm(FlaskForm):
@@ -93,3 +91,15 @@ class EditContentForm(FlaskForm):
     def validate_title(self, content):
         pass
             
+
+class QuizQuestionForm(FlaskForm):
+    answer = StringField(
+        'Answer',
+        validators=[DataRequired()])
+
+    submit = SubmitField('Continue')
+
+    def validate_title(self):
+        pass
+class AdminRegistrationForm(RegistrationForm):
+    specialPassword = PasswordField('Special Password', [DataRequired()])
