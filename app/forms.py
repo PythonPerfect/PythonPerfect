@@ -54,6 +54,7 @@ class AddCourseForm(FlaskForm):
             flash("The Course title must be at least 4 characters long and no more than 50 characters.", "danger") 
             raise ValidationError('The Course title must be at least 4 characters long and no more than 50 characters.')
 
+
 class AddQuestionForm(FlaskForm):
     question = TextAreaField(
         'Question',
@@ -77,6 +78,19 @@ class AddContentForm(FlaskForm):
 
     def validate_title(self, title):
         content = Content.query.filter_by(title = title.data).first()
+        if not 4 <= len(title.data) <= 50:
+            flash("The Content title must be at least 4 characters long and no more than 50 characters.", "danger") 
+            raise ValidationError('The Content title must be at least 4 characters long and no more than 50 characters.')
+
+class AddQuizForm(FlaskForm):
+    title = StringField(
+        'Title',
+        validators=[DataRequired()])
+
+    submit = SubmitField('Add')
+
+    def validate_title(self, title):
+        quiz = Quiz.query.filter_by(title = title.data).first()
         if not 4 <= len(title.data) <= 50:
             flash("The Content title must be at least 4 characters long and no more than 50 characters.", "danger") 
             raise ValidationError('The Content title must be at least 4 characters long and no more than 50 characters.')
