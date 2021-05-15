@@ -172,7 +172,7 @@ def quiz(quiz_id):
       db.session.commit
   all_questions = Question.query.filter_by(quiz_id = quiz_id).all()
   if question is not None:
-    return render_template("quiz.html", form=form, questions = all_questions)
+    return render_template("edit-quiz.html", form=form, questions = all_questions)
   else:
     return redirect(url_for('error404'))
 
