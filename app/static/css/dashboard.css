@@ -140,6 +140,16 @@
   color: #ffd43b;
 }
 
+.course-del {
+  float: right;
+  color: red;
+}
+
+.course-edit {
+  float: right;
+  color: green;
+}
+
 .tabcontent {
   display: none;
   border-top: none;

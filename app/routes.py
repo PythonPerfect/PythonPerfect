@@ -1,9 +1,29 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, AddCourseForm, AddContentForm, EditContentForm, AdminRegistrationForm, QuizQuestionForm
+from app.forms import *
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Course, Content
+from app.models import *
 from werkzeug.urls import url_parse
+
+@app.route("/deleting-user/<del_user_id>")
+@login_required
+def delete_user(del_user_id):
+  if current_user.admin:
+    user = User.query.filter_by(id = del_user_id).first()
+
+    db.session.delete(user)
+    db.session.commit()
+    return redirect(url_for('users'))
+
+@app.route("/deleting-course/<del_course_id>")
+@login_required
+def delete_course(del_course_id):
+  if current_user.admin:
+    course = Course.query.filter_by(id = del_course_id).first()
+
+    db.session.delete(course)
+    db.session.commit()
+    return redirect(url_for('dashboard'))
 
 @app.route("/")
 def index():
@@ -88,20 +108,34 @@ def dashboard():
 @app.route("/course/<course_id>", methods=["POST", "GET"])
 @login_required
 def course(course_id):
-  form_content = AddContentForm()
   course = Course.query.filter_by(id = course_id).first()
-  if form_content.validate_on_submit():
+  form_content = AddContentForm()
+  form_quiz = AddQuizForm()
+  
+  # for adding content
+  if form_content.submit.data and form_content.validate():
     content = Content.query.filter_by(course_id = course_id).filter_by(title=form_content.title.data).first()
     if content is not None:
       flash("Content already added.", 'info')
     else:
-      content = Content(title=form_content.title.data, course_id=course_id, text="")
+      content = Content(title=form_content.title.data, course_id=course_id, text=form_content.title.data)
       db.session.add(content)
       db.session.commit()
 
-  all_content = Content.query.filter_by(course_id = course_id).all()
+  # for adding quizzes
+  if form_quiz.submit.data and form_quiz.validate():
+    quiz = Quiz.query.filter_by(course_id = course.id).filter_by(title=form_quiz.title.data).first()
+    if quiz is not None:
+      flash("Quiz already added.", 'info')
+    else:
+      quiz = Quiz(title=form_quiz.title.data, course_id=course_id)
+      db.session.add(quiz)
+      db.session.commit()
+
+  all_content = Content.query.filter(Content.course==course).all()
+  all_quiz = Quiz.query.filter(Quiz.course==course).all()
   if course is not None:
-    return render_template("course.html", course=course, title=course.title, form_content=form_content, all_content=all_content)
+    return render_template("course.html", course=course, title=course.title, form_content=form_content, form_quiz=form_quiz, all_content=all_content, all_quiz = all_quiz)
   else:
     return redirect(url_for('error404'))
 
@@ -173,6 +207,25 @@ def users():
   else:
     return redirect(url_for('dashboard'))
 
+@app.route("/edit-quiz/<quiz_id>" , methods=["POST","GET"])
+@login_required
+def edit_quiz(quiz_id):
+  form = AddQuestionForm()
+  quiz = Quiz.query.filter_by(id = quiz_id).first()
+  
+  if current_user.admin and form.validate_on_submit():
+    question = Question.query.filter_by(quiz_id = quiz_id).filter_by(question=form.question.data).first()
+    if question is not None:
+      flash("Question already added")
+    else:
+      question = Question(question=form.question.data, answer=form.answer.data, quiz=quiz)
+      db.session.add(question)
+      db.session.commit()
+  all_questions = Question.query.filter_by(quiz_id = quiz_id).all()
+  if quiz is not None:
+    return render_template("edit-quiz.html", form=form, questions = all_questions)
+  else:
+    return redirect(url_for('error404'))
 
 
 

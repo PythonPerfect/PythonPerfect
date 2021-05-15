@@ -2,7 +2,7 @@ from flask import flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, ValidationError, DataRequired, Email, EqualTo, Length, Regexp
-from app.models import User, Course, Content
+from app.models import *
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -54,6 +54,21 @@ class AddCourseForm(FlaskForm):
             flash("The Course title must be at least 4 characters long and no more than 50 characters.", "danger") 
             raise ValidationError('The Course title must be at least 4 characters long and no more than 50 characters.')
 
+
+class AddQuestionForm(FlaskForm):
+    question = TextAreaField(
+        'Question',
+        validators=[DataRequired()])
+    answer = StringField(
+        'Answer',
+        validators=[DataRequired()])
+
+    submit = SubmitField('Add')
+
+    def validate_question(self,question):
+        question = Question.query.filter_by(question = question.data).all()
+
+
 class AddContentForm(FlaskForm):
     title = StringField(
         'Title',
@@ -66,6 +81,19 @@ class AddContentForm(FlaskForm):
         if not 4 <= len(title.data) <= 50:
             flash("The Content title must be at least 4 characters long and no more than 50 characters.", "danger") 
             raise ValidationError('The Content title must be at least 4 characters long and no more than 50 characters.')
+
+class AddQuizForm(FlaskForm):
+    title = StringField(
+        'Title',
+        validators=[DataRequired()])
+
+    submit = SubmitField('Add')
+
+    def validate_title(self, title):
+        quiz = Quiz.query.filter_by(title = title.data).first()
+        if not 4 <= len(title.data) <= 50:
+            flash("The Quiz title must be at least 4 characters long and no more than 50 characters.", "danger") 
+            raise ValidationError('The Quiz title must be at least 4 characters long and no more than 50 characters.')
 
 class EditContentForm(FlaskForm):
     content = TextAreaField(
