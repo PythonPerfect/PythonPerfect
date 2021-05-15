@@ -176,12 +176,6 @@ def quiz(quiz_id):
   else:
     return redirect(url_for('error404'))
 
-"""@app.route("/quiz" , methods=["POST","GET"])
-@login_required
-def quiz():
-  form = AddQuestionForm()
-  return render_template("quiz.html", form=form)"""
-
 
 
 # FOR TESTING PURPOSES ONLY
