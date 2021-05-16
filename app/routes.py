@@ -188,6 +188,15 @@ def quiz(quiz_id):
   form = QuizQuestionForm()
   return render_template("quiz.html", title="Quiz", form=form, questions=questions)
 
+@app.route("/submit_answer", methods=['GET', 'POST'])
+def submit_answer(self):
+  user = current_user
+  user_response = request.form['#user-response']
+  question_str = self.request.get('question')
+  question=Question.query.filter_by(question=question_str)
+  add_new_question_response(user_response, question, user)
+  
+
 @app.route("/logout")
 @login_required
 def logout():

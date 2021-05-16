@@ -15,3 +15,17 @@ function openSection(evt, sectionNames) {
   }
   evt.currentTarget.className += " active";
 }
+
+$(document).ready(function() {
+  $('#submit').click(function() {
+    var question = getElementsByClassName('question');
+    $.post("/submit_answer"), 
+      {
+        question: question,
+      },
+      function () {
+        console.log("success")
+      };
+  });
+
+});
