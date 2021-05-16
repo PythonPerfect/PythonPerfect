@@ -172,9 +172,13 @@ def edited(content_id):
 @login_required
 def view_content(content_id):
   content = Content.query.filter_by(id = content_id).first()
-  x = content.contents_viewed
+  all_viewed = get_all_content_viewed()
+  user_view = get_user_content_viewed(current_user,content)
+  viewed_content = Content_Viewed(user_id=current_user.id, viewed=True, content_id=content.id)
+  if user_view is not None:
+    add_to_database(viewed_content)
 
-  return render_template("view-content.html", content=content, title=content.title,x=x)
+  return render_template("view-content.html", content=content, title=content.title)
 
 
 @app.route("/profile")
@@ -182,7 +186,8 @@ def view_content(content_id):
 def profile():
   all_courses = Course.query.all()
   all_content = Content.query.all()
-  return render_template("profile.html", title="Profile", user=current_user, courses=all_courses,no_of_courses=len(all_courses), no_of_con=len(all_content),content_seen=1)
+  all_viewed = get_all_content_viewed()
+  return render_template("profile.html", title="Profile", user=current_user, courses=all_courses,no_of_courses=len(all_courses), no_of_con=len(all_content),content_seen=1,all_viewed=len(all_viewed))
 
 @app.route("/quiz")
 @login_required
