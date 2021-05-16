@@ -4,6 +4,7 @@ from app.forms import *
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import *
 from werkzeug.urls import url_parse
+from app.controller import *
 
 @app.route("/deleting-user/<del_user_id>")
 @login_required
@@ -97,13 +98,10 @@ def registerAdmin():
 @login_required
 def dashboard():
   form = AddCourseForm()
-  content_form = AddContentForm()
   if form.validate_on_submit():
     course = Course(title=form.title.data)
-    content = Content(title=content_form.title.data)
     db.session.add(course)
     db.session.commit()
-
   all_courses = Course.query.all()
   all_content = Content.query.all()
   return render_template("dashboard.html", title="Dashboard", form=form, courses=all_courses, no_of_con=len(all_content), content_seen=0)
@@ -174,16 +172,17 @@ def edited(content_id):
 @login_required
 def view_content(content_id):
   content = Content.query.filter_by(id = content_id).first()
+  x = content.contents_viewed
 
-  return render_template("view-content.html", content=content, title=content.title)
+  return render_template("view-content.html", content=content, title=content.title,x=x)
 
 
 @app.route("/profile")
 @login_required
 def profile():
-  form = AddCourseForm()
   all_courses = Course.query.all()
-  return render_template("profile.html", title="Profile", user=current_user, courses=all_courses,no_of_courses=len(all_courses))
+  all_content = Content.query.all()
+  return render_template("profile.html", title="Profile", user=current_user, courses=all_courses,no_of_courses=len(all_courses), no_of_con=len(all_content),content_seen=1)
 
 @app.route("/quiz")
 @login_required

@@ -49,8 +49,8 @@
             <li class="dash-course content-list-item">
               <div>
                 <p class="course-title py-blue">{{course.title}}</p>
-                <progress class="course-progress" value=0.5 max=no_of_courses>32%</progress>
-                <p class="course-score">{{no_of_courses}} Completed</p>
+                <progress class="course-progress" value={{content_seen}} max={{no_of_con}}>32%</progress>
+                <p class="course-score">{{content_seen}}/{{no_of_con}} Completed</p>
                 <a
                   ><span class="course-button btn btn-outline py-btn-blue"
                     >View</span
