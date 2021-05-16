@@ -25,18 +25,18 @@
                     {{user.email}}
                 </p>
             
-                <p class="py-blue">
-                    Course completion
+                <p class="py-blue mb-2">
+                  Content Completed
                 </p>
-                <progress class="course-progress" value={{all_viewed}} max={{no_of_courses}}>32%</progress>
-                <p class="py-blue">
-                Quiz completion 
+                <progress class="course-progress mb-4" value={{all_viewed}} max={{all_content}}>{{all_viewed/all_content}}</progress>
+                <p class="py-blue mb-2">
+                  Quiz completion 
                 </p>
-                <progress class="course-progress" value="80" max="100">32%</progress>
-                <p class="py-blue">
-                    Total completion
+                <progress class="course-progress mb-4" value="80" max="100">32%</progress>
+                <p class="py-blue mb-2">
+                  Total completion
                 </p>
-                <progress class="course-progress" value="80" max="100">32%</progress>
+                <progress class="course-progress mb-4" value="80" max="100">32%</progress>
             </div>
         </div>
         
