@@ -80,7 +80,7 @@
           </div>
           <div class="modal-body">
             <!-- prettier-ignore -->
-            <form name="add-content-form" method="POST">
+            <form name="add-content-form" action="{{url_for('add_content', course_id=course.id)}}" method="POST">
               {{ form_content.hidden_tag() }}
 
               {{form_content.title(class="login-input", 
@@ -107,7 +107,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <p class="modal-title py-blue">Add New Content</p>
+            <p class="modal-title py-blue">Add a New Quiz</p>
             <button
               type="button"
               class="close"
@@ -119,7 +119,7 @@
           </div>
           <div class="modal-body">
             <!-- prettier-ignore -->
-            <form name="add-content-form" method="POST">
+            <form name="add-content-form" action="{{url_for('add_quiz', course_id=course.id)}}" method="POST">
               {{ form_quiz.hidden_tag() }}
 
               {{form_quiz.title(class="login-input", 

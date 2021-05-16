@@ -112,32 +112,39 @@ def course(course_id):
   form_content = AddContentForm()
   form_quiz = AddQuizForm()
   
-  # for adding content
-  if form_content.submit.data and form_content.validate():
-    content = Content.query.filter_by(course_id = course_id).filter_by(title=form_content.title.data).first()
-    if content is not None:
-      flash("Content already added.", 'info')
-    else:
-      content = Content(title=form_content.title.data, course_id=course_id, text=form_content.title.data)
-      db.session.add(content)
-      db.session.commit()
-
-  # for adding quizzes
-  if form_quiz.submit.data and form_quiz.validate():
-    quiz = Quiz.query.filter_by(course_id = course.id).filter_by(title=form_quiz.title.data).first()
-    if quiz is not None:
-      flash("Quiz already added.", 'info')
-    else:
-      quiz = Quiz(title=form_quiz.title.data, course_id=course_id)
-      db.session.add(quiz)
-      db.session.commit()
-
   all_content = Content.query.filter(Content.course==course).all()
   all_quiz = Quiz.query.filter(Quiz.course==course).all()
   if course is not None:
     return render_template("course.html", course=course, title=course.title, form_content=form_content, form_quiz=form_quiz, all_content=all_content, all_quiz = all_quiz)
   else:
     return redirect(url_for('error404'))
+
+@app.route("/add-content/<course_id>", methods=["POST", "GET"])
+def add_content(course_id):
+  form_content = AddContentForm()
+  if form_content.validate_on_submit():
+    content = Content.query.filter_by(course_id = course_id).filter_by(title=form_content.title.data).first()
+  if content is not None:
+      flash("Content already added.", 'info')
+  else:
+      content = Content(title=form_content.title.data, course_id=course_id, text=form_content.title.data)
+      db.session.add(content)
+      db.session.commit()
+  return redirect(url_for('course', course_id = course_id))
+
+@app.route("/add-quiz/<course_id>", methods=["POST", "GET"])
+def add_quiz(course_id):
+  form_quiz = AddQuizForm()
+  if form_quiz.validate_on_submit():
+    quiz = Quiz.query.filter_by(course_id = course_id).filter_by(title=form_quiz.title.data).first()
+  if quiz is not None:
+      flash("Quiz already added.", 'info')
+  else:
+      quiz = Quiz(title=form_quiz.title.data, course_id=course_id)
+      db.session.add(quiz)
+      db.session.commit()
+  return redirect(url_for('course', course_id = course_id))
+
 
 @app.route("/edit-content/<content_id>", methods=["POST", "GET"])
 @login_required
