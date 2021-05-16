@@ -1,14 +1,68 @@
-section {
+.home-container {
+  min-height: 100vh;
   flex-direction: column;
   display: flex;
 }
 
-.home-content {
-  width: 100%;
+.home-first {
+  flex-direction: row;
+  display: flex;
+  height: 40vh;
+  min-height: 300px;
 }
 
-.home-textarea {
-  padding: 5%;
+.home-title-container {
+  width: 50vw;
+  text-align: center;
+  margin-top: 50px;
+  min-height: 20vh;
+}
+
+.home-effect-container {
+  width: 50vw;
+  min-height: 20vh;
+}
+
+.home-effect-container pre {
+  font-size: 1.25vw;
+  margin: 10vh 0 0 6vw;
+}
+
+.home-second {
+  text-align: center;
+  font-size: 26px;
+  color: white;
+  font-weight: 500;
+}
+
+.home-second p {
+  width: 40vw;
+  max-width: 600px;
+  margin: 50px auto;
+}
+
+.home-info-list {
+  flex-direction: row;
+  display: flex;
+  padding: 100px;
+  margin: auto;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.home-info-box {
+  list-style: none;
+  text-align: center;
+  width: 30vw;
+  max-width: 300px;
+  min-width: 200px;
+  padding: 50px;
+  border: 1px solid #4b8bbe;
+  background-color: white;
+}
+
+.home-logo {
+  height: 50px;
 }
 
 .home-title {
@@ -21,18 +75,23 @@ section {
   font-weight: 500;
 }
 
-.home-info {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: white;
-  text-align: right;
-  max-width: 40vw;
-  margin-left: auto;
-}
+@media only screen and (max-width: 768px) {
+  .home-first {
+    flex-direction: column !important;
+    height: auto;
+  }
 
-@media only screen and (max-width: 990px) {
-  .home-textarea {
-    padding: 10%;
+  .home-title-container {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .home-effect-container {
+    width: 100%;
+  }
+
+  .home-logo {
+    height: 40px;
   }
 
   .home-title {
@@ -45,8 +104,36 @@ section {
     font-weight: 500;
   }
 
-  .home-info {
-    max-width: 80vw;
-    font-size: 1.25rem;
+  .home-effect-container pre {
+    font-size: 1rem;
+    margin: 50px 0 0 20px;
+  }
+
+  .home-second {
+    height: auto;
+    font-size: 16px;
+  }
+
+  .home-second p {
+    width: 80vw;
+  }
+
+  .home-info-list {
+    flex-direction: column !important;
+    display: flex;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .home-info-box {
+    width: 100vw;
+    margin: 20px auto;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .home-effect-container pre {
+    font-size: 13px;
+    margin: 50px 0 0 20px;
   }
 }
