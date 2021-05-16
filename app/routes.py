@@ -183,7 +183,7 @@ def view_content(content_id):
 def profile():
   form = AddCourseForm()
   all_courses = Course.query.all()
-  return render_template("profile.html", title="Profile", user=current_user, courses=["Test 1", "Test 2"],no_of_courses=len(all_courses))
+  return render_template("profile.html", title="Profile", user=current_user, courses=all_courses,no_of_courses=len(all_courses))
 
 @app.route("/quiz")
 @login_required
