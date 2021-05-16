@@ -202,8 +202,10 @@ def error404(error=404):
 @app.route("/users")
 def users():
   if current_user.is_authenticated and current_user.admin:
-    users = User.query.all()
-    return render_template("users.html", users=users)
+    users = User.query.filter_by(admin=False)
+    admins = User.query.filter_by(admin=True)
+
+    return render_template("users.html", users=users, admins=admins)
   else:
     return redirect(url_for('dashboard'))
 
