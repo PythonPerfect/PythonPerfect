@@ -176,7 +176,7 @@
               <i class="fa fa-edit p-1 course-edit"></i>
             </a>
             <p class="course-title py-blue">{{quiz.title}}</p>
-            <a
+            <a href="{{url_for('quiz', quiz_id = quiz.id)}}"
               ><span class="course-button btn btn-outline py-btn-blue"
                 >Attempt</span
               ></a

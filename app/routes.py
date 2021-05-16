@@ -4,6 +4,7 @@ from app.forms import *
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import *
 from werkzeug.urls import url_parse
+from app.controller import *
 
 @app.route("/deleting-user/<del_user_id>")
 @login_required
@@ -124,9 +125,9 @@ def add_content(course_id):
   form_content = AddContentForm()
   if form_content.validate_on_submit():
     content = Content.query.filter_by(course_id = course_id).filter_by(title=form_content.title.data).first()
-  if content is not None:
+    if content is not None:
       flash("Content already added.", 'info')
-  else:
+    else:
       content = Content(title=form_content.title.data, course_id=course_id, text=form_content.title.data)
       db.session.add(content)
       db.session.commit()
@@ -137,9 +138,9 @@ def add_quiz(course_id):
   form_quiz = AddQuizForm()
   if form_quiz.validate_on_submit():
     quiz = Quiz.query.filter_by(course_id = course_id).filter_by(title=form_quiz.title.data).first()
-  if quiz is not None:
+    if quiz is not None:
       flash("Quiz already added.", 'info')
-  else:
+    else:
       quiz = Quiz(title=form_quiz.title.data, course_id=course_id)
       db.session.add(quiz)
       db.session.commit()
@@ -186,11 +187,13 @@ def view_content(content_id):
 def profile():
   return render_template("profile.html", title="Profile", user=current_user, courses=["Test 1", "Test 2"])
 
-@app.route("/quiz")
+@app.route("/quiz/<quiz_id>")
 @login_required
-def quiz():
+def quiz(quiz_id):
   form = QuizQuestionForm()
-  return render_template("quiz.html", title="Quiz", user=current_user, form=form)
+  quiz = get_quiz_by_id(quiz_id)
+  questions = get_question_by_quiz(quiz)
+  return render_template("quiz.html", title="Quiz", quiz=quiz, questions=questions, user=current_user, form=form)
 
 
 @app.route("/logout")
@@ -236,7 +239,13 @@ def edit_quiz(quiz_id):
   else:
     return redirect(url_for('error404'))
 
+@app.route("/submit-answer/<question_id>", methods=["POST", "GET"])
+@login_required
+def submit_answer(question_id):
+  question = get_question_by_id(question_id)
+  quiz = get_quiz_by_id(question.quiz_id)
 
+  return redirect(url_for("quiz", quiz_id = quiz.id))
 
 # FOR TESTING PURPOSES ONLY
 @app.route("/delhalfusers")
