@@ -2,7 +2,7 @@
   min-height: 100vh;
 }
 
-/* .quiz-box {
+.quiz-box {
   background-color: white;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
   padding: 20px 40px;
@@ -13,7 +13,7 @@
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
   padding: 20px;
   text-align: center;
-} */
+}
 
 .quiz-response {
   margin: auto;

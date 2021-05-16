@@ -1,8 +1,9 @@
-from flask import Flask, render_template, redirect, url_for, request, session, flash
+from flask import Flask, render_template, redirect, url_for, request, session, flash, jsonify
 from app import app, db
 from app.forms import *
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import *
+from app.controller import *
 from werkzeug.urls import url_parse
 
 @app.route("/deleting-user/<del_user_id>")
@@ -179,12 +180,13 @@ def view_content(content_id):
 def profile():
   return render_template("profile.html", title="Profile", user=current_user, courses=["Test 1", "Test 2"])
 
-@app.route("/quiz")
+@app.route("/quiz/<quiz_id>")
 @login_required
-def quiz():
+def quiz(quiz_id):
+  qz= get_quiz_by_id(quiz_id=quiz_id)
+  questions = get_question_by_quiz(qz)
   form = QuizQuestionForm()
-  return render_template("quiz.html", title="Quiz", user=current_user, form=form)
-
+  return render_template("quiz.html", title="Quiz", form=form, questions=questions)
 
 @app.route("/logout")
 @login_required
