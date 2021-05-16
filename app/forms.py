@@ -111,9 +111,11 @@ class QuizQuestionForm(FlaskForm):
         'Answer',
         validators=[DataRequired()])
 
-    submit = SubmitField('Check')
+    submit = SubmitField('Save')
 
-    def validate_title(self):
-        pass
+    def validate_answer(self, answer):
+        if not answer:
+            flash("write your answer", "info")
+
 class AdminRegistrationForm(RegistrationForm):
     specialPassword = PasswordField('Special Password', [DataRequired()])

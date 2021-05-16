@@ -193,6 +193,7 @@ def quiz(quiz_id):
   form = QuizQuestionForm()
   quiz = get_quiz_by_id(quiz_id)
   questions = get_question_by_quiz(quiz)
+
   return render_template("quiz.html", title="Quiz", quiz=quiz, questions=questions, user=current_user, form=form)
 
 
@@ -242,10 +243,21 @@ def edit_quiz(quiz_id):
 @app.route("/submit-answer/<question_id>", methods=["POST", "GET"])
 @login_required
 def submit_answer(question_id):
+  form = QuizQuestionForm()
+
   question = get_question_by_id(question_id)
   quiz = get_quiz_by_id(question.quiz_id)
 
+  if form.validate_on_submit():
+    session[question_id] = form.answer.data
+
   return redirect(url_for("quiz", quiz_id = quiz.id))
+
+@app.route("/submit_quiz", methods=["POST", "GET"])
+@login_required
+def submit_quiz():
+  return ""
+
 
 # FOR TESTING PURPOSES ONLY
 @app.route("/delhalfusers")

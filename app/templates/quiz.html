@@ -5,7 +5,7 @@
     <p class="dash-title typewriter">Quiz</p>
     <p class="dash-subtitle">Attempt the quiz!</p>
   </div>
-
+  {{session}}
   <!--prettier-ignore-->
   <div class="quiz-container">
     <div class="question-container">
@@ -14,18 +14,19 @@
         </div>
 
         <div class="quiz-response">
-          {% for question in questions %}
-          <form action="{{url_for('submit_answer', question_id = question.id)}}">
-            <label>{{question.question}}</label>
-            {{ form.hidden_tag() }}
+            {% for question in questions %}
+            <form action="{{url_for('submit_answer', question_id = question.id)}}" method="POST">
+              <label>{{question.question}}</label>
+              {{ form.hidden_tag() }}
+              
+              {{ form.answer(class="login-input",
+              placeholder="Your answer goes here...") }}
+              <br /> <br />
+              {{ form.submit()}}
+            </form>
+            {% endfor %}
 
-            {{ form.answer(class="login-input",
-                            placeholder="Your answer goes here...") }}
-            <br /> <br />
-            {{ form.submit()}}
-          </form>
-          {% endfor %}
-        </div>
+          </div>
 
     </div>
 </div>
