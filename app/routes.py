@@ -24,6 +24,7 @@ def delete_course(del_course_id):
     db.session.delete(course)
     db.session.commit()
     return redirect(url_for('dashboard'))
+    
 
 @app.route("/")
 def index():
@@ -96,13 +97,16 @@ def registerAdmin():
 @login_required
 def dashboard():
   form = AddCourseForm()
+  content_form = AddContentForm()
   if form.validate_on_submit():
     course = Course(title=form.title.data)
+    content = Content(title=content_form.title.data)
     db.session.add(course)
     db.session.commit()
 
   all_courses = Course.query.all()
-  return render_template("dashboard.html", title="Dashboard", form=form, courses=all_courses)
+  all_content = Content.query.all()
+  return render_template("dashboard.html", title="Dashboard", form=form, courses=all_courses, no_of_con=len(all_content), content_seen=0)
 
 
 @app.route("/course/<course_id>", methods=["POST", "GET"])
@@ -177,7 +181,9 @@ def view_content(content_id):
 @app.route("/profile")
 @login_required
 def profile():
-  return render_template("profile.html", title="Profile", user=current_user, courses=["Test 1", "Test 2"])
+  form = AddCourseForm()
+  all_courses = Course.query.all()
+  return render_template("profile.html", title="Profile", user=current_user, courses=["Test 1", "Test 2"],no_of_courses=len(all_courses))
 
 @app.route("/quiz")
 @login_required
