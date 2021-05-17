@@ -48,7 +48,7 @@ class Content(db.Model):
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
 
     #Backref
-    contents_viewed = db.relationship('Content_Viewed', backref='content', lazy='dynamic',)
+    contents_viewed = db.relationship('Content_Viewed', backref='content', lazy='dynamic')
 
     def __repr__(self):
         return '<Content {}>'.format(self.title)
