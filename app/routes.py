@@ -114,28 +114,27 @@ def course(course_id):
 
 @app.route("/course/content/add/<course_id>", methods=["POST", "GET"])
 def add_content(course_id):
-  form_content = AddContentForm()
-  if form_content.validate_on_submit():
-    content = Content.query.filter_by(course_id = course_id).filter_by(title=form_content.title.data).first()
+  form = AddContentForm()
+  course = get_course_by_id(course_id)
+  if form.validate_on_submit():
+    content = get_content_by_course_n_title(course, form.title.data)
     if content is not None:
       flash("Content already added.", 'info')
     else:
-      content = Content(title=form_content.title.data, course_id=course_id, text=form_content.title.data)
-      db.session.add(content)
-      db.session.commit()
+      default_text = "<h1>" + form.title.data + "</h1>"
+      add_new_content(form.title.data, default_text, course)
   return redirect(url_for('course', course_id = course_id))
 
 @app.route("/course/quiz/add/<course_id>", methods=["POST", "GET"])
 def add_quiz(course_id):
-  form_quiz = AddQuizForm()
-  if form_quiz.validate_on_submit():
-    quiz = Quiz.query.filter_by(course_id = course_id).filter_by(title=form_quiz.title.data).first()
+  form = AddQuizForm()
+  course = get_course_by_id(course_id)
+  if form.validate_on_submit():
+    quiz = get_quiz_by_course_n_title(course, form.title.data)
     if quiz is not None:
       flash("Quiz already added.", 'info')
     else:
-      quiz = Quiz(title=form_quiz.title.data, course_id=course_id)
-      db.session.add(quiz)
-      db.session.commit()
+      add_new_quiz(form.title.data, course)
   return redirect(url_for('course', course_id = course_id))
 # -----------------------------------------------------------------------------
 
@@ -194,7 +193,7 @@ def edit_quiz(quiz_id):
       flash("Question already added")
     else:
       add_new_question(form.question.data, form.answer.data, quiz)
-  all_questions = get_question_by_quiz(quiz)
+  all_questions = get_questions_by_quiz(quiz)
   if quiz is not None:
     return render_template("edit-quiz.html", form=form, questions = all_questions)
   else:
@@ -209,18 +208,19 @@ def profile():
 
 # Users
 @app.route("/users")
+@login_required
 def users():
-  if current_user.is_authenticated and current_user.admin:
-
-    users = User.query.filter_by(admin=False)
-    admins = User.query.filter_by(admin=True)
+  if current_user.admin:
+    
+    users = get_nonadmins()
+    admins = get_admins()
 
     return render_template("users.html", users=users, admins=admins)
   else:
     return redirect(url_for('dashboard'))
 
 
-# Deleting related routes
+# Delete related routes
 # -----------------------------------------------------------------------------
 @app.route("/delete/user/<del_user_id>")
 @login_required
@@ -241,35 +241,6 @@ def delete_course(del_course_id):
       flash('Course cannot be deleted. Remove all content and quizzes before deleting.', "danger" )
   return redirect(url_for('dashboard'))
 # -----------------------------------------------------------------------------
-
-# FOR TESTING PURPOSES ONLY
-@app.route("/delhalfusers")
-def delete_all_users():
-  x = input("Please confirm you want to delete all users: ")
-    
-  if x == "confirm":
-    users = User.query.all()
-    import math
-    num = math.ceil(len(users) / 2)
-    for i in range(num):
-      u = users[i]
-      db.session.delete(u)
-      db.session.commit()
-  return redirect(url_for('index'))
-
-@app.route("/delhalfcourses")
-def delete_all_courses():
-  x = input("Please confirm you want to delete all courses: ")
-    
-  if x == "confirm":
-    users = Course.query.all()
-    import math
-    num = math.ceil(len(users) / 2)
-    for i in range(num):
-      u = users[i]
-      db.session.delete(u)
-      db.session.commit()
-  return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(debug=True)
