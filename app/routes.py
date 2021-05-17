@@ -92,8 +92,7 @@ def dashboard():
   form = AddCourseForm()
   if form.validate_on_submit():
     add_new_course(form.title.data)
-  all_courses = Course.query.all()
-  return render_template("dashboard.html", title="Dashboard", form=form, courses=all_courses)
+  return render_template("dashboard.html", title="Dashboard", form=form, all_courses=get_all_courses,all_content=get_all_content,all_content_viewed=get_all_content_viewed)
 
 # Course related routes
 # -----------------------------------------------------------------------------
@@ -205,7 +204,7 @@ def edit_quiz(quiz_id):
 @app.route("/profile")
 @login_required
 def profile():
-  return render_template("profile.html", title="Profile", user=current_user, courses=["Test 1", "Test 2"])
+  return render_template("profile.html", title="Profile", user=current_user, courses=["Test 1", "Test 2"],all_courses=get_all_courses, all_content=get_all_content, all_content_viewed=get_all_content_viewed)
 
 # Users
 @app.route("/users")
@@ -241,6 +240,7 @@ def delete_course(del_course_id):
     except RowNotEmpty:
       flash('Course cannot be deleted. Remove all content and quizzes before deleting.', "danger" )
   return redirect(url_for('dashboard'))
+
 # -----------------------------------------------------------------------------
 
 if __name__ == "__main__":
