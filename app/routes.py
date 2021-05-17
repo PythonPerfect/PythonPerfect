@@ -224,7 +224,7 @@ def quiz(quiz_id):
     last = True
   
   question = get_question_by_id(current_question_id)
-  return render_template("quiz.html", title="Quiz", form=form, question=question, quiz=quiz, last=last)
+  return render_template("quiz.html", q_num=current_question_index+1, q_tot=len(session["quiz"]), title="Quiz", form=form, question=question, quiz=quiz, last=last)
 
 @app.route("/quiz/attempt/<quiz_id>", methods=["POST", "GET"])
 @login_required
@@ -244,7 +244,7 @@ def next_question(quiz_id):
     if current_question_index + 1 >= len(session["quiz"]):
       last = True
   
-  return render_template("quiz.html", title="Quiz", quiz=quiz, form=form, question=question, last=last)
+  return render_template("quiz.html", title="Quiz", q_num=current_question_index+1, q_tot=len(session["quiz"]), quiz=quiz, form=form, question=question, last=last)
 
 
 @app.route("/quiz/submit/<quiz_id>", methods=["POST", "GET"])
