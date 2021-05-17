@@ -193,6 +193,7 @@ def quiz(quiz_id):
   form = QuizQuestionForm()
   quiz = get_quiz_by_id(quiz_id)
   questions = get_question_by_quiz(quiz)
+  responses = get_user_question_response(current_user, )
 
   return render_template("quiz.html", title="Quiz", quiz=quiz, questions=questions, user=current_user, form=form)
 
@@ -249,7 +250,10 @@ def submit_answer(question_id):
   quiz = get_quiz_by_id(question.quiz_id)
 
   if form.validate_on_submit():
-    session[question_id] = form.answer.data
+    answer = form.answer.data
+    
+    if not get_user_question_response(current_user, question):
+      add_new_question_response(answer, question, current_user)
 
   return redirect(url_for("quiz", quiz_id = quiz.id))
 

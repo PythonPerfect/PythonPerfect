@@ -22,10 +22,12 @@
               {{ form.answer(class="login-input",
               placeholder="Your answer goes here...") }}
               <br /> <br />
-              {{ form.submit()}}
+              {{ form.submit(id='save-btn')}}
             </form>
             {% endfor %}
-
+            <a href="{{url_for('profile')}}">
+                <button class="btn mt-5">Finish</button>
+            </a>
           </div>
 
     </div>

@@ -78,7 +78,7 @@ class Question(db.Model):
     question_response = db.relationship('Question_Response', backref='question', lazy='dynamic')
 
     def __repr__(self):
-        return '<Question {}>'.format(self.body)
+        return '<Question {}>'.format(self.question)
 
 class Question_Response(db.Model):
     id = db.Column(db.Integer, autoincrement=True ,primary_key=True)

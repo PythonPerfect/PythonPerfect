@@ -16,9 +16,40 @@ function openSection(evt, sectionNames) {
   evt.currentTarget.className += " active";
 }
 
-const submitAnswer = () => {
-  sessionStorage.setItem("isSubmitted", true);
-  const userId = sessionStorage.getItem("userId");
-  const questionId = sessionStorage.getItem("questionId");
-  const answer = document.querySelector("#question-answer").value;
-};
+/*function saveQuestion() {
+  console.log("started")
+}
+
+function submitAnswer = () => {
+    sessionStorage.setItem("isSubmitted", true);
+    const userId = sessionStorage.getItem("userId");
+    const questionId = sessionStorage.getItem("questionId");
+    const answer = document.querySelector("#question-answer").value;
+  };
+
+
+function selectAnswer() {
+
+}
+
+$(document).ready(function() {
+
+
+  function saveQuestion() {
+    console.log("started")
+  }
+
+  function getResponses() {
+    
+  }
+
+  $.post("submit_answer/"+questionId, {
+    submitAnswer();
+  });
+
+  $('#save-btn').click(function() {
+    saveQuestion();
+  });
+
+
+});*/
