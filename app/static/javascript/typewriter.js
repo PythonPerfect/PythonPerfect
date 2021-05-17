@@ -1,3 +1,7 @@
+/* 
+  source: https://www.codesdope.com/blog/article/12-creative-css-and-javascript-text-typing-animati/
+  modified by: Dhruv Jobanputra
+*/
 function setupTypewriter(t) {
   let HTML = t.innerHTML;
 

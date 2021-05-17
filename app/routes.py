@@ -93,7 +93,8 @@ def dashboard():
   if form.validate_on_submit():
     add_new_course(form.title.data)
 
-  return render_template("dashboard.html", title="Dashboard", all_courses=get_all_courses, form=form,all_content=get_contents_by_course,all_content_viewed=get_user_course_all_viewed)
+  return render_template("dashboard.html", title="Dashboard", all_courses=get_all_courses, 
+  form=form,all_content=get_contents_by_course,all_content_viewed=get_user_course_all_viewed)
 
 
 # Course related routes
@@ -109,7 +110,9 @@ def course(course_id):
   all_quiz = get_quiz_by_course(course)
   
   if course is not None:
-    return render_template("course.html", course=course, title=course.title, form_content=form_content, form_quiz=form_quiz, all_content=all_content, all_quiz = all_quiz, get_user_content_viewed = get_user_content_viewed)
+    return render_template("course.html", course=course, title=course.title, form_content=form_content, 
+    form_quiz=form_quiz, all_content=all_content, all_quiz = all_quiz, 
+    get_user_content_viewed = get_user_content_viewed)
   else:
     return redirect(url_for('error404'))
 
@@ -225,7 +228,8 @@ def quiz(quiz_id):
     last = True
   
   question = get_question_by_id(current_question_id)
-  return render_template("quiz.html", q_num=current_question_index+1, q_tot=len(session["quiz"]), title="Quiz", form=form, question=question, quiz=quiz, last=last)
+  return render_template("quiz.html", q_num=current_question_index+1, q_tot=len(session["quiz"]), 
+  title="Quiz", form=form, question=question, quiz=quiz, last=last)
 
 @app.route("/quiz/attempt/<quiz_id>", methods=["POST", "GET"])
 @login_required
@@ -245,7 +249,8 @@ def next_question(quiz_id):
     if current_question_index + 1 >= len(session["quiz"]):
       last = True
   
-  return render_template("quiz.html", title="Quiz", q_num=current_question_index+1, q_tot=len(session["quiz"]), quiz=quiz, form=form, question=question, last=last)
+  return render_template("quiz.html", title="Quiz", q_num=current_question_index+1, q_tot=len(session["quiz"]),
+  quiz=quiz, form=form, question=question, last=last)
 
 
 @app.route("/quiz/submit/<quiz_id>", methods=["POST", "GET"])
@@ -269,7 +274,8 @@ def submit_quiz(quiz_id):
     for id in session["quiz"]:
       if str(id) in session:
         del session[str(id)]
-    flash("Well done on completing your quiz. You can check your results out at anytime from the profile page.", "info")
+    flash("Well done on completing your quiz. \
+    You can check your results out at anytime from the profile page.", "info")
   return redirect(url_for("view_result", result_id = result.id))
 
 
@@ -289,7 +295,10 @@ def profile():
   all_quizzes = get_all_quiz()
 
 
-  return render_template("profile.html", title="Profile", quizzes_completed=len(unique_quizzes), all_quizzes=len(all_quizzes), all_results=all_results, get_result_question_responses=get_result_question_responses, get_result_correct=get_result_correct, all_content=get_all_content, all_content_viewed=get_all_content_viewed)
+  return render_template("profile.html", title="Profile", quizzes_completed=len(unique_quizzes), 
+  all_quizzes=len(all_quizzes), all_results=all_results, \
+  get_result_question_responses=get_result_question_responses, get_result_correct=get_result_correct, 
+  all_content=get_all_content, all_content_viewed=get_all_content_viewed)
 
 # Result
 @app.route("/result/<result_id>")
@@ -318,7 +327,8 @@ def view_result(result_id):
 
 
   course = get_course_by_id(quiz.course_id)
-  return render_template("result.html", title="Results", feedback=feedback, percent=percent, course=course, quiz=quiz, responses = responses, get_question = get_question_by_response)
+  return render_template("result.html", title="Results", feedback=feedback, percent=percent, course=course, 
+  quiz=quiz, responses = responses, get_question = get_question_by_response)
 
 
 

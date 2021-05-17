@@ -1,3 +1,7 @@
+/* 
+  source: https://www.tiny.cloud/
+  modified by: Dhruv Jobanputra
+*/
 tinymce.init({
   selector: "#Content-Editor",
   plugins:

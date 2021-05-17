@@ -1,3 +1,7 @@
+/* 
+  source: https://www.w3schools.com/howto/howto_js_tabs.asp
+  modified by: Dhruv Jobanputra
+*/
 function openSection(evt, sectionNames) {
   let i, tabcontent, tablinks;
   console.log(sectionNames);
