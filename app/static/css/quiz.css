@@ -31,6 +31,12 @@
   border: 1px solid #4b8bbe;
 }
 
+.quiz-result-container {
+  margin-top: -20px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
 @media only screen and (max-width: 768px) {
   .quiz-container {
     max-width: 90%;

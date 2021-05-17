@@ -93,7 +93,7 @@ def dashboard():
   if form.validate_on_submit():
     add_new_course(form.title.data)
 
-  return render_template("dashboard.html", title="Dashboard", form=form, all_courses=get_all_courses,all_content=get_all_content,all_content_viewed=get_all_content_viewed)
+  return render_template("dashboard.html", title="Dashboard", all_courses=get_all_courses, form=form,all_content=get_contents_by_course,all_content_viewed=get_user_course_all_viewed)
 
 
 # Course related routes
@@ -170,7 +170,7 @@ def edited_content(content_id):
 @login_required
 def view_content(content_id):
   content = get_content_by_id(content_id)
-  add_new_content_viewed(viewed=True, user=current_user, content=content)
+  add_new_content_viewed(user=current_user, content=content)
 
   return render_template("view-content.html", content=content, title=content.title)
 # -----------------------------------------------------------------------------
@@ -205,6 +205,7 @@ current_question_id = 0
 def quiz(quiz_id):
   global current_question_index
   global current_question_id
+  last = False
   current_question_index = 0
   current_question_id = 0
 
@@ -223,7 +224,7 @@ def quiz(quiz_id):
     last = True
   
   question = get_question_by_id(current_question_id)
-  return render_template("quiz.html", title="Quiz", user=current_user, form=form, question=question, quiz=quiz, last=last)
+  return render_template("quiz.html", q_num=current_question_index+1, q_tot=len(session["quiz"]), title="Quiz", form=form, question=question, quiz=quiz, last=last)
 
 @app.route("/quiz/attempt/<quiz_id>", methods=["POST", "GET"])
 @login_required
@@ -243,7 +244,7 @@ def next_question(quiz_id):
     if current_question_index + 1 >= len(session["quiz"]):
       last = True
   
-  return render_template("quiz.html", title="Quiz", quiz=quiz, user=current_user, form=form, question=question, last=last)
+  return render_template("quiz.html", title="Quiz", q_num=current_question_index+1, q_tot=len(session["quiz"]), quiz=quiz, form=form, question=question, last=last)
 
 
 @app.route("/quiz/submit/<quiz_id>", methods=["POST", "GET"])
@@ -267,10 +268,8 @@ def submit_quiz(quiz_id):
     for id in session["quiz"]:
       if str(id) in session:
         del session[str(id)]
-    print(get_all_question_response())
-    flash("Congrats, you have submitted your quiz. Check your results in the profile page", "info")
-    return redirect(url_for("index"))
-  return render_template("quiz.html", title="Quiz", quiz=quiz, user=current_user, form=form, question=question, last=last)
+    flash("Congrats on completing your quiz. You can check your results out at anytime from the profile page.", "info")
+  return redirect(url_for("view_result", result_id = result.id))
 
 
 
@@ -291,7 +290,36 @@ def profile():
   all_quizzes = get_all_quiz()
 
 
-  return render_template("profile.html", title="Profile", user=current_user, quizzes_completed=len(unique_quizzes), all_quizzes=len(all_quizzes), all_results=all_results, get_result_questions=get_result_questions, get_result_correct=get_result_correct, all_content=get_all_content, all_content_viewed=get_all_content_viewed)
+  return render_template("profile.html", title="Profile", quizzes_completed=len(unique_quizzes), all_quizzes=len(all_quizzes), all_results=all_results, get_result_question_responses=get_result_question_responses, get_result_correct=get_result_correct, all_content=get_all_content, all_content_viewed=get_all_content_viewed)
+
+# Result
+@app.route("/result/<result_id>")
+@login_required
+def view_result(result_id):
+  result = get_result_by_id(result_id)
+  quiz = get_quiz_by_id(result.quiz_id)
+  responses = get_result_question_responses(result)
+
+
+  correct = len(get_result_correct(result))
+  total = len(get_result_questions(result))
+
+  percent = int(correct/total * 100)
+
+  feedback = "Better luck next time! Click here to get more information on the content assessed in this quiz!"
+  if percent >= 90:
+    feedback = "Woah that's amazing. Good Job!"
+
+  elif percent >= 75:
+    feedback = "Almost there. Kepp pushing along!"
+
+  elif percent >= 50:
+    feedback = "You're on the right path. Keep going!"
+
+
+
+  course = get_course_by_id(quiz.course_id)
+  return render_template("result.html", title="Results", feedback=feedback, percent=percent, course=course, quiz=quiz, responses = responses, get_question = get_question_by_response)
 
 
 
