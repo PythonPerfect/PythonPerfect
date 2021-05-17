@@ -93,7 +93,7 @@ def dashboard():
   if form.validate_on_submit():
     add_new_course(form.title.data)
 
-  return render_template("dashboard.html", title="Dashboard", all_courses=get_all_courses, form=form,all_content=get_contents_by_course,all_content_viewed=get_contents_by_course)
+  return render_template("dashboard.html", title="Dashboard", all_courses=get_all_courses, form=form,all_content=get_contents_by_course,all_content_viewed=get_user_course_all_viewed)
 
 
 # Course related routes

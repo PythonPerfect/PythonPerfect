@@ -312,6 +312,15 @@ def add_new_content_viewed(user, content):
 def get_user_content_viewed(user, content):
     return Content_Viewed.query.filter(Content_Viewed.content==content, Content_Viewed.user==user).first()
 
+def get_user_course_all_viewed(user, course):
+    content = Content.query.filter_by(course_id = course.id).all()
+    viewed_list = []
+    for c in content:
+        if get_user_content_viewed(user, c) is not None:
+            viewed_list.append(get_user_content_viewed(user, c))
+    return viewed_list
+        
+
 def get_all_content_viewed():
     return Content_Viewed.query.all()
 
