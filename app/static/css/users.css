@@ -1,19 +1,29 @@
 .user-container {
-    min-height: 100vh;
+  min-height: 100vh;
+  padding: 40px;
 }
 
 .user-box {
-    background-color: white;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
-    padding: 20px 40px;
-    margin-bottom: 50px;
+  background-color: white;
+  border: 1px solid #4b8bbe;
+  padding: 20px 40px;
+  margin-bottom: 50px;
+  max-width: 800px;
+  margin: auto;
 }
 
-.user-subtext {
-    color: darkgray;
-    text-align: center;
+.user-info {
+  padding: 5px 0;
+  width: 100%;
 }
 
-.user-del {
-    text-align: right;
+.user-del-icon {
+  color: red;
+  float: right;
+}
+
+@media only screen and (max-width: 768px) {
+  .user-box {
+    font-size: small;
+  }
 }
