@@ -94,8 +94,6 @@ def dashboard():
     add_new_course(form.title.data)
   all_courses = Course.query.all()
 
-  print(get_all_question_response())
-  #delete_all_question_response()
   return render_template("dashboard.html", title="Dashboard", form=form, courses=all_courses)
 
 # Course related routes
@@ -216,12 +214,16 @@ def quiz(quiz_id):
   questions = get_questions_by_quiz(quiz)
 
   session["quiz"] = [q.id for q in questions]
-  if len(session["quiz"]):
+  if len(session["quiz"]) :
     current_question_id = int(session["quiz"][0])
+  else:
+    flash("No questions in quiz", "danger")
+    return redirect(url_for("index"))
+  if current_question_index + 1 >= len(session["quiz"]):
+    last = True
   
   question = get_question_by_id(current_question_id)
-
-  return render_template("quiz.html", title="Quiz", user=current_user, form=form, question=question, quiz=quiz)
+  return render_template("quiz.html", title="Quiz", user=current_user, form=form, question=question, quiz=quiz, last=last)
 
 @app.route("/quiz/attempt/<quiz_id>", methods=["POST", "GET"])
 @login_required
@@ -234,7 +236,6 @@ def next_question(quiz_id):
   question = get_question_by_id(current_question_id)
   if form.validate_on_submit():
     session[str(current_question_id)] = form.answer.data
-    quiz = session["quiz"]
     current_question_index += 1
 
     current_question_id = int(session["quiz"][current_question_index])
@@ -245,30 +246,28 @@ def next_question(quiz_id):
   return render_template("quiz.html", title="Quiz", quiz=quiz, user=current_user, form=form, question=question, last=last)
 
 
-@app.route("/quiz/submit", methods=["POST", "GET"])
+@app.route("/quiz/submit/<quiz_id>", methods=["POST", "GET"])
 @login_required
-def submit_quiz():
+def submit_quiz(quiz_id):
   form = QuizQuestionForm()
+  quiz = get_quiz_by_id(quiz_id)
+
   if form.validate_on_submit():
+    result = add_new_result(current_user, quiz)
     session[str(current_question_id)] = form.answer.data
-    added = False
-    
+
     for id in session["quiz"]:
       if str(id) in session:
         response = session[str(id)]
-        question = get_question_by_id(int(id))
+        question = get_question_by_id(id)
         quiz = get_quiz_by_id(question.quiz_id)
         correct = question.answer == response
-        if not added:
-          result = add_new_result(current_user, quiz)
-          added = True
         question_response = add_new_question_response(response, question, current_user, correct, result)
-
-  
-  
+    
     for id in session["quiz"]:
       if str(id) in session:
         del session[str(id)]
+    print(get_all_question_response())
     flash("Congrats, you have submitted your quiz. Check your results in the profile page", "info")
     return redirect(url_for("index"))
   return render_template("quiz.html", title="Quiz", quiz=quiz, user=current_user, form=form, question=question, last=last)
@@ -283,7 +282,9 @@ def submit_quiz():
 @login_required
 def profile():
   all_results = get_all_results()
-  return render_template("profile.html", title="Profile", user=current_user, all_results=all_results)
+  all_results.reverse()
+  print(all_results)
+  return render_template("profile.html", title="Profile", user=current_user, all_results=all_results, get_result_questions=get_result_questions, get_result_correct=get_result_correct)
 
 # Users
 @app.route("/users")

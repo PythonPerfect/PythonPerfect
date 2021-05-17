@@ -308,8 +308,16 @@ def delete_all_content_viewed():
 def add_new_result(user, quiz):
     result = Result(user=user, quiz=quiz)
     add_to_database(result)
+    return result
 
 #Read
 def get_all_results():
     return Result.query.all()
+
+def get_result_questions(result):
+    return Question_Response.query.filter_by(result_id = result.id).all()
+
+def get_result_correct(result):
+    return Question_Response.query.filter_by(result_id = result.id).filter_by(correct = True).all()
+
 

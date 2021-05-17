@@ -48,9 +48,11 @@
 
             <li class="dash-course content-list-item">
               <div>
-                <p class="course-title py-blue">{{result}}</p>
-                <progress class="course-progress" value="80" max="100">32%</progress>
-                <p class="course-score">Score: 8/10</p>
+                <p class="course-title py-blue">{{result.quiz.title}}</p>
+                
+                
+                <progress class="course-progress" value="{{get_result_correct(result) | length}}" max="{{get_result_questions(result) | length}}">32%</progress>
+                <p class="course-score">Score: {{get_result_correct(result) | length}}/{{get_result_questions(result) | length}}</p>
                 <a
                   ><span class="course-button btn btn-outline py-btn-blue"
                     >View</span
