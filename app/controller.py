@@ -55,34 +55,18 @@ def get_user_by_email(email):
 
 #Delete
 def delete_user_by_id(user_id):
-    if (Question_Response.query.filter(Question_Response.user.has(id=user_id)).first() is not None and 
-            Content_Viewed.query.filter(Content_Viewed.user.has(id=user_id)).first() is not None):
-        raise RowNotEmpty
-
     u = get_user_by_userid(user_id)
     delete_from_database(u)
 
 def delete_user_by_username(username):
-    if (Question_Response.query.filter(Question_Response.user.has(username=username)).first() is not None and 
-            Content_Viewed.query.filter(Content_Viewed.user.has(username=username)).first() is not None):
-        raise RowNotEmpty
-
     u = get_user_by_username(username)
     delete_from_database(u)
 
 def delete_user_by_email(email):
-    if (Question_Response.query.filter(Question_Response.user.has(email=email)).first() is not None and 
-            Content_Viewed.query.filter(Content_Viewed.user.has(email=email)).first() is not None):
-        raise RowNotEmpty
-
     u = get_user_by_email(email)
     delete_from_database(u)
 
 def delete_all_users():
-    if (Question_Response.query.first() is not None and
-            Content_Viewed.query.first() is not None):
-        raise RowNotEmpty
-
     users = get_all_user()
     for u in users:
         delete_from_database(u)

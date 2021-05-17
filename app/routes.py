@@ -10,12 +10,8 @@ from app.controller import *
 @login_required
 def delete_user(del_user_id):
   if current_user.admin:
-    try:
-      delete_user_by_id(del_user_id)
-      flash('User delete successful')
-      return redirect(url_for('users'))
-    except RowNotEmpty:
-      flash('User can not be deleted. No cascading delete support.')
+    delete_user_by_id(del_user_id)
+    return redirect(url_for('users'))
 
 @app.route("/deleting-course/<del_course_id>")
 @login_required
