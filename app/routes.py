@@ -215,7 +215,7 @@ def users():
     users = get_nonadmins()
     admins = get_admins()
 
-    return render_template("users.html", users=users, admins=admins)
+    return render_template("users.html", title= "Users", users=users, admins=admins)
   else:
     return redirect(url_for('dashboard'))
 
