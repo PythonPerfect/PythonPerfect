@@ -118,7 +118,7 @@ class Content_Viewed(db.Model):
     content_id = db.Column(db.Integer, db.ForeignKey('content.id'))
 
     def __repr__(self):
-        return '<Content_Viewed {}>'.format(self.viewed)
+        return '<Content_Viewed {}>'.format(self.id)
 
 class Result(db.Model):
     id = db.Column(db.Integer, autoincrement=True ,primary_key=True)
