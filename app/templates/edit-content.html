@@ -11,7 +11,7 @@
   <form
     class="tinymce-editor-form"
     method="POST"
-    action="{{url_for('edited', content_id=content.id)}}"
+    action="{{url_for('edited_content', content_id=content.id)}}"
   >
     <!--prettier-ignore-->
     {{ form.hidden_tag() }}

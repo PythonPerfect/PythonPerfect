@@ -74,7 +74,7 @@ def delete_all_users():
 #-----For Course Model-----
 #Creation
 def add_new_course(title):
-    course = Course(titel=title)
+    course = Course(title=title)
     add_to_database(course)
 
 #Read
@@ -92,7 +92,7 @@ def get_course_by_id(course_id):
 
 #Delete
 def delete_course_by_id(course_id):
-    if (Content.query.filter(Content.course.has(id=course_id)).first() is not None and
+    if (Content.query.filter(Content.course.has(id=course_id)).first() is not None or
             Quiz.query.filter(Quiz.course.has(id=course_id)).first() is not None):
         raise RowNotEmpty
 
@@ -100,7 +100,7 @@ def delete_course_by_id(course_id):
     delete_from_database(u)
 
 def delete_course_by_title(title):
-    if (Content.query.filter(Content.course.has(title=title)).first() is not None and
+    if (Content.query.filter(Content.course.has(title=title)).first() is not None or
             Quiz.query.filter(Quiz.course.has(title=title)).first() is not None):
         raise RowNotEmpty
 
