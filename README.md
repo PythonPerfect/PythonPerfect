@@ -19,7 +19,7 @@ Users are able to attempt multiple courses at the same time. Their progress is t
 Once a course is selected, an option will be available to attempt the quiz. User responses are saved as they progress through the quiz. Once the quiz is completed, the user's results will be stored and displayed in their profile page 
 
 ## App Architecture (Flask)
-This application has been constructed using the python Flask micro-framework MVC. In terms of the Model View Controller Architecture, in our application, the model is represented by the SQLite database and SQLAlchemy, the View is represented by the server-side rendering template of jinja2 which assembles the HTML static content based on the request and the Controller is represented by the Python Flask library.
+This application has been constructed using the python Flask micro-framework MVC. In out application the model is represented by an SQLite Databse and SQLALchemy. The server-side rendering template of jinja2 is used to assemble the HTML content. The application is run through the Flask framework. 
 
 ## App Launching
 To launch the application on your personal device it is recommended that you use a virtual environment. Python and virtualenv will need to be installed on your system. A detailed guide is provided below:
@@ -83,10 +83,9 @@ $ set FLASK_ENV=<environment>
 ##### On mac/linux
 ```shell
 $ export FLASK_ENV=<environment>
-```  
-?! CHECK THIS ON LINUX/MAC SYSTEM
+``` 
 
-## Initialise SQLite database with flask-migrate
+## Database initiliasation
 
 **If working on code with changes to schemas**
 
