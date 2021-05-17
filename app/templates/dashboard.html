@@ -60,9 +60,11 @@
       {% for course in courses %}
       <li class="dash-course">
         <div>
+          {% if current_user.admin %}
           <a href="" data-toggle="modal" data-target="#del_cour_modal">
             <i class="fa fa-trash-alt p-1 course-del"></i>
           </a>
+          {% endif %}
           <p class="course-title py-blue">{{course.title}}</p>
           <progress class="course-progress" value="80" max="100">32%</progress>
           <p class="course-score">8/10 Completed</p>

@@ -190,12 +190,12 @@ def edit_quiz(quiz_id):
   if current_user.admin and form.validate_on_submit():
     question = get_question_by_quiz_n_question(quiz, form.question.data)
     if question is not None:
-      flash("Question already added")
+      flash("Question already added", "info")
     else:
       add_new_question(form.question.data, form.answer.data, quiz)
   all_questions = get_questions_by_quiz(quiz)
   if quiz is not None:
-    return render_template("edit-quiz.html", form=form, questions = all_questions)
+    return render_template("edit-quiz.html", form=form, questions = all_questions, quiz=quiz)
   else:
     return redirect(url_for('error404'))
 # -----------------------------------------------------------------------------
