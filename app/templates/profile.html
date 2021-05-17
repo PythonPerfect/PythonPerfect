@@ -12,9 +12,9 @@
     <div class="profile-info-container">
       <div class="profile-info-body">
         <p class="py-blue">Username:</p>
-        <p class="profile-info">{{user.username}}</p>
+        <p class="profile-info">{{current_user.username}}</p>
         <p class="py-blue">Email:</p>
-        <p class="profile-info">{{user.email}}</p>
+        <p class="profile-info">{{current_user.email}}</p>
 
         <p class="py-blue mb-0">Content completion</p>
         <progress
@@ -54,16 +54,16 @@
           <progress
             class="course-progress"
             value="{{get_result_correct(result) | length}}"
-            max="{{get_result_questions(result) | length}}"
+            max="{{get_result_question_responses(result) | length}}"
           >
             {{get_result_correct(result) |
-            length}}/{{get_result_questions(result) | length}}
+            length}}/{{get_result_question_responses(result) | length}}
           </progress>
           <p class="course-score">
             Score: {{get_result_correct(result) |
-            length}}/{{get_result_questions(result) | length}}
+            length}}/{{get_result_question_responses(result) | length}}
           </p>
-          <a
+          <a href="{{url_for('view_result', result_id=result.id)}}"
             ><span class="course-button btn btn-outline py-btn-blue"
               >View</span
             ></a
