@@ -44,11 +44,11 @@
 
         <ul class="content-list">
             <!--Loop active courses-->
-            {% for course in courses %}
+            {% for result in all_results %}
 
             <li class="dash-course content-list-item">
               <div>
-                <p class="course-title py-blue">{{course}}</p>
+                <p class="course-title py-blue">{{result}}</p>
                 <progress class="course-progress" value="80" max="100">32%</progress>
                 <p class="course-score">Score: 8/10</p>
                 <a

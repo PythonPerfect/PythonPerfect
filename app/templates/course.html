@@ -183,7 +183,7 @@
             </a>
             {% endif %}
             <p class="course-title py-blue">{{quiz.title}}</p>
-            <a
+            <a href="{{url_for('quiz', quiz_id=quiz.id)}}"
               ><span class="course-button btn btn-outline py-btn-blue"
                 >Attempt</span
               ></a
