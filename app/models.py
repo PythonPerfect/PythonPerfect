@@ -126,5 +126,8 @@ class Result(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="cascade"))
     quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'))
 
+    #Backref
+    question_response = db.relationship('Question_Response', backref='result', lazy='dynamic')
+
     def __repr__(self):
         return '<Result {}, {}>'.format(self.user_id, self.quiz_id)
