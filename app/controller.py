@@ -100,7 +100,7 @@ def get_all_courses():
 def get_course_by_title(title):
     return Course.query.filter_by(title=title).first()
 
-def get_coruse_by_id(course_id):
+def get_course_by_id(course_id):
     return Course.query.filter_by(id=course_id).first()
 
 #Update
@@ -251,7 +251,7 @@ def get_all_question():
     return Question.query.all()
 
 def get_question_by_id(question_id):
-    return Question.query.filter_by()
+    return Question.query.filter_by(id=question_id).first()
 
 def get_question_by_quiz(quiz):
     return Question.query.filter(Question.quiz==quiz).all()

@@ -4,26 +4,29 @@ from app.forms import *
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import *
 from werkzeug.urls import url_parse
+from app.controller import *
 
 @app.route("/deleting-user/<del_user_id>")
 @login_required
 def delete_user(del_user_id):
   if current_user.admin:
-    user = User.query.filter_by(id = del_user_id).first()
-
-    db.session.delete(user)
-    db.session.commit()
-    return redirect(url_for('users'))
+    try:
+      delete_user_by_id(del_user_id)
+      flash('User delete successful')
+      return redirect(url_for('users'))
+    except RowNotEmpty:
+      flash('User can not be deleted. No cascading delete support.')
 
 @app.route("/deleting-course/<del_course_id>")
 @login_required
 def delete_course(del_course_id):
   if current_user.admin:
-    course = Course.query.filter_by(id = del_course_id).first()
-
-    db.session.delete(course)
-    db.session.commit()
-    return redirect(url_for('dashboard'))
+    try:
+      delete_course_by_id(del_course_id)
+      flash('Course delete successful')
+      return redirect(url_for('users'))
+    except RowNotEmpty:
+      flash('Course can not be deleted. No cascading delete support.')
 
 @app.route("/")
 def index():
@@ -39,7 +42,7 @@ def login():
   form = LoginForm()
   if form.validate_on_submit():
     #ADD EMAIL LOGIN SUPPORT LATER
-    user = User.query.filter_by(username = form.username.data).first()
+    user = get_user_by_username(form.username.data)
     if user is None or not user.check_password(form.password.data):
       flash('Invalid username or password', 'danger')
       return redirect(url_for('login'))
@@ -58,11 +61,7 @@ def signup():
     return redirect(url_for('dashboard'))
   form = RegistrationForm()
   if form.validate_on_submit():
-    user = User(username=form.username.data, email=form.email.data)
-    user.set_password(form.password.data)
-    db.session.add(user)
-    db.session.commit()
-
+    user = add_new_user(form.username.data, form.email.data, form.password.data)
     login_user(user, remember=False)
     flash('Welcome, registration complete!', 'success')
     return redirect(url_for('dashboard'))
@@ -78,25 +77,19 @@ def registerAdmin():
   
   if form.validate_on_submit():
     if app.config["ADMIN_KEY"]==form.specialPassword.data:
-      user = User(username=form.username.data, email=form.email.data, admin=True)
-      user.set_password(form.password.data)
-      db.session.add(user)
-      db.session.commit()
-
+      user = add_new_admin(form.username.data, form.email.data, form.password.data)
       login_user(user, remember=False)
       flash('Welcome, registered as an Admin!', 'success')
       return redirect(url_for('dashboard'))
-
     else:
       flash('Incorrect Admin key', 'danger')
-
   return render_template('signup.html', title='Signup', form=form)
 
 @app.route("/dashboard", methods=["POST", "GET"])
 @login_required
 def dashboard():
   form = AddCourseForm()
-  if form.validate_on_submit():
+  if form.validate_on_submit(): 
     course = Course(title=form.title.data)
     db.session.add(course)
     db.session.commit()
@@ -202,7 +195,7 @@ def error404(error=404):
 @app.route("/users")
 def users():
   if current_user.is_authenticated and current_user.admin:
-    users = User.query.all()
+    users = get_all_user()
     return render_template("users.html", users=users)
   else:
     return redirect(url_for('dashboard'))
