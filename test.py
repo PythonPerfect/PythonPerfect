@@ -40,7 +40,7 @@ class ControllerTestCase(unittest.TestCase):
         self.assertEqual(2, size)
         delete_user(u1)
         size = len(get_all_user())
-        self.assertEqual(0, size)
+        self.assertEqual(1, size)
 
     def test_checkPassword(self):
         u1 = add_new_user('TestUser1', 'testuser1@example.com', 'correctpassword123')
@@ -73,7 +73,7 @@ class ControllerTestCase(unittest.TestCase):
         con2 = add_new_content('TestCon2', 'This is test content2', cour2)
         cons = get_all_content()
         self.assertEqual(con1, cons[0])
-        self.assertEqual(con2, cons[0])
+        self.assertEqual(con2, cons[1])
 
     def test_deleteCourse(self):
         cour1 = add_new_course('TestCourse1')
@@ -89,16 +89,16 @@ class ControllerTestCase(unittest.TestCase):
     def test_addNewQuiz(self):
         cour1 = add_new_course('TestCourse1')
         cour2 = add_new_course('TestCourse2')
-        q1 = add_new_quiz('TestQ1', 'This is Quiz1', cour1)
-        q2 = add_new_quiz('TestQ2', 'This is Quiz2', cour2)
+        q1 = add_new_quiz('TestQ1', cour1)
+        q2 = add_new_quiz('TestQ2', cour2)
         qs = get_all_quiz()
         self.assertEqual(q1, qs[0])
-        self.assertEqual(q2, qs[0])
+        self.assertEqual(q2, qs[1])
 
     def test_deleteQuiz(self):
         cour1 = add_new_course('TestCourse1')
-        q1_1 = add_new_quiz('TestQ1_1', 'This is Quiz1_1', cour1)
-        q1_2 = add_new_quiz('TestQ1_2', 'This is Quiz1_2', cour1)
+        q1_1 = add_new_quiz('TestQ1_1', cour1)
+        q1_2 = add_new_quiz('TestQ1_2', cour1)
         size = len(get_quiz_by_course(cour1))
         self.assertEqual(2, size)
         delete_quiz(q1_1)
@@ -108,7 +108,7 @@ class ControllerTestCase(unittest.TestCase):
     #For Question Model
     def test_addNewQuestion(self):
         cour1 = add_new_course('TestCourse1')
-        q1 = add_new_quiz('TestQ1', 'This is Quiz1', cour1)
+        q1 = add_new_quiz('TestQ1', cour1)
         que1 = add_new_question('TestQuestion1?', 'TestAnswer1', q1)
         que2 = add_new_question('TestQuestion2?', 'TestAnswer2', q1)
         ques = get_all_question()
@@ -117,7 +117,7 @@ class ControllerTestCase(unittest.TestCase):
 
     def test_deleteQuestion(self):
         cour1 = add_new_course('TestCourse1')
-        q1 = add_new_quiz('TestQ1', 'This is Quiz1', cour1)
+        q1 = add_new_quiz('TestQ1', cour1)
         que1 = add_new_question('TestQuestion1?', 'TestAnswer1', q1)
         que2 = add_new_question('TestQuestion2?', 'TestAnswer2', q1)
         size = len(get_all_question())
@@ -130,7 +130,7 @@ class ControllerTestCase(unittest.TestCase):
     def test_addNewQuestion_Response(self):
         u1 = add_new_user('TestUser1', 'testuser1@example.com', 'testuser1123')
         cour1 = add_new_course('TestCourse1')
-        q1 = add_new_quiz('TestQ1', 'This is Quiz1', cour1)
+        q1 = add_new_quiz('TestQ1', cour1)
         que1 = add_new_question('TestQuestion1?', 'TestAnswer1', q1)
         que2 = add_new_question('TestQuestion2?', 'TestAnswer2', q1)
         q_r1 = add_new_question_response('This is a response', que1, u1)
@@ -142,7 +142,7 @@ class ControllerTestCase(unittest.TestCase):
     def test_correctResponse(self):
         u1 = add_new_user('TestUser1', 'testuser1@example.com', 'testuser1123')
         cour1 = add_new_course('TestCourse1')
-        q1 = add_new_quiz('TestQ1', 'This is Quiz1', cour1)
+        q1 = add_new_quiz('TestQ1', cour1)
         que1 = add_new_question('TestQuestion1?', 'CorrectAnswer1', q1)
         q_r1 = add_new_question_response('CorrectAnswer1', que1, u1)
         self.assertTrue(q_r1.check_correct())
@@ -151,7 +151,7 @@ class ControllerTestCase(unittest.TestCase):
     def test_deleteNewQuestion_Response(self):
         u1 = add_new_user('TestUser1', 'testuser1@example.com', 'testuser1123')
         cour1 = add_new_course('TestCourse1')
-        q1 = add_new_quiz('TestQ1', 'This is Quiz1', cour1)
+        q1 = add_new_quiz('TestQ1', cour1)
         que1 = add_new_question('TestQuestion1?', 'TestAnswer1', q1)
         que2 = add_new_question('TestQuestion2?', 'TestAnswer2', q1)
         q_r1 = add_new_question_response('This is a response', que1, u1)
@@ -169,7 +169,7 @@ class ControllerTestCase(unittest.TestCase):
         con1 = add_new_content('TestCon1', 'This is test content1', cour1)
         c_v = add_new_content_viewed(u1, con1)
         c_v_test = get_user_content_viewed(u1, con1)
-        self.assertTrue(c_v, c_v_test)
+        self.assertEqual(c_v, c_v_test)
 
     def test_deleteContent_Viewed(self):
         u1 = add_new_user('TestUser1', 'testuser1@example.com', 'testuser1123')

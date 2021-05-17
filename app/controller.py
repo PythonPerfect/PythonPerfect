@@ -54,6 +54,9 @@ def get_user_by_email(email):
 #No update support
 
 #Delete
+def delete_user(user):
+    delete_from_database(user)
+
 def delete_user_by_id(user_id):
     u = get_user_by_userid(user_id)
     delete_from_database(u)
@@ -74,8 +77,9 @@ def delete_all_users():
 #-----For Course Model-----
 #Creation
 def add_new_course(title):
-    course = Course(titel=title)
+    course = Course(title=title)
     add_to_database(course)
+    return course
 
 #Read
 def get_all_courses():
@@ -122,6 +126,8 @@ def delete_all_course():
 def add_new_content(title, text, course):
     con = Content(title=title, text=text, course=course)
     add_to_database(con)
+    return con
+
 
 #Read
 def get_all_content():
@@ -143,6 +149,12 @@ def get_contents_by_course(course):
 #No Update Support
 
 #Delete
+def delete_content(content):
+    if Content_Viewed.query.filter(Content_Viewed.content == content).first() is not None:
+        raise RowNotEmpty
+
+    delete_from_database(content)
+
 def delete_content_by_id(content_id):
     if Content_Viewed.query.filter(Content_Viewed.content.has(id=content_id)).first() is not None:
         raise RowNotEmpty
@@ -179,6 +191,7 @@ def delete_all_content():
 def add_new_quiz(title, course):
     q = Quiz(title=title, course=course)
     add_to_database(q)
+    return q
 
 #Read
 def get_all_quiz():
@@ -200,6 +213,12 @@ def get_quiz_by_course(course):
 #No Update Support
 
 #Delete
+def delete_quiz(quiz):
+    if Question.query.filter(Question.quiz == quiz).first() is not None:
+        raise RowNotEmpty
+
+    delete_from_database(quiz)
+
 def delete_quiz_by_id(quiz_id):
     if Question.query.filter(Question.quiz.has(id==quiz_id)).first() is not None:
         raise RowNotEmpty
@@ -235,6 +254,7 @@ def delete_all_quiz():
 def add_new_question(question, answer, quiz):
     que = Question(question=question, answer=answer, quiz=quiz)
     add_to_database(que)
+    return que
 
 #Read
 def get_all_question():
@@ -282,6 +302,7 @@ def delete_all_question():
 def add_new_question_response(response, question, user):
     q_r = Question_Response(response=response, question=question, user=user)
     add_to_database(q_r)
+    return q_r
 
 #Read
 def get_user_question_response(user, question):
@@ -308,6 +329,7 @@ def delete_all_question_response():
 def add_new_content_viewed(user, content):
     c_v = Content_Viewed(user=user, content=content)
     add_to_database(c_v)
+    return c_v
 
 #Read
 def get_user_content_viewed(user, content):
