@@ -1,6 +1,6 @@
 # CITS3403-Project2
 ### "PythonPerfect"
-Anthony Zao, Dhruv Jobanputra, Sandil Bhikha, Thobias Danudoro
+ShengTang Zhao, Dhruv Jobanputra, Sandil Bhikha, Thobias Danudoro
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -154,7 +154,16 @@ There are several ways to delete test users from database.
 
 
 ## App Testing
-Testers for all controllers were made and run in the test.py file. Upon running this script the various testers will run on the applications controllers.
+Tests for all controller functions are in test.py.
+
+Simply execute
+```shell
+python test.py
+```
+to test.
+
+Scripts include test for all add and delete functions, as well as model specific functions
+such as password check and answers check.
 
 ## Design Process
 
