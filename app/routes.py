@@ -4,26 +4,25 @@ from app.forms import *
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import *
 from werkzeug.urls import url_parse
+from app.controller import *
 
 @app.route("/deleting-user/<del_user_id>")
 @login_required
 def delete_user(del_user_id):
   if current_user.admin:
-    user = User.query.filter_by(id = del_user_id).first()
-
-    db.session.delete(user)
-    db.session.commit()
+    delete_user_by_id(del_user_id)
     return redirect(url_for('users'))
 
 @app.route("/deleting-course/<del_course_id>")
 @login_required
 def delete_course(del_course_id):
   if current_user.admin:
-    course = Course.query.filter_by(id = del_course_id).first()
-
-    db.session.delete(course)
-    db.session.commit()
-    return redirect(url_for('dashboard'))
+    try:
+      delete_course_by_id(del_course_id)
+      flash('Course delete successful')
+      return redirect(url_for('users'))
+    except RowNotEmpty:
+      flash('Course can not be deleted. No cascading delete support.')
 
 @app.route("/")
 def index():
@@ -39,7 +38,7 @@ def login():
   form = LoginForm()
   if form.validate_on_submit():
     #ADD EMAIL LOGIN SUPPORT LATER
-    user = User.query.filter_by(username = form.username.data).first()
+    user = get_user_by_username(form.username.data)
     if user is None or not user.check_password(form.password.data):
       flash('Invalid username or password', 'danger')
       return redirect(url_for('login'))
@@ -58,11 +57,7 @@ def signup():
     return redirect(url_for('dashboard'))
   form = RegistrationForm()
   if form.validate_on_submit():
-    user = User(username=form.username.data, email=form.email.data)
-    user.set_password(form.password.data)
-    db.session.add(user)
-    db.session.commit()
-
+    user = add_new_user(form.username.data, form.email.data, form.password.data)
     login_user(user, remember=False)
     flash('Welcome, registration complete!', 'success')
     return redirect(url_for('dashboard'))
@@ -78,18 +73,12 @@ def registerAdmin():
   
   if form.validate_on_submit():
     if app.config["ADMIN_KEY"]==form.specialPassword.data:
-      user = User(username=form.username.data, email=form.email.data, admin=True)
-      user.set_password(form.password.data)
-      db.session.add(user)
-      db.session.commit()
-
+      user = add_new_admin(form.username.data, form.email.data, form.password.data)
       login_user(user, remember=False)
       flash('Welcome, registered as an Admin!', 'success')
       return redirect(url_for('dashboard'))
-
     else:
       flash('Incorrect Admin key', 'danger')
-
   return render_template('signup.html', title='Signup', form=form)
 
 @app.route("/dashboard", methods=["POST", "GET"])
@@ -97,10 +86,7 @@ def registerAdmin():
 def dashboard():
   form = AddCourseForm()
   if form.validate_on_submit():
-    course = Course(title=form.title.data)
-    db.session.add(course)
-    db.session.commit()
-
+    add_new_course(form.title.data)
   all_courses = Course.query.all()
   return render_template("dashboard.html", title="Dashboard", form=form, courses=all_courses)
 
@@ -108,7 +94,7 @@ def dashboard():
 @app.route("/course/<course_id>", methods=["POST", "GET"])
 @login_required
 def course(course_id):
-  course = Course.query.filter_by(id = course_id).first()
+  course=get_course_by_id(course_id)
   form_content = AddContentForm()
   form_quiz = AddQuizForm()
   
@@ -145,14 +131,13 @@ def add_quiz(course_id):
       db.session.commit()
   return redirect(url_for('course', course_id = course_id))
 
-
 @app.route("/edit-content/<content_id>", methods=["POST", "GET"])
 @login_required
 def edit_content(content_id):
   if not current_user.admin:
     return redirect(url_for('dashboard'))
   form = EditContentForm()
-  content = Content.query.filter_by(id = content_id).first()
+  content = get_content_by_id(content_id)
   if content.text:
     form.content.data = str(content.text)
 
@@ -162,7 +147,7 @@ def edit_content(content_id):
 @login_required
 def edited(content_id):
   form = EditContentForm()
-  content = Content.query.filter_by(id = content_id).first()
+  content = get_content_by_id(content_id)
   if form.validate_on_submit():
     content.text = form.content.data
     db.session.commit()
@@ -176,7 +161,7 @@ def edited(content_id):
 @app.route("/view-content/<content_id>")
 @login_required
 def view_content(content_id):
-  content = Content.query.filter_by(id = content_id).first()
+  content = get_content_by_id(content_id)
 
   return render_template("view-content.html", content=content, title=content.title)
 
@@ -209,6 +194,7 @@ def error404(error=404):
 @app.route("/users")
 def users():
   if current_user.is_authenticated and current_user.admin:
+
     users = User.query.filter_by(admin=False)
     admins = User.query.filter_by(admin=True)
 
@@ -220,17 +206,15 @@ def users():
 @login_required
 def edit_quiz(quiz_id):
   form = AddQuestionForm()
-  quiz = Quiz.query.filter_by(id = quiz_id).first()
+  quiz = get_quiz_by_id(quiz_id)
   
   if current_user.admin and form.validate_on_submit():
-    question = Question.query.filter_by(quiz_id = quiz_id).filter_by(question=form.question.data).first()
+    question = get_question_by_quiz_n_question(quiz, form.question.data)
     if question is not None:
       flash("Question already added")
     else:
-      question = Question(question=form.question.data, answer=form.answer.data, quiz=quiz)
-      db.session.add(question)
-      db.session.commit()
-  all_questions = Question.query.filter_by(quiz_id = quiz_id).all()
+      add_new_question(form.question.data, form.answer.data, quiz)
+  all_questions = get_question_by_quiz(quiz)
   if quiz is not None:
     return render_template("edit-quiz.html", form=form, questions = all_questions)
   else:
