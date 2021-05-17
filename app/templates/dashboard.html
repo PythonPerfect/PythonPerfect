@@ -66,8 +66,17 @@
           </a>
           {% endif %}
           <p class="course-title py-blue">{{course.title}}</p>
-          <progress class="course-progress" value="{{all_content_viewed() | length }}" max="{{all_content() | length}}">32%</progress>
-          <p class="course-score">{{all_content_viewed() | length }}/{{ all_content() | length}} Completed</p>
+          <progress
+            class="course-progress"
+            value="{{all_content_viewed() | length }}"
+            max="{{all_content() | length}}"
+          >
+            32%
+          </progress>
+          <p class="course-score">
+            {{all_content_viewed() | length }}/{{ all_content() | length}}
+            Content Viewed
+          </p>
           <a href="{{url_for('course', course_id=course.id)}}"
             ><span class="course-button btn btn-outline py-btn-blue"
               >Continue</span
