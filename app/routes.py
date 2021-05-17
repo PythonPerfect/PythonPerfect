@@ -92,7 +92,9 @@ def dashboard():
   form = AddCourseForm()
   if form.validate_on_submit():
     add_new_course(form.title.data)
+
   return render_template("dashboard.html", title="Dashboard", form=form, all_courses=get_all_courses,all_content=get_all_content,all_content_viewed=get_all_content_viewed)
+
 
 # Course related routes
 # -----------------------------------------------------------------------------
@@ -173,14 +175,8 @@ def view_content(content_id):
   return render_template("view-content.html", content=content, title=content.title)
 # -----------------------------------------------------------------------------
 
-# Quiz related routes
+# Quiz Edit related routes
 # -----------------------------------------------------------------------------
-@app.route("/quiz")
-@login_required
-def quiz():
-  form = QuizQuestionForm()
-  return render_template("quiz.html", title="Quiz", user=current_user, form=form)
-
 @app.route("/quiz/edit/<quiz_id>" , methods=["POST","GET"])
 @login_required
 def edit_quiz(quiz_id):
@@ -200,11 +196,104 @@ def edit_quiz(quiz_id):
     return redirect(url_for('error404'))
 # -----------------------------------------------------------------------------
 
+# Quiz Running related routes
+# -----------------------------------------------------------------------------
+current_question_index = 0
+current_question_id = 0
+@app.route("/quiz/<quiz_id>", methods=["POST", "GET"])
+@login_required
+def quiz(quiz_id):
+  global current_question_index
+  global current_question_id
+  current_question_index = 0
+  current_question_id = 0
+
+
+  form = QuizQuestionForm()
+  quiz = get_quiz_by_id(quiz_id)
+  questions = get_questions_by_quiz(quiz)
+
+  session["quiz"] = [q.id for q in questions]
+  if len(session["quiz"]) :
+    current_question_id = int(session["quiz"][0])
+  else:
+    flash("No questions in quiz", "danger")
+    return redirect(url_for("index"))
+  if current_question_index + 1 >= len(session["quiz"]):
+    last = True
+  
+  question = get_question_by_id(current_question_id)
+  return render_template("quiz.html", title="Quiz", user=current_user, form=form, question=question, quiz=quiz, last=last)
+
+@app.route("/quiz/attempt/<quiz_id>", methods=["POST", "GET"])
+@login_required
+def next_question(quiz_id):
+  global current_question_index
+  global current_question_id
+  last = False
+  form = QuizQuestionForm()
+  quiz = get_quiz_by_id(quiz_id)
+  question = get_question_by_id(current_question_id)
+  if form.validate_on_submit():
+    session[str(current_question_id)] = form.answer.data
+    current_question_index += 1
+
+    current_question_id = int(session["quiz"][current_question_index])
+    question = get_question_by_id(current_question_id)
+    if current_question_index + 1 >= len(session["quiz"]):
+      last = True
+  
+  return render_template("quiz.html", title="Quiz", quiz=quiz, user=current_user, form=form, question=question, last=last)
+
+
+@app.route("/quiz/submit/<quiz_id>", methods=["POST", "GET"])
+@login_required
+def submit_quiz(quiz_id):
+  form = QuizQuestionForm()
+  quiz = get_quiz_by_id(quiz_id)
+
+  if form.validate_on_submit():
+    result = add_new_result(current_user, quiz)
+    session[str(current_question_id)] = form.answer.data
+
+    for id in session["quiz"]:
+      if str(id) in session:
+        response = session[str(id)]
+        question = get_question_by_id(id)
+        quiz = get_quiz_by_id(question.quiz_id)
+        correct = question.answer == response
+        question_response = add_new_question_response(response, question, current_user, correct, result)
+    
+    for id in session["quiz"]:
+      if str(id) in session:
+        del session[str(id)]
+    print(get_all_question_response())
+    flash("Congrats, you have submitted your quiz. Check your results in the profile page", "info")
+    return redirect(url_for("index"))
+  return render_template("quiz.html", title="Quiz", quiz=quiz, user=current_user, form=form, question=question, last=last)
+
+
+
+
+# -----------------------------------------------------------------------------
+
 # Profile
 @app.route("/profile")
 @login_required
 def profile():
-  return render_template("profile.html", title="Profile", user=current_user, courses=["Test 1", "Test 2"],all_courses=get_all_courses, all_content=get_all_content, all_content_viewed=get_all_content_viewed)
+  all_results = get_all_results()
+  all_results.reverse()
+
+  unique_quizzes = set()
+  for result in all_results:
+    unique_quizzes.add(result.quiz_id)
+  
+  all_quizzes = get_all_quiz()
+
+
+  return render_template("profile.html", title="Profile", user=current_user, quizzes_completed=len(unique_quizzes), all_quizzes=len(all_quizzes), all_results=all_results, get_result_questions=get_result_questions, get_result_correct=get_result_correct, all_content=get_all_content, all_content_viewed=get_all_content_viewed)
+
+
 
 # Users
 @app.route("/users")

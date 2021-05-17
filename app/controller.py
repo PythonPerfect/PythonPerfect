@@ -258,7 +258,7 @@ def delete_all_question_from_quiz(quiz):
     if Question_Response.query.filter(Question_Response.question.has(Question.quiz==quiz)).first() is not None:
         raise RowNotEmpty
 
-    ques = get_question_by_quiz(quiz)
+    ques = get_questions_by_quiz(quiz)
     for que in ques:
         delete_from_database(que)
 
@@ -273,8 +273,8 @@ def delete_all_question():
 
 #-----For Question_Response Model-----
 #Creation
-def add_new_question_response(response, question, user):
-    q_r = Question_Response(response=response, question=question, user=user)
+def add_new_question_response(response, question, user, correct, result):
+    q_r = Question_Response(response=response, question=question, user=user, correct=correct, result=result)
     add_to_database(q_r)
     return q_r
 
@@ -324,3 +324,22 @@ def delete_all_content_viewed():
     c_vs = get_all_content_viewed()
     for c_v in c_vs:
         delete_from_database(c_v)
+
+#-----For Result Model-----
+#Creation
+def add_new_result(user, quiz):
+    result = Result(user=user, quiz=quiz)
+    add_to_database(result)
+    return result
+
+#Read
+def get_all_results():
+    return Result.query.all()
+
+def get_result_questions(result):
+    return Question_Response.query.filter_by(result_id = result.id).all()
+
+def get_result_correct(result):
+    return Question_Response.query.filter_by(result_id = result.id).filter_by(correct = True).all()
+
+

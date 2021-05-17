@@ -111,7 +111,8 @@ class QuizQuestionForm(FlaskForm):
         'Answer',
         validators=[DataRequired()])
 
-    submit = SubmitField('Continue')
+    submit_next = SubmitField('Continue')
+    submit_last = SubmitField('Finish')
 
     def validate_title(self):
         pass

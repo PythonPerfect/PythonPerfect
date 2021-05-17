@@ -5,30 +5,41 @@
     <p class="dash-title typewriter">Quiz</p>
     <p class="dash-subtitle">Attempt the quiz!</p>
   </div>
-
   <!--prettier-ignore-->
+  {{session}}
   <div class="quiz-container">
-        <div class="question-container">
-            <div id="question" class="question">
-                Question 1:
-            </div>
+    <div class="question-container">
+      <div class="quiz-response">
+        {% if not last %}
+        <form
+          action="{{url_for('next_question', quiz_id=quiz.id)}}"
+          method="POST"
+        >
+          <label class="question">{{question.question}}</label>
+          {{ form.hidden_tag() }} {{ form.answer(class="login-input",
+          placeholder="Your answer goes here...") }}
+          <br />
+          <br />
 
-            <div class="quiz-response">
-                {{ form.hidden_tag() }}
+          {{ form.submit_next(class="btn btn-outline py-btn-blue")}}
+        </form>
+        {% else %}
+        <form
+          action="{{url_for('submit_quiz', quiz_id=quiz.id)}}"
+          method="POST"
+        >
+          <label class="question">{{question.question}}</label>
+          {{ form.hidden_tag() }} {{ form.answer(class="login-input",
+          placeholder="Your answer goes here...") }}
+          <br />
+          <br />
 
-                {{form.answer(id="Quiz-response", 
-                            class="question-box",
-                            autofocus=true,
-                            placeholder="Enter your text here...")}} 
-            </div>
-        </div>
-
-        <div>
-            {{form.submit(class="mt-3 mb-3 btn
-                            btn-outline-success")}}
-        </div>
-
+          {{ form.submit_last(class="btn btn-outline py-btn-blue")}}
+        </form>
+        {% endif %}
+      </div>
     </div>
-</div>
+  </div>
 
-{% endblock %}
+  {% endblock %}
+</div>
