@@ -54,6 +54,9 @@ def get_user_by_email(email):
 #No update support
 
 #Delete
+def delete_user(user):
+    delete_from_database(user)
+
 def delete_user_by_id(user_id):
     u = get_user_by_userid(user_id)
     delete_from_database(u)
@@ -91,6 +94,9 @@ def get_course_by_id(course_id):
 #No update support
 
 #Delete
+def delete_course(course):
+    delete_from_database(course)
+
 def delete_course_by_id(course_id):
     if (Content.query.filter(Content.course.has(id=course_id)).first() is not None and
             Quiz.query.filter(Quiz.course.has(id=course_id)).first() is not None):
@@ -143,6 +149,12 @@ def get_contents_by_course(course):
 #No Update Support
 
 #Delete
+def delete_content(content):
+    if Content_Viewed.query.filter(Content_Viewed.content == content).first() is not None:
+        raise RowNotEmpty
+
+    delete_from_database(content)
+
 def delete_content_by_id(content_id):
     if Content_Viewed.query.filter(Content_Viewed.content.has(id=content_id)).first() is not None:
         raise RowNotEmpty
@@ -200,6 +212,12 @@ def get_quiz_by_course(course):
 #No Update Support
 
 #Delete
+def delete_quiz(quiz):
+    if Question.query.filter(Question.quiz == quiz).first() is not None:
+        raise RowNotEmpty
+
+    delete_from_database(quiz)
+
 def delete_quiz_by_id(quiz_id):
     if Question.query.filter(Question.quiz.has(id==quiz_id)).first() is not None:
         raise RowNotEmpty
@@ -253,6 +271,12 @@ def get_question_by_quiz(quiz):
 #No Update supported
 
 #Delete
+def delete_question(question):
+    if Question_Response.query.filter(Question_Response.question == question) is not None:
+        raise RowNotEmpty
+    
+    delete_from_database(question)
+
 def delete_question_by_id(question_id):
     if Question_Response.query.filter(Question_Response.question.has(id==question_id)) is not None:
         raise RowNotEmpty
