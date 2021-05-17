@@ -64,8 +64,8 @@
             <i class="fa fa-trash-alt p-1 course-del"></i>
           </a>
           <p class="course-title py-blue">{{course.title}}</p>
-          <progress class="course-progress" value={{content_seen}} max={{no_of_con}}></progress>
-          <p class="course-score">{{content_seen}}/{{no_of_con}} Completed</p>
+          <progress class="course-progress" value={{all_viewed}} max={{all_content}}></progress>
+          <p class="course-score">{{all_viewed}}/{{all_content}} Completed</p>
           <a href="{{url_for('course', course_id=course.id)}}"
             ><span class="course-button btn btn-outline py-btn-blue"
               >Continue</span

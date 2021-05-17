@@ -161,6 +161,7 @@ def delete_content_by_id(content_id):
         raise RowNotEmpty
 
     con = get_content_by_id(content_id)
+    con_v = get_user_content_viewed(user, content)
     delete_from_database(con)
 
 def delete_content_by_title(title):

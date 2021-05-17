@@ -21,11 +21,28 @@ def delete_user(del_user_id):
 def delete_course(del_course_id):
   if current_user.admin:
     course = Course.query.filter_by(id = del_course_id).first()
-
     db.session.delete(course)
     db.session.commit()
     return redirect(url_for('dashboard'))
-    
+
+@app.route("/deleting-content/<del_content_id>")
+@login_required
+def delete_content(del_content_id):
+  if current_user.admin:
+    content = Content.query.filter_by(id = del_content_id).first()
+    viewed_content = Content_Viewed(viewed=True, user_id=current_user.id, content_id=content.id)
+    db.session.delete(content)
+    db.session.commit()
+    return redirect(url_for('dashboard'))
+
+@app.route("/deleting-quiz/<del_quiz_id>")
+@login_required
+def delete_quiz(del_quiz_id):
+  if current_user.admin:
+    quiz = Quiz.query.filter_by(id = del_quiz_id).first()
+    db.session.delete(quiz)
+    db.session.commit()
+    return redirect(url_for('dashboard'))
 
 @app.route("/")
 def index():
@@ -104,7 +121,8 @@ def dashboard():
     db.session.commit()
   all_courses = Course.query.all()
   all_content = Content.query.all()
-  return render_template("dashboard.html", title="Dashboard", form=form, courses=all_courses, no_of_con=len(all_content), content_seen=0)
+  all_viewed = get_all_content_viewed()
+  return render_template("dashboard.html", title="Dashboard", form=form, courses=all_courses, all_content=len(all_content), all_viewed=len(all_viewed))
 
 
 @app.route("/course/<course_id>", methods=["POST", "GET"])
@@ -172,7 +190,6 @@ def edited(content_id):
 @login_required
 def view_content(content_id):
   content = Content.query.filter_by(id = content_id).first()
-
   viewed = get_user_content_viewed(current_user, content)
   viewed_content = Content_Viewed(viewed=True, user_id=current_user.id, content_id=content.id)
   if viewed is None:
