@@ -92,9 +92,9 @@ def dashboard():
   form = AddCourseForm()
   if form.validate_on_submit():
     add_new_course(form.title.data)
-  all_courses = Course.query.all()
 
-  return render_template("dashboard.html", title="Dashboard", form=form, courses=all_courses)
+  return render_template("dashboard.html", title="Dashboard", form=form, all_courses=get_all_courses,all_content=get_all_content,all_content_viewed=get_all_content_viewed)
+
 
 # Course related routes
 # -----------------------------------------------------------------------------
@@ -291,7 +291,9 @@ def profile():
   all_quizzes = get_all_quiz()
 
 
-  return render_template("profile.html", title="Profile", user=current_user, quizzes_completed=len(unique_quizzes), all_quizzes=len(all_quizzes), all_results=all_results, get_result_questions=get_result_questions, get_result_correct=get_result_correct)
+  return render_template("profile.html", title="Profile", user=current_user, quizzes_completed=len(unique_quizzes), all_quizzes=len(all_quizzes), all_results=all_results, get_result_questions=get_result_questions, get_result_correct=get_result_correct, all_content=get_all_content, all_content_viewed=get_all_content_viewed)
+
+
 
 # Users
 @app.route("/users")
@@ -302,7 +304,7 @@ def users():
     users = get_nonadmins()
     admins = get_admins()
 
-    return render_template("users.html", users=users, admins=admins)
+    return render_template("users.html", title= "Users", users=users, admins=admins)
   else:
     return redirect(url_for('dashboard'))
 
@@ -327,6 +329,7 @@ def delete_course(del_course_id):
     except RowNotEmpty:
       flash('Course cannot be deleted. Remove all content and quizzes before deleting.', "danger" )
   return redirect(url_for('dashboard'))
+
 # -----------------------------------------------------------------------------
 
 if __name__ == "__main__":
