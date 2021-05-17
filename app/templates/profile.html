@@ -26,9 +26,9 @@
                 </p>
             
                 <p class="py-blue">
-                    Course completion
+                    Content completion
                 </p>
-                <progress class="course-progress" value="80" max="100">32%</progress>
+                <progress class="course-progress" value="{{all_content_viewed() | length}}" max="{{all_content() | length}}">32%</progress>
                 <p class="py-blue">
                 Quiz completion 
                 </p>
