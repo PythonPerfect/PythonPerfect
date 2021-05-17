@@ -305,8 +305,8 @@ def delete_all_question_response():
 
 #-----For Content_Viewed Model-----
 #Creation
-def add_new_content_viewed(viewed, user, content):
-    c_v = Content_Viewed(viewed=viewed, user=user, content=content)
+def add_new_content_viewed(user, content):
+    c_v = Content_Viewed(user=user, content=content)
     add_to_database(c_v)
 
 #Read
