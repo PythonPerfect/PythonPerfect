@@ -16,7 +16,7 @@ PythonPerfect is a Flask based web application designed to teach users the basic
 Users are able to attempt multiple courses at the same time. Their progress is tracked and is viewable in the content page. Should the user be granted administrative priveleges, they will gain the ability to create new courses for others to attempt.
 
 ## Assessment Mechanism
-Once a course is selected, an option will be available to attempt the quiz. User responses are saved as they progress through the quiz. Once the quiz is completed, the user's results will be stored and displayed in their profile page 
+Once a course is selected, an option will be available to attempt the quiz. Users answer each question one by one. Once the quiz is completed, the user's results will for the quiz will be saved. They will be taken to their results page to view the correct answer and their answer and they can see their overall score with some feedback. The results page is easily accessible via the profile page later on.
 
 ## App Architecture (Flask)
 This application has been constructed using the python Flask micro-framework MVC. In out application the model is represented by an SQLite Databse and SQLALchemy. The server-side rendering template of jinja2 is used to assemble the HTML content. The application is run through the Flask framework. 
@@ -168,7 +168,8 @@ such as password check and answers check.
 ## Design Process
 
 #### Page Design
-Front end development was based off mock pages designed in Figma. 
+Front end development was based off mock pages designed in Figma.
+https://www.figma.com/file/zuFtR4ojHNcKCC02YiYr42/Untitled?node-id=0%3A1
 
 ## Database Design
 The database is designed such that:
