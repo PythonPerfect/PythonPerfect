@@ -170,7 +170,8 @@ def edited_content(content_id):
 @login_required
 def view_content(content_id):
   content = get_content_by_id(content_id)
-  add_new_content_viewed(user=current_user, content=content)
+  if not get_user_content_viewed(current_user, content):
+    add_new_content_viewed(user=current_user, content=content)
 
   return render_template("view-content.html", content=content, title=content.title)
 # -----------------------------------------------------------------------------
@@ -268,10 +269,8 @@ def submit_quiz(quiz_id):
     for id in session["quiz"]:
       if str(id) in session:
         del session[str(id)]
-    flash("Congrats on completing your quiz. You can check your results out at anytime from the profile page.", "info")
+    flash("Well done on completing your quiz. You can check your results out at anytime from the profile page.", "info")
   return redirect(url_for("view_result", result_id = result.id))
-
-
 
 
 # -----------------------------------------------------------------------------
@@ -280,7 +279,7 @@ def submit_quiz(quiz_id):
 @app.route("/profile")
 @login_required
 def profile():
-  all_results = get_all_results()
+  all_results = get_all_results(current_user)
   all_results.reverse()
 
   unique_quizzes = set()
@@ -296,13 +295,13 @@ def profile():
 @app.route("/result/<result_id>")
 @login_required
 def view_result(result_id):
-  result = get_result_by_id(result_id)
+  result = get_result_by_id(result_id, current_user)
   quiz = get_quiz_by_id(result.quiz_id)
-  responses = get_result_question_responses(result)
+  responses = get_result_question_responses(result, current_user)
 
 
-  correct = len(get_result_correct(result))
-  total = len(get_result_questions(result))
+  correct = len(get_result_correct(result, current_user))
+  total = len(get_result_questions(result, current_user))
 
   percent = int(correct/total * 100)
 

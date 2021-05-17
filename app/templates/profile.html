@@ -19,13 +19,15 @@
         <p class="py-blue mb-0">Content completion</p>
         <progress
           class="course-progress"
-          value="{{all_content_viewed() | length}}"
+          value="{{all_content_viewed(current_user) | length}}"
           max="{{all_content() | length}}"
         >
-          {{all_content_viewed() | length}}/{{all_content() | length}}
+          {{all_content_viewed(current_user) | length}}/{{all_content() |
+          length}}
         </progress>
         <p class="course-score">
-          {{all_content_viewed() | length}}/{{all_content() | length}}
+          {{all_content_viewed(current_user) | length}}/{{all_content() |
+          length}}
         </p>
         <p class="course-score mb-3"></p>
 
@@ -53,15 +55,17 @@
 
           <progress
             class="course-progress"
-            value="{{get_result_correct(result) | length}}"
-            max="{{get_result_question_responses(result) | length}}"
+            value="{{get_result_correct(result, current_user) | length}}"
+            max="{{get_result_question_responses(result,current_user) | length}}"
           >
-            {{get_result_correct(result) |
-            length}}/{{get_result_question_responses(result) | length}}
+            {{get_result_correct(result, current_user) |
+            length}}/{{get_result_question_responses(result, current_user) |
+            length}}
           </progress>
           <p class="course-score">
-            Score: {{get_result_correct(result) |
-            length}}/{{get_result_question_responses(result) | length}}
+            Score: {{get_result_correct(result, current_user) |
+            length}}/{{get_result_question_responses(result, current_user) |
+            length}}
           </p>
           <a href="{{url_for('view_result', result_id=result.id)}}"
             ><span class="course-button btn btn-outline py-btn-blue"

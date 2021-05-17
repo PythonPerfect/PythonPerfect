@@ -142,22 +142,18 @@
 
         <li class="dash-course content-list-item">
           <div>
-            {% if current_user.admin %}
             <a href="{{url_for('edit_content', content_id=content.id)}}">
               <i class="fa fa-edit p-1 course-edit"></i>
             </a>
-            {% endif %}
+            {% if get_user_content_viewed(current_user, content) is not none %}
+            <i class="fa fa-eye py-blue p-1 content-viewed"></i>
+            {% endif %} {% if current_user.admin %} {% endif %}
             <p class="course-title py-blue">{{content.title}}</p>
             <a href="{{url_for('view_content', content_id=content.id)}}"
               ><span class="course-button btn btn-outline py-btn-blue"
                 >View</span
               ></a
             >
-            {% if get_user_content_viewed(current_user, content) is not none %}
-            <span class="course-button btn btn-outline py-btn-blue"
-              >Completed</span
-            >
-            {% endif %}
           </div>
         </li>
 

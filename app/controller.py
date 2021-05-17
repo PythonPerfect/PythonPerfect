@@ -321,8 +321,8 @@ def get_user_course_all_viewed(user, course):
     return viewed_list
         
 
-def get_all_content_viewed():
-    return Content_Viewed.query.all()
+def get_all_content_viewed(user):
+    return Content_Viewed.query.filter_by(user_id = user.id).all()
 
 #Update
 #No update support as of yet for Content_Viewed
@@ -345,19 +345,19 @@ def add_new_result(user, quiz):
     return result
 
 #Read
-def get_all_results():
-    return Result.query.all()
+def get_all_results(user):
+    return Result.query.filter_by(user_id = user.id).all()
 
-def get_result_by_id(result_id):
+def get_result_by_id(result_id, user):
     return Result.query.filter_by(id = result_id).first()
 
-def get_result_questions(result):
+def get_result_questions(result, user):
     return Question.query.filter_by(quiz_id = result.quiz_id).all()
 
-def get_result_question_responses(result):
-    return Question_Response.query.filter_by(result_id = result.id).all()
+def get_result_question_responses(result, user):
+    return Question_Response.query.filter_by(result_id = result.id).filter_by(user_id = result.user_id).all()
 
-def get_result_correct(result):
-    return Question_Response.query.filter_by(result_id = result.id).filter_by(correct = True).all()
+def get_result_correct(result, user):
+    return Question_Response.query.filter_by(result_id = result.id).filter_by(correct = True).filter_by(user_id = result.user_id).all()
 
 
