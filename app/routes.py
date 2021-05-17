@@ -240,6 +240,7 @@ def delete_course(del_course_id):
     except RowNotEmpty:
       flash('Course cannot be deleted. Remove all content and quizzes before deleting.', "danger" )
   return redirect(url_for('dashboard'))
+
 # -----------------------------------------------------------------------------
 
 if __name__ == "__main__":
