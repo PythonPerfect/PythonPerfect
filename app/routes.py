@@ -89,11 +89,8 @@ def registerAdmin():
 @login_required
 def dashboard():
   form = AddCourseForm()
-  if form.validate_on_submit(): 
-    course = Course(title=form.title.data)
-    db.session.add(course)
-    db.session.commit()
-
+  if form.validate_on_submit():
+    add_new_course(form.title.data)
   all_courses = Course.query.all()
   return render_template("dashboard.html", title="Dashboard", form=form, courses=all_courses)
 
@@ -101,32 +98,28 @@ def dashboard():
 @app.route("/course/<course_id>", methods=["POST", "GET"])
 @login_required
 def course(course_id):
-  course = Course.query.filter_by(id = course_id).first()
+  course=get_course_by_id(course_id)
   form_content = AddContentForm()
   form_quiz = AddQuizForm()
   
   # for adding content
   if form_content.submit.data and form_content.validate():
-    content = Content.query.filter_by(course_id = course_id).filter_by(title=form_content.title.data).first()
+    content = get_content_by_course_n_title(course, form_content.title.data)
     if content is not None:
       flash("Content already added.", 'info')
     else:
-      content = Content(title=form_content.title.data, course_id=course_id, text=form_content.title.data)
-      db.session.add(content)
-      db.session.commit()
+      add_new_content(form_content.title.data, form_content.title.data, course)
 
   # for adding quizzes
   if form_quiz.submit.data and form_quiz.validate():
-    quiz = Quiz.query.filter_by(course_id = course.id).filter_by(title=form_quiz.title.data).first()
+    quiz = get_quiz_by_course_n_title(course, form_quiz.title.data)
     if quiz is not None:
       flash("Quiz already added.", 'info')
     else:
-      quiz = Quiz(title=form_quiz.title.data, course_id=course_id)
-      db.session.add(quiz)
-      db.session.commit()
+      add_new_quiz(form_quiz.title.data, course)
 
-  all_content = Content.query.filter(Content.course==course).all()
-  all_quiz = Quiz.query.filter(Quiz.course==course).all()
+  all_content = get_contents_by_course(course)
+  all_quiz = get_quiz_by_course(course)
   if course is not None:
     return render_template("course.html", course=course, title=course.title, form_content=form_content, form_quiz=form_quiz, all_content=all_content, all_quiz = all_quiz)
   else:
@@ -138,7 +131,7 @@ def edit_content(content_id):
   if not current_user.admin:
     return redirect(url_for('dashboard'))
   form = EditContentForm()
-  content = Content.query.filter_by(id = content_id).first()
+  content = get_content_by_id(content_id)
   if content.text:
     form.content.data = str(content.text)
 
@@ -148,7 +141,7 @@ def edit_content(content_id):
 @login_required
 def edited(content_id):
   form = EditContentForm()
-  content = Content.query.filter_by(id = content_id).first()
+  content = get_content_by_id(content_id)
   if form.validate_on_submit():
     content.text = form.content.data
     db.session.commit()
@@ -162,7 +155,7 @@ def edited(content_id):
 @app.route("/view-content/<content_id>")
 @login_required
 def view_content(content_id):
-  content = Content.query.filter_by(id = content_id).first()
+  content = get_content_by_id(content_id)
 
   return render_template("view-content.html", content=content, title=content.title)
 

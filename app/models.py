@@ -14,6 +14,7 @@ class User(UserMixin, db.Model):
     #Backref
     question_responses = db.relationship('Question_Response', backref='user', lazy='dynamic')
     contents_viewed = db.relationship('Content_Viewed', backref='user', lazy='dynamic')
+    results = db.relationship('Result', backref='user', lazy='dynamic')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -41,7 +42,7 @@ class Course(db.Model):
 
 class Content(db.Model):
     id = db.Column(db.Integer, autoincrement=True ,primary_key=True)
-    title = db.Column(db.String(50), index=True, unique=True)
+    title = db.Column(db.String(50), index=True)
     text = db.Column(db.Text)
 
     #Foreign Key
@@ -55,20 +56,21 @@ class Content(db.Model):
 
 class Quiz(db.Model):
     id = db.Column(db.Integer, autoincrement=True ,primary_key=True)
-    title = db.Column(db.String(50), index=True, unique=True)
+    title = db.Column(db.String(50), index=True)
 
     #Foreign Key
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
 
     #Backref
     questions = db.relationship('Question', backref='quiz', lazy='dynamic')
+    results = db.relationship('Result', backref='quiz', lazy='dynamic')
 
     def __repr__(self):
         return '<Quiz {}>'.format(self.id)
 
 class Question(db.Model):
     id = db.Column(db.Integer, autoincrement=True ,primary_key=True)
-    question = db.Column(db.String(256), index=True, unique=True)
+    question = db.Column(db.String(256), index=True)
     answer = db.Column(db.String(32))
 
     #Foreign Key
@@ -83,10 +85,12 @@ class Question(db.Model):
 class Question_Response(db.Model):
     id = db.Column(db.Integer, autoincrement=True ,primary_key=True)
     response = db.Column(db.String(32))
-    
+    correct = db.Column(db.Boolean, default=False)
+
     #Foreign Key
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    result_id = db.Column(db.Integer, db.ForeignKey('result.id'))
 
     def __repr__(self):
         return '<Question_Response {}>'.format(self.response)
@@ -104,3 +108,12 @@ class Content_Viewed(db.Model):
 
     def __repr__(self):
         return '<Content_Viewed {}>'.format(self.viewed)
+
+class Result(db.Model):
+    id = db.Column(db.Integer, autoincrement=True ,primary_key=True)
+    #Foreign Key
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'))
+
+    def __repr__(self):
+        return '<Result {}, {}>'.format(self.user_id, self.quiz_id)
