@@ -1,20 +1,20 @@
 {% extends "components/layout.html" %} {% block content %} {% include
 "components/alert.html" %}
-<div class="quiz-container">
-  <div class="dash-course-container">
+<div class="dash-container">
+  <div class="dash-title-container">
+    <p class="dash-title typewriter">Editing: {{quiz.title}}</p>
+    <p class="dash-subtitle">Add questions for others to attempt!</p>
+  </div>
+
+  <div class="quiz-container">
     {% if current_user.admin %}
-    <div id="Content-Section" class="tabcontent active">
-      <div class="dash-course content-list-item">
-        <a
-          class="course-title py-blue"
-          href=""
-          data-toggle="modal"
-          data-target="#form-quiz"
-          data-backdrop="static"
-          ><i class="fa fa-plus mr-2"></i>Add Question</a
-        >
-      </div>
-    </div>
+    <span
+      class="btn py-blue dash-course-add"
+      data-toggle="modal"
+      data-target="#form-quiz"
+      data-backdrop="static"
+      ><i class="fa fa-plus mr-2"></i>Add a new Question</span
+    >
 
     {% endif %}
     <div
@@ -59,9 +59,9 @@
     </div>
 
     {% for question in questions %}
-    <div>
-      <p>{{question.question}}</p>
-      <p>{{question.answer}}</p>
+    <div class="quiz-edit">
+      <p>Question: {{question.question}}</p>
+      <p>Answer: {{question.answer}}</p>
     </div>
     {% endfor %}
   </div>

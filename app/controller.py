@@ -58,14 +58,6 @@ def delete_user_by_id(user_id):
     u = get_user_by_userid(user_id)
     delete_from_database(u)
 
-def delete_user_by_username(username):
-    u = get_user_by_username(username)
-    delete_from_database(u)
-
-def delete_user_by_email(email):
-    u = get_user_by_email(email)
-    delete_from_database(u)
-
 def delete_all_users():
     users = get_all_user()
     for u in users:
@@ -74,7 +66,7 @@ def delete_all_users():
 #-----For Course Model-----
 #Creation
 def add_new_course(title):
-    course = Course(titel=title)
+    course = Course(title=title)
     add_to_database(course)
 
 #Read
@@ -92,19 +84,11 @@ def get_course_by_id(course_id):
 
 #Delete
 def delete_course_by_id(course_id):
-    if (Content.query.filter(Content.course.has(id=course_id)).first() is not None and
+    if (Content.query.filter(Content.course.has(id=course_id)).first() is not None or
             Quiz.query.filter(Quiz.course.has(id=course_id)).first() is not None):
         raise RowNotEmpty
 
     u = get_course_by_id(course_id)
-    delete_from_database(u)
-
-def delete_course_by_title(title):
-    if (Content.query.filter(Content.course.has(title=title)).first() is not None and
-            Quiz.query.filter(Quiz.course.has(title=title)).first() is not None):
-        raise RowNotEmpty
-
-    u = get_course_by_title(title)
     delete_from_database(u)
 
 def delete_all_course():
@@ -150,13 +134,6 @@ def delete_content_by_id(content_id):
     con = get_content_by_id(content_id)
     delete_from_database(con)
 
-def delete_content_by_title(title):
-    if Content_Viewed.query.filter(Content_Viewed.content.has(title=title)).first() is not None:
-        raise RowNotEmpty
-
-    con = get_content_by_title(title)
-    delete_from_database(con)
-
 def delete_all_content_from_course(course):
     #Finds all Content_Viewed tied to course. 
     if Content_Viewed.query.filter(Content_Viewed.content.has(Content.course==course)).first() is not None:
@@ -186,9 +163,6 @@ def get_all_quiz():
 
 def get_quiz_by_id(quiz_id):
     return Quiz.query.filter_by(id=quiz_id).first()
-
-def get_quiz_by_title(title):
-    return Quiz.query.filter_by(title=title).first()
 
 def get_quiz_by_course_n_title(course, title):
     return Quiz.query.filter(Quiz.course==course, Quiz.title==title).first()
@@ -244,9 +218,9 @@ def get_question_by_id(question_id):
     return Question.query.filter_by(id=question_id).first()
 
 def get_question_by_quiz_n_question(quiz, question):
-    return Question.query.filter(Question.quiz==quiz, Content.question==question).first()
+    return Question.query.filter(Question.quiz==quiz, Question.question==question).first()
 
-def get_question_by_quiz(quiz):
+def get_questions_by_quiz(quiz):
     return Question.query.filter(Question.quiz==quiz).all()
 
 #Update
