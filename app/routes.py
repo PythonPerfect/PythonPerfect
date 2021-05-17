@@ -108,7 +108,7 @@ def course(course_id):
   all_quiz = get_quiz_by_course(course)
   
   if course is not None:
-    return render_template("course.html", course=course, title=course.title, form_content=form_content, form_quiz=form_quiz, all_content=all_content, all_quiz = all_quiz)
+    return render_template("course.html", course=course, title=course.title, form_content=form_content, form_quiz=form_quiz, all_content=all_content, all_quiz = all_quiz, get_user_content_viewed = get_user_content_viewed)
   else:
     return redirect(url_for('error404'))
 
@@ -169,6 +169,7 @@ def edited_content(content_id):
 @login_required
 def view_content(content_id):
   content = get_content_by_id(content_id)
+  add_new_content_viewed(viewed=True, user=current_user, content=content)
 
   return render_template("view-content.html", content=content, title=content.title)
 # -----------------------------------------------------------------------------

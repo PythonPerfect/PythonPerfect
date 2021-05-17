@@ -156,9 +156,11 @@
                 >View</span
               ></a
             >
+            {% if get_user_content_viewed(current_user, content) is not none %}
             <span class="course-button btn btn-outline py-btn-blue"
               >Completed</span
             >
+            {% endif %}
           </div>
         </li>
 
