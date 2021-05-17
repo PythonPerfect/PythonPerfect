@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
   {% include "components/head.html" %}
   <body>
     {% include "components/navbar.html" %}
-    <section>{% block content %} {% endblock %}</section>
+    <div class="section-container">{% block content %} {% endblock %}</div>
     {% include "components/footer.html" %}
   </body>
 </html>
