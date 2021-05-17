@@ -1,0 +1,44 @@
+{% extends "components/layout.html" %} {% block content %}
+
+<div class="dash-container">
+  <div class="dash-title-container">
+    <p class="dash-title typewriter">Quiz</p>
+    <p class="dash-subtitle">Attempt the quiz!</p>
+  </div>
+  <!--prettier-ignore-->
+  <div class="quiz-container">
+    <div class="question-container">
+      <h3 class="py-blue">Question: {{q_num}} / {{q_tot}}</h3>
+      <div class="quiz-response">
+        {% if not last %}
+        <form
+          action="{{url_for('next_question', quiz_id=quiz.id)}}"
+          method="POST"
+        >
+          <label class="question">{{question.question}}</label>
+          {{ form.hidden_tag() }} {{ form.answer(class="login-input",
+          placeholder="Your answer goes here...") }}
+          <br />
+          <br />
+
+          {{ form.submit_next(class="btn btn-outline py-btn-blue")}}
+        </form>
+        {% else %}
+        <form
+          action="{{url_for('submit_quiz', quiz_id=quiz.id)}}"
+          method="POST"
+        >
+          <label class="question">{{question.question}}</label>
+          {{ form.hidden_tag() }} {{ form.answer(class="login-input",
+          placeholder="Your answer goes here...") }}
+          <br />
+          <br />
+
+          {{ form.submit_last(class="btn btn-outline py-btn-blue")}}
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -10,4 +10,5 @@ def add_shell_context():
             'Quiz': Quiz,
             'Question': Question,
             'Question_Response': Question_Response,
-            'Content_Viewed': Content_Viewed}
+            'Content_Viewed': Content_Viewed,
+            'Result': Result}

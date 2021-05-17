@@ -1,0 +1,28 @@
+{% extends "components/layout.html" %} {% block content %} {% include
+"components/alert.html" %}
+<div class="dash-container">
+  <div class="dash-title-container">
+    <p class="dash-title typewriter">Results: {{quiz.title}}</p>
+    <p class="dash-subtitle">View your results.</p>
+  </div>
+
+  <div class="quiz-container">
+    <div class="quiz-result-container">
+      <h2 class="py-blue">Score: {{percent}}%</h2>
+      <a href="{{url_for('course', course_id = course.id)}}">{{feedback}}</a>
+    </div>
+    {% for response in responses %}
+    <div class="quiz-edit">
+      <p>Question: {{get_question(response).question}}</p>
+      <p>Answer: {{get_question(response).answer}}</p>
+      <p>Your Answer: {{response.response}}</p>
+      {% if response.correct %}
+      <i class="fa fa-check text-success"></i>
+      {% else %}
+      <i class="fa fa-times text-danger"></i>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

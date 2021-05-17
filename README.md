@@ -1,6 +1,6 @@
 # CITS3403-Project2
 ### "PythonPerfect"
-Anthony Zao, Dhruv Jobanputra, Sandil Bhikha, Thobias Danudoro
+ShengTang Zhao, Dhruv Jobanputra, Sandil Bhikha, Thobias Danudoro
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -11,18 +11,18 @@ Anthony Zao, Dhruv Jobanputra, Sandil Bhikha, Thobias Danudoro
 6. [Design Process](#Design-Process)
 
 ## Introduction 
-PythonPerfect is a Flask based web application designed to teach users the basics of the Python programming language. The website encourages users to learn the programming basics through the content page and assess their knowledge through the related quiz. ***Info on the quiz
+PythonPerfect is a Flask based web application designed to teach users the basics of the Python programming language. The website encourages users to learn the programming basics through the content page and assess their knowledge through the related quiz. Each quiz is based off content related to a specific course. 
 
 Users are able to attempt multiple courses at the same time. Their progress is tracked and is viewable in the content page. Should the user be granted administrative priveleges, they will gain the ability to create new courses for others to attempt.
 
 ## Assessment Mechanism
-****
+Once a course is selected, an option will be available to attempt the quiz. Users answer each question one by one. Once the quiz is completed, the user's results will for the quiz will be saved. They will be taken to their results page to view the correct answer and their answer and they can see their overall score with some feedback. The results page is easily accessible via the profile page later on.
 
 ## App Architecture (Flask)
-This application has been constructed using the python Flask micro-framework MVC. In terms of the Model View Controller Architecture, in our application, the model is represented by the SQLite database and SQLAlchemy, the View is represented by the server-side rendering template of jinja2 which assembles the HTML static content based on the request and the Controller is represented by the Python Flask library.
+This application has been constructed using the python Flask micro-framework MVC. In out application the model is represented by an SQLite Databse and SQLALchemy. The server-side rendering template of jinja2 is used to assemble the HTML content. The application is run through the Flask framework. 
 
 ## App Launching
-To laucnh the application on your personal device it is recommended that you use a virtual environment. Python and virtualenv will need to be installed on your system. A detailed guide is provided below:
+To launch the application on your personal device it is recommended that you use a virtual environment. Python and virtualenv will need to be installed on your system. A detailed guide is provided below:
 
 ## Linux OS
 #### Install Virtual Environment
@@ -83,10 +83,9 @@ $ set FLASK_ENV=<environment>
 ##### On mac/linux
 ```shell
 $ export FLASK_ENV=<environment>
-```  
-?! CHECK THIS ON LINUX/MAC SYSTEM
+``` 
 
-## Initialise SQLite database with flask-migrate
+## Database initiliasation
 
 **If working on code with changes to schemas**
 
@@ -154,5 +153,32 @@ There are several ways to delete test users from database.
 ```
 
 
+## App Testing
+Tests for all controller functions are in test.py.
+
+Simply execute
+```shell
+python test.py
+```
+to test.
+
+Scripts include test for all add and delete functions, as well as model specific functions
+such as password check and answers check.
+
+## Design Process
+
+#### Page Design
+Front end development was based off mock pages designed in Figma.
+https://www.figma.com/file/zuFtR4ojHNcKCC02YiYr42/Untitled?node-id=0%3A1
+
+## Database Design
+The database is designed such that:
+- A user can be either an admin or a normal user.
+- Admins have the ability to create content and quizes.
+- Each course can have multiple content items
+- Each content has an assosciated quiz
+
+The following diagram outlines the database structure:
+![Project-db](https://user-images.githubusercontent.com/83282339/118466391-658fba80-b735-11eb-8b41-2451025ac5b5.PNG)
 
 

@@ -12,8 +12,7 @@
     {% if current_user.admin %}
     <div id="Add-Content" class="tabcontent active">
       <span
-        class="btn py-blue dash-course-add"
-        style="padding: 0"
+        class="btn py-blue dash-course-add p-0"
         data-toggle="modal"
         data-target="#form-content"
         ><i class="fa fa-plus mr-2"></i>Add New Content</span
@@ -21,10 +20,9 @@
     </div>
     <div id="Add-Quiz" class="tabcontent">
       <span
-        class="btn py-blue dash-course-add"
-        style="padding: 0"
+        class="btn py-blue dash-course-add p-0"
         data-toggle="modal"
-        data-target="#form-course"
+        data-target="#form-quiz"
       >
         Create a New Quiz<i class="fa fa-plus ml-2"></i
       ></span>
@@ -82,7 +80,7 @@
           </div>
           <div class="modal-body">
             <!-- prettier-ignore -->
-            <form name="add-content-form" method="POST">
+            <form name="add-content-form" action="{{url_for('add_content', course_id=course.id)}}" method="POST">
               {{ form_content.hidden_tag() }}
 
               {{form_content.title(class="login-input", 
@@ -99,25 +97,62 @@
       </div>
     </div>
 
+    <div
+      class="modal fade"
+      id="form-quiz"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <p class="modal-title py-blue">Add a New Quiz</p>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- prettier-ignore -->
+            <form name="add-content-form" action="{{url_for('add_quiz', course_id=course.id)}}" method="POST">
+              {{ form_quiz.hidden_tag() }}
+
+              {{form_quiz.title(class="login-input", 
+                          placeholder="Title")}}
+                      
+              <div class="modal-footer">
+              {{form_quiz.submit(class="btn btn-outline py-btn-blue mt-4",
+                          type="submit",
+                          value="Add")}}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="Content-Section" class="tabcontent active">
       <ul class="content-list">
         {% for content in all_content %}
 
         <li class="dash-course content-list-item">
           <div>
-            <a
-              href="{{url_for('edit_content', content_id=content.id)}}"
-              style="color: green; float: right"
-              ><i class="fa fa-edit"></i
-            ></a>
+            <a href="{{url_for('edit_content', content_id=content.id)}}">
+              <i class="fa fa-edit p-1 course-edit"></i>
+            </a>
+            {% if get_user_content_viewed(current_user, content) is not none %}
+            <i class="fa fa-eye py-blue p-1 content-viewed"></i>
+            {% endif %} {% if current_user.admin %} {% endif %}
             <p class="course-title py-blue">{{content.title}}</p>
             <a href="{{url_for('view_content', content_id=content.id)}}"
               ><span class="course-button btn btn-outline py-btn-blue"
                 >View</span
               ></a
-            >
-            <span class="course-button btn btn-outline py-btn-blue"
-              >Completed</span
             >
           </div>
         </li>
@@ -128,22 +163,23 @@
 
     <div id="Quiz-Section" class="tabcontent">
       <ul class="content-list">
-        {% for i in range(1) %}
+        {% for quiz in all_quiz %}
         <li class="dash-course content-list-item">
           <div>
-            <p class="course-title py-blue">
-              {{i+5}} These are some long names.
-            </p>
-            <a
+            {% if current_user.admin %} {% endif %} {% if current_user.admin %}
+            <a href="{{url_for('edit_quiz', quiz_id=quiz.id)}}">
+              <i class="fa fa-edit p-1 course-edit"></i>
+            </a>
+            {% endif %}
+            <p class="course-title py-blue">{{quiz.title}}</p>
+            <a href="{{url_for('quiz', quiz_id=quiz.id)}}"
               ><span class="course-button btn btn-outline py-btn-blue"
                 >Attempt</span
               ></a
             >
-            <span class="course-button btn btn-outline py-btn-blue"
-              >Completed</span
-            >
           </div>
         </li>
+
         {% endfor %}
       </ul>
     </div>
