@@ -283,8 +283,15 @@ def submit_quiz(quiz_id):
 def profile():
   all_results = get_all_results()
   all_results.reverse()
-  print(all_results)
-  return render_template("profile.html", title="Profile", user=current_user, all_results=all_results, get_result_questions=get_result_questions, get_result_correct=get_result_correct)
+
+  unique_quizzes = set()
+  for result in all_results:
+    unique_quizzes.add(result.quiz_id)
+  
+  all_quizzes = get_all_quiz()
+
+
+  return render_template("profile.html", title="Profile", user=current_user, quizzes_completed=len(unique_quizzes), all_quizzes=len(all_quizzes), all_results=all_results, get_result_questions=get_result_questions, get_result_correct=get_result_correct)
 
 # Users
 @app.route("/users")
