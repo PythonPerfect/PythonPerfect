@@ -195,7 +195,7 @@ def edit_quiz(quiz_id):
       add_new_question(form.question.data, form.answer.data, quiz)
   all_questions = get_questions_by_quiz(quiz)
   if quiz is not None:
-    return render_template("edit-quiz.html", form=form, questions = all_questions, quiz=quiz)
+    return render_template("edit-quiz.html", title="Edit Quiz", form=form, questions = all_questions, quiz=quiz)
   else:
     return redirect(url_for('error404'))
 # -----------------------------------------------------------------------------

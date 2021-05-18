@@ -7,9 +7,11 @@
     <div class="user-info">
       <span><b>Username: </b>{{admin.username}} </span>
       <span><b>Email: </b>{{admin.email}} </span>
+      {% if not admin.username == current_user.username %}
       <a href="" data-toggle="modal" data-target="#del_admin_modal"
         ><i class="user-del-icon fas fa-trash-alt"></i
       ></a>
+      {% endif %}
     </div>
 
     <div class="modal fade" id="del_admin_modal" role="dialog">

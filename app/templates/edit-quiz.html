@@ -60,8 +60,10 @@
 
     {% for question in questions %}
     <div class="quiz-edit">
-      <p>Question: {{question.question}}</p>
-      <p>Answer: {{question.answer}}</p>
+      <p class="mb-0">Question:</p>
+      <p class="quiz-question mb-2">{{question.question}}</p>
+      <p class="mb-0">Answer:</p>
+      <p>{{question.answer}}</p>
     </div>
     {% endfor %}
   </div>

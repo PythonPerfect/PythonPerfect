@@ -15,6 +15,8 @@
 
 .question {
   font-size: 2rem;
+  white-space: pre-wrap;
+  text-align: left;
 }
 
 .question-box {
@@ -31,6 +33,10 @@
   border: 1px solid #4b8bbe;
 }
 
+.quiz-question {
+  white-space: pre-wrap;
+}
+
 .quiz-result-container {
   margin-top: -20px;
   margin-bottom: 40px;
@@ -40,5 +46,9 @@
 @media only screen and (max-width: 768px) {
   .quiz-container {
     max-width: 90%;
+  }
+
+  .question {
+    font-size: 1.25rem;
   }
 }
