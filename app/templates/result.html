@@ -13,7 +13,8 @@
     </div>
     {% for response in responses %}
     <div class="quiz-edit">
-      <p>Question: {{get_question(response).question}}</p>
+      <p class="mb-0">Question:</p>
+      <p class="quiz-question">{{get_question(response).question}}</p>
       <p>Answer: {{get_question(response).answer}}</p>
       <p>Your Answer: {{response.response}}</p>
       {% if response.correct %}
